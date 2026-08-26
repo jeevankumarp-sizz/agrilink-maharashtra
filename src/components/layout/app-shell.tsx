@@ -33,7 +33,7 @@ const farmerLinks = [
   { href: "/farmer/offers", labelKey: "myOffers", defaultLabel: "My Offers", icon: ShoppingCart },
   { href: "/farmer/track", labelKey: "trackSale", defaultLabel: "Track My Sale", icon: Truck },
   { href: "/farmer/fpo", labelKey: "fpoAggregation", defaultLabel: "FPO Aggregation", icon: Scale },
-  { href: "/sih-coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
+  { href: "/farmer/coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
 ];
 
 const buyerLinks = [
@@ -41,19 +41,19 @@ const buyerLinks = [
   { href: "/buyer/lots", labelKey: "availableLots", defaultLabel: "Available Lots", icon: Package },
   { href: "/buyer/aggregate", labelKey: "aiLotAggregation", defaultLabel: "AI Lot Aggregation", icon: Scale },
   { href: "/buyer/procurement", labelKey: "myProcurement", defaultLabel: "My Procurement", icon: ShoppingCart },
-  { href: "/admin/transactions", labelKey: "transactions", defaultLabel: "Transactions", icon: Truck },
-  { href: "/sih-coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
+  { href: "/buyer/transactions", labelKey: "transactions", defaultLabel: "Transactions", icon: Truck },
+  { href: "/buyer/coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
 ];
 
 const adminLinks = [
   { href: "/admin", labelKey: "commandCenter", defaultLabel: "Command Center", icon: LayoutDashboard },
   { href: "/admin/markets", labelKey: "marketIntelligence", defaultLabel: "Market Intelligence", icon: TrendingUp },
   { href: "/admin/buyers", labelKey: "buyerRegistry", defaultLabel: "Buyer Registry", icon: Building2 },
-  { href: "/farmer/fpo", labelKey: "fpoInsights", defaultLabel: "FPO Insights", icon: Scale },
+  { href: "/admin/fpo", labelKey: "fpoInsights", defaultLabel: "FPO Insights", icon: Scale },
   { href: "/admin/transactions", labelKey: "transactions", defaultLabel: "Transactions", icon: Truck },
-  { href: "/admin/grievances", labelKey: "grievances", defaultLabel: "Grievances", icon: AlertTriangle },
+  { href: "/admin/grievances", labelKey: "grievances", defaultLabel: "Grievance Center", icon: AlertTriangle },
   { href: "/admin/impact", labelKey: "impactDashboard", defaultLabel: "Impact Dashboard", icon: BarChart3 },
-  { href: "/sih-coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
+  { href: "/admin/coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
 ];
 
 const LANG_LABELS: Record<Language, string> = { en: "EN", mr: "मराठी", hi: "हिंदी" };
@@ -79,8 +79,9 @@ export function AppShell({
   const isAdminRoute = pathname.startsWith("/admin");
 
   const accessDenied =
-    (role === "farmer" && isBuyerRoute) ||
-    (role === "buyer" && isFarmerRoute && pathname !== "/farmer/fpo"); // Allow FPO insights if needed
+    (role === "farmer" && (isBuyerRoute || isAdminRoute)) ||
+    (role === "buyer" && (isFarmerRoute || isAdminRoute)) ||
+    (role === "admin" && (isFarmerRoute || isBuyerRoute));
 
   if (accessDenied) {
     return (
@@ -91,12 +92,11 @@ export function AppShell({
           </div>
           <h2 className="text-xl font-bold text-gray-900">Access Restricted</h2>
           <p className="text-xs text-gray-600">
-            Your current role (<strong>{role.toUpperCase()}</strong>) cannot access <code>{pathname}</code>.
-            Please switch roles to proceed.
+            Your current portal role (<strong>{role.toUpperCase()}</strong>) is restricted from accessing <code>{pathname}</code>.
           </p>
           <div className="flex gap-2 justify-center pt-2">
             <Button onClick={() => router.push(`/${role}`)} variant="outline" size="sm" className="font-bold">
-              Go to My Dashboard
+              Return to Dashboard
             </Button>
             <Button onClick={() => router.push("/")} className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold" size="sm">
               Switch Role
@@ -107,11 +107,14 @@ export function AppShell({
     );
   }
 
+  const roleCoverageLink =
+    role === "farmer" ? "/farmer/coverage" : role === "buyer" ? "/buyer/coverage" : "/admin/coverage";
+
   return (
     <div className="min-h-screen bg-[#f4f7f4]">
       <header className="sticky top-0 z-40 border-b border-emerald-100 bg-white/95 backdrop-blur shadow-xs">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5">
-          <Link href="/" className="flex items-center gap-2.5">
+          <Link href={`/${role}`} className="flex items-center gap-2.5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-700 text-white font-bold shadow-sm">
               <Leaf className="h-5 w-5" />
             </div>
@@ -129,7 +132,7 @@ export function AppShell({
           </Link>
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
-              href="/sih-coverage"
+              href={roleCoverageLink}
               className="hidden sm:flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-800 hover:bg-emerald-100"
             >
               <CheckSquare className="h-3.5 w-3.5" />
@@ -246,7 +249,7 @@ export function DemoBanner() {
   return (
     <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50/80 px-4 py-2 text-xs text-amber-900 flex items-center justify-between gap-2 shadow-xs">
       <div>
-        <strong>Source: Demonstration Dataset</strong> — Region: Maharashtra (Nashik, Pune, Nagpur, Solapur, Sangli, Kolhapur) · Status: Prototype Data.
+        <strong>Demonstration Dataset</strong> — Region: Maharashtra (Nashik, Pune, Nagpur, Solapur, Sangli, Kolhapur) · Status: Prototype Data.
       </div>
       <span className="hidden sm:inline-block font-semibold bg-amber-100 px-2 py-0.5 rounded text-[10px]">
         SIH 2026 Prototype

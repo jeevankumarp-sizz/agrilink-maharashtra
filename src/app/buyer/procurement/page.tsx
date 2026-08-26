@@ -103,8 +103,8 @@ export default function BuyerProcurementPage() {
                       <MapPin className="h-3.5 w-3.5 text-emerald-700" />
                       {tx.pickupLocation} → {tx.destination} ({tx.distanceKm} km)
                     </span>
-                    <Link href="/admin/transactions" className="font-bold text-emerald-700 hover:underline">
-                      View Full State Audit Log →
+                    <Link href="/buyer/transactions" className="font-bold text-emerald-700 hover:underline">
+                      View My Transaction Details →
                     </Link>
                   </div>
                 </CardContent>

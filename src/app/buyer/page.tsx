@@ -175,8 +175,8 @@ export default function BuyerDashboardPage() {
                 <Truck className="h-5 w-5 text-emerald-700" />
                 My Procurements &amp; Transactions ({transactions.length})
               </h2>
-              <Link href="/admin/transactions" className="text-xs font-bold text-emerald-700 hover:underline flex items-center gap-1">
-                View Full Audit Ledger <ArrowRight className="h-3.5 w-3.5" />
+              <Link href="/buyer/transactions" className="text-xs font-bold text-emerald-700 hover:underline flex items-center gap-1">
+                View My Transaction Details <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
 

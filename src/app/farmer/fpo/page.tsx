@@ -92,10 +92,7 @@ export default function FPOPage() {
 
         {created && (
           <div className="p-4 bg-emerald-100 border border-emerald-300 text-emerald-950 rounded-xl font-bold text-xs flex items-center justify-between">
-            <span>✓ Aggregated FPO Lot (6,500 kg Grade A Tomato) created and visible in Buyer Portal!</span>
-            <Button size="sm" variant="outline" onClick={() => router.push("/buyer")} className="bg-white font-bold text-xs">
-              View in Buyer Portal →
-            </Button>
+            <span>✓ Aggregated FPO Lot (6,500 kg Grade A Tomato) created successfully! Market listing published.</span>
           </div>
         )}
 
