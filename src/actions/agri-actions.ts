@@ -57,14 +57,17 @@ export async function actionLoadDemoScenario() {
   const recommendations = generateRecommendations(lotInput);
   const topPrice = recommendations.topRecommendation.pricePerKg;
 
+  // Create lot
   const lot = createLot(lotInput, farmer.id, farmer.name, topPrice);
+  
+  // Seed direct offers
   seedDemoOffers(lot.id);
 
   return {
     success: true,
     lotId: lot.id,
     recommendation: recommendations,
-    redirect: `/farmer/recommendations?lotId=${lot.id}`,
+    redirect: `/farmer/recommendations?lotId=${lot.id}&demo=1`,
   };
 }
 

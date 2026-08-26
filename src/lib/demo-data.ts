@@ -1,46 +1,46 @@
 import type { Buyer, CropName, Market, User } from "./types";
 
-export const DEMO_DATA_LABEL = "Demo Dataset — Karnataka Region";
+export const DEMO_DATA_LABEL = "Demonstration Dataset — Maharashtra Region";
 
-export const KOLAR = { lat: 13.1361, lng: 78.1291, location: "Kolar, Karnataka" };
+export const NASHIK = { lat: 19.9975, lng: 73.7898, location: "Nashik, Maharashtra" };
 
 export const DEMO_USERS: User[] = [
   {
     id: "farmer-1",
     name: "Ramesh Kumar",
-    email: "ramesh@demo.agrilink.in",
+    email: "ramesh@demo.agrilink.maharashtra.gov.in",
     role: "farmer",
-    location: "Kolar, Karnataka",
-    lat: KOLAR.lat,
-    lng: KOLAR.lng,
-    phone: "+91 98765 43210",
+    location: "Nashik, Maharashtra",
+    lat: NASHIK.lat,
+    lng: NASHIK.lng,
+    phone: "+91 98450 12345",
   },
   {
     id: "buyer-1",
-    name: "FreshFoods Pvt Ltd",
-    email: "procurement@freshfoods.in",
+    name: "Sahyadri Farmers Producer Co",
+    email: "procurement@sahyadripcf.org",
     role: "buyer",
-    location: "Bengaluru, Karnataka",
-    lat: 12.9716,
-    lng: 77.5946,
+    location: "Nashik, Maharashtra",
+    lat: 20.0050,
+    lng: 73.7950,
   },
   {
     id: "buyer-2",
-    name: "ABC Agro Traders",
-    email: "buy@abcagro.in",
+    name: "Mahafresh Logistics Pvt Ltd",
+    email: "buy@mahafresh.in",
     role: "buyer",
-    location: "Hoskote, Karnataka",
-    lat: 13.0707,
-    lng: 77.7983,
+    location: "Pune, Maharashtra",
+    lat: 18.5204,
+    lng: 73.8567,
   },
   {
     id: "admin-1",
-    name: "AgriLink Admin",
-    email: "admin@agrilink.in",
+    name: "Maharashtra Agri Admin",
+    email: "admin@agrilink.maharashtra.gov.in",
     role: "admin",
-    location: "Bengaluru, Karnataka",
-    lat: 12.9716,
-    lng: 77.5946,
+    location: "Mumbai, Maharashtra",
+    lat: 18.9388,
+    lng: 72.8353,
   },
 ];
 
@@ -78,16 +78,16 @@ function market(
 }
 
 export const DEMO_MARKETS: Market[] = [
-  market("m1", "Kolar APMC", "Kolar", 13.1361, 78.1291, "Tomato", 28, 420, "HIGH", 8, [24, 25, 26, 27, 28]),
-  market("m2", "Yeshwanthpur APMC", "Bengaluru", 13.0284, 77.5408, "Tomato", 32, 890, "HIGH", 72, [28, 29, 30, 31, 32]),
-  market("m3", "Mysuru APMC", "Mysuru", 12.2958, 76.6394, "Tomato", 26, 310, "MEDIUM", 185, [22, 23, 24, 25, 26]),
-  market("m4", "Hassan APMC", "Hassan", 13.0034, 76.1004, "Tomato", 24, 180, "LOW", 145, [20, 21, 22, 23, 24]),
-  market("m5", "Tumakuru APMC", "Tumakuru", 13.3379, 77.1172, "Tomato", 27, 260, "MEDIUM", 95, [23, 24, 25, 26, 27]),
-  market("m6", "Kolar APMC", "Kolar", 13.1361, 78.1291, "Onion", 22, 680, "MEDIUM", 8, [18, 19, 20, 21, 22]),
-  market("m7", "Yeshwanthpur APMC", "Bengaluru", 13.0284, 77.5408, "Onion", 25, 1200, "HIGH", 72, [21, 22, 23, 24, 25]),
-  market("m8", "Ramanagara APMC", "Ramanagara", 12.7239, 77.2814, "Onion", 21, 340, "LOW", 55, [17, 18, 19, 20, 21]),
-  market("m9", "Kolar APMC", "Kolar", 13.1361, 78.1291, "Potato", 18, 520, "HIGH", 8, [14, 15, 16, 17, 18]),
-  market("m10", "Chikkaballapur APMC", "Chikkaballapur", 13.4355, 77.7315, "Potato", 17, 290, "MEDIUM", 42, [13, 14, 15, 16, 17]),
+  market("m1", "Nashik APMC (Panchavati)", "Nashik", 19.9975, 73.7898, "Tomato", 29, 450, "HIGH", 8, [25, 26, 27, 28, 29]),
+  market("m2", "Pune APMC (Gultekdi)", "Pune", 18.5204, 73.8567, "Tomato", 34, 920, "HIGH", 210, [30, 31, 32, 33, 34]),
+  market("m3", "Nagpur APMC (Kalamna)", "Nagpur", 21.1458, 79.0882, "Tomato", 27, 340, "MEDIUM", 680, [23, 24, 25, 26, 27]),
+  market("m4", "Solapur APMC", "Solapur", 17.6599, 75.9064, "Tomato", 25, 210, "LOW", 320, [21, 22, 23, 24, 25]),
+  market("m5", "Chhatrapati Sambhajinagar APMC", "Sambhajinagar", 19.8762, 75.3433, "Tomato", 28, 290, "MEDIUM", 175, [24, 25, 26, 27, 28]),
+  market("m6", "Nashik APMC", "Nashik", 19.9975, 73.7898, "Onion", 24, 750, "HIGH", 8, [20, 21, 22, 23, 24]),
+  market("m7", "Lasalgaon APMC (Asia's Largest)", "Lasalgaon", 20.1477, 74.2272, "Onion", 26, 1800, "HIGH", 55, [22, 23, 24, 25, 26]),
+  market("m8", "Pune APMC", "Pune", 18.5204, 73.8567, "Onion", 27, 1100, "HIGH", 210, [23, 24, 25, 26, 27]),
+  market("m9", "Nashik APMC", "Nashik", 19.9975, 73.7898, "Potato", 19, 580, "HIGH", 8, [15, 16, 17, 18, 19]),
+  market("m10", "Ahilyanagar APMC", "Ahilyanagar", 19.0948, 74.7480, "Potato", 18, 320, "MEDIUM", 155, [14, 15, 16, 17, 18]),
 ];
 
 function buyer(
@@ -130,31 +130,31 @@ function buyer(
 }
 
 export const DEMO_BUYERS: Buyer[] = [
-  buyer("b1", "FreshFoods Pvt Ltd", "Processor", "Bengaluru", 12.9716, 77.5946, ["Tomato"], 5000, 29, 32, ["Grade A", "Grade B"], 25, 94, 96, "Within 3 days", "HIGH"),
-  buyer("b2", "ABC Agro Traders", "Wholesaler", "Hoskote", 13.0707, 77.7983, ["Tomato", "Onion"], 8000, 28, 31, ["Grade A", "Grade B"], 42, 89, 91, "Within 5 days", "HIGH"),
-  buyer("b3", "Karnataka Food Corp", "Institutional buyer", "Bengaluru", 12.9784, 77.5917, ["Tomato", "Potato", "Onion"], 10000, 27, 30, ["Grade A", "Grade B", "Grade C"], 68, 92, 95, "Within 7 days", "MEDIUM"),
-  buyer("b4", "GreenHarvest Exports", "Exporter", "Bengaluru", 13.0358, 77.5970, ["Tomato"], 3000, 30, 34, ["Grade A"], 70, 88, 90, "Within 2 days", "HIGH"),
-  buyer("b5", "Nandi Fresh Retail", "Retailer", "Chikkaballapur", 13.4355, 77.7315, ["Tomato", "Onion"], 2000, 26, 29, ["Grade A", "Grade B"], 35, 85, 88, "Within 4 days", "MEDIUM"),
-  buyer("b6", "Sri Lakshmi FPO", "FPO", "Kolar", 13.1400, 78.1320, ["Tomato", "Onion", "Potato"], 6000, 27, 30, ["Grade A", "Grade B"], 12, 90, 93, "Within 5 days", "HIGH"),
-  buyer("b7", "South India Processors", "Processor", "Tumakuru", 13.3379, 77.1172, ["Tomato", "Potato"], 4000, 28, 31, ["Grade A", "Grade B"], 88, 87, 89, "Within 6 days", "MEDIUM"),
-  buyer("b8", "Metro Cash & Carry", "Retailer", "Bengaluru", 12.9698, 77.7499, ["Tomato", "Onion", "Potato"], 7000, 29, 33, ["Grade A"], 65, 93, 94, "Within 3 days", "HIGH"),
-  buyer("b9", "Hassan Agro Hub", "Wholesaler", "Hassan", 13.0034, 76.1004, ["Onion", "Potato"], 5000, 20, 24, ["Grade A", "Grade B", "Grade C"], 140, 82, 85, "Within 7 days", "LOW"),
-  buyer("b10", "Organic Valley FPO", "FPO", "Ramanagara", 12.7239, 77.2814, ["Tomato"], 2500, 30, 33, ["Grade A"], 52, 91, 92, "Within 4 days", "HIGH"),
-  buyer("b11", "DailyMart Procurement", "Institutional buyer", "Bengaluru", 12.9352, 77.6245, ["Onion"], 6000, 23, 26, ["Grade A", "Grade B"], 74, 90, 92, "Within 5 days", "MEDIUM"),
-  buyer("b12", "SpiceRoute Exports", "Exporter", "Bengaluru", 13.1986, 77.7066, ["Onion"], 4000, 24, 28, ["Grade A"], 78, 86, 88, "Within 3 days", "MEDIUM"),
-  buyer("b13", "Kolar Mandi Traders", "Wholesaler", "Kolar", 13.1361, 78.1291, ["Tomato", "Onion", "Potato"], 3000, 26, 29, ["Grade A", "Grade B", "Grade C"], 5, 84, 86, "Same day", "HIGH"),
-  buyer("b14", "FarmFresh Processors", "Processor", "Hoskote", 13.0707, 77.7983, ["Potato"], 5000, 17, 20, ["Grade A", "Grade B"], 38, 88, 90, "Within 4 days", "HIGH"),
-  buyer("b15", "VeggieKing Retail Chain", "Retailer", "Bengaluru", 12.9141, 77.6101, ["Tomato", "Potato"], 3500, 28, 32, ["Grade A", "Grade B"], 60, 87, 89, "Within 3 days", "HIGH"),
-  buyer("b16", "Rural Connect FPO", "FPO", "Tumakuru", 13.3379, 77.1172, ["Onion", "Potato"], 4500, 19, 22, ["Grade A", "Grade B"], 90, 86, 88, "Within 6 days", "MEDIUM"),
-  buyer("b17", "Global Agri Exports", "Exporter", "Bengaluru", 13.0358, 77.5970, ["Potato"], 6000, 18, 22, ["Grade A"], 72, 85, 87, "Within 5 days", "MEDIUM"),
-  buyer("b18", "Sunrise Wholesale", "Wholesaler", "Chikkaballapur", 13.4355, 77.7315, ["Tomato"], 4000, 27, 30, ["Grade A", "Grade B"], 33, 83, 85, "Within 4 days", "MEDIUM"),
+  buyer("b1", "Sahyadri Farmers Producer Co", "FPO", "Nashik", 19.9975, 73.7898, ["Tomato"], 5000, 30, 33, ["Grade A", "Grade B"], 15, 96, 98, "Within 2 days", "HIGH"),
+  buyer("b2", "Mahafresh Logistics Pvt Ltd", "Wholesaler", "Pune", 18.5204, 73.8567, ["Tomato", "Onion"], 8000, 29, 32, ["Grade A", "Grade B"], 210, 91, 94, "Within 3 days", "HIGH"),
+  buyer("b3", "Maharashtra State Food Corp", "Institutional buyer", "Mumbai", 18.9388, 72.8353, ["Tomato", "Potato", "Onion"], 12000, 28, 31, ["Grade A", "Grade B", "Grade C"], 160, 94, 97, "Within 5 days", "MEDIUM"),
+  buyer("b4", "WestIndia Agro Exports", "Exporter", "Navi Mumbai", 19.0330, 73.0297, ["Tomato"], 4000, 31, 35, ["Grade A"], 175, 90, 92, "Within 2 days", "HIGH"),
+  buyer("b5", "Sangli Tomato Processors", "Processor", "Sangli", 16.8524, 74.5815, ["Tomato", "Onion"], 3000, 27, 30, ["Grade A", "Grade B"], 280, 87, 90, "Within 4 days", "MEDIUM"),
+  buyer("b6", "Solapur Kisan FPO", "FPO", "Solapur", 17.6599, 75.9064, ["Tomato", "Onion", "Potato"], 6000, 28, 31, ["Grade A", "Grade B"], 320, 92, 95, "Within 4 days", "HIGH"),
+  buyer("b7", "MahaAgro Processors", "Processor", "Chhatrapati Sambhajinagar", 19.8762, 75.3433, ["Tomato", "Potato"], 4500, 28, 32, ["Grade A", "Grade B"], 175, 89, 91, "Within 5 days", "MEDIUM"),
+  buyer("b8", "Reliance Retail Bhiwandi Hub", "Retailer", "Bhiwandi", 19.2812, 73.0483, ["Tomato", "Onion", "Potato"], 8000, 30, 34, ["Grade A"], 150, 95, 96, "Within 3 days", "HIGH"),
+  buyer("b9", "Nagpur Agro Hub", "Wholesaler", "Nagpur", 21.1458, 79.0882, ["Onion", "Potato"], 5000, 21, 25, ["Grade A", "Grade B", "Grade C"], 680, 84, 87, "Within 6 days", "LOW"),
+  buyer("b10", "Mahagrapes Producer Co", "FPO", "Pune", 18.5204, 73.8567, ["Tomato"], 3000, 31, 34, ["Grade A"], 210, 93, 94, "Within 3 days", "HIGH"),
+  buyer("b11", "Star Bazaar Procurement", "Retailer", "Pune", 18.5204, 73.8567, ["Onion"], 6500, 24, 27, ["Grade A", "Grade B"], 210, 92, 94, "Within 4 days", "MEDIUM"),
+  buyer("b12", "Western Agro Exports", "Exporter", "JNPT Navi Mumbai", 18.9500, 72.9500, ["Onion"], 4500, 25, 29, ["Grade A"], 180, 88, 90, "Within 3 days", "MEDIUM"),
+  buyer("b13", "Nashik Mandi Traders", "Wholesaler", "Nashik", 19.9975, 73.7898, ["Tomato", "Onion", "Potato"], 3500, 27, 30, ["Grade A", "Grade B", "Grade C"], 8, 86, 88, "Same day", "HIGH"),
+  buyer("b14", "Sahyadri Agro Processors", "Processor", "Dindori Nashik", 20.2000, 73.8300, ["Potato"], 5500, 18, 21, ["Grade A", "Grade B"], 22, 90, 92, "Within 4 days", "HIGH"),
+  buyer("b15", "Kolhapur Fresh Retail Chain", "Retailer", "Kolhapur", 16.7050, 74.2433, ["Tomato", "Potato"], 3500, 29, 33, ["Grade A", "Grade B"], 340, 88, 90, "Within 3 days", "HIGH"),
+  buyer("b16", "Orange City Farmers FPO", "FPO", "Nagpur", 21.1458, 79.0882, ["Onion", "Potato"], 4500, 20, 23, ["Grade A", "Grade B"], 680, 87, 89, "Within 5 days", "MEDIUM"),
+  buyer("b17", "Global Agri Exports JNPT", "Exporter", "Navi Mumbai", 18.9500, 72.9500, ["Potato"], 6000, 19, 23, ["Grade A"], 180, 86, 88, "Within 5 days", "MEDIUM"),
+  buyer("b18", "Ahilyanagar Wholesale Hub", "Wholesaler", "Ahilyanagar", 19.0948, 74.7480, ["Tomato"], 4000, 28, 31, ["Grade A", "Grade B"], 155, 85, 87, "Within 4 days", "MEDIUM"),
 ];
 
 export const DEMO_SCENARIO = {
   farmerName: "Ramesh Kumar",
-  location: "Kolar, Karnataka",
-  lat: KOLAR.lat,
-  lng: KOLAR.lng,
+  location: "Nashik, Maharashtra",
+  lat: NASHIK.lat,
+  lng: NASHIK.lng,
   crop: "Tomato" as CropName,
   quantity: 2000,
   unit: "kg",
@@ -162,7 +162,7 @@ export const DEMO_SCENARIO = {
   sellingDeadlineDays: 3,
   storageAvailableDays: 2,
   harvestDate: today,
-  notes: "Fresh harvest, ready for immediate dispatch",
+  notes: "Fresh harvest from Dindori, Nashik. Grade A red tomatoes.",
 };
 
 export const ENGINE_CONSTANTS = {

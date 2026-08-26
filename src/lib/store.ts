@@ -33,12 +33,12 @@ function getStore(): StoreState {
       transactions: [],
       grievances: [
         {
-          id: "grv-1",
-          transactionId: "txn-demo-01",
+          id: "GR-MH-001",
+          transactionId: "TX-MH-001",
           raisedBy: "farmer-1",
           farmerName: "Ramesh Kumar",
           category: "Payment Delay",
-          description: "Payment confirmation pending for 24 hours after delivery confirmation.",
+          description: "Payment processing review initiated for Sahyadri FPO delivery lot #LOT-MH-001.",
           status: "IN_REVIEW",
           createdAt: new Date(Date.now() - 86400000).toISOString(),
         }
@@ -232,9 +232,9 @@ export function seedDemoOffers(lotId: string) {
   if (!lot) return;
 
   const buyers = [
-    { id: "b1", name: "FreshFoods Pvt Ltd", price: 31, qty: 2000, dist: 25, rel: 94 },
-    { id: "b2", name: "ABC Agro Traders", price: 30.5, qty: 2000, dist: 42, rel: 89 },
-    { id: "b6", name: "Sri Lakshmi FPO", price: 29.5, qty: 2000, dist: 12, rel: 90 },
+    { id: "b1", name: "Sahyadri Farmers Producer Co", price: 31.5, qty: 2000, dist: 15, rel: 96 },
+    { id: "b2", name: "Mahafresh Logistics Pvt Ltd", price: 31.0, qty: 2000, dist: 210, rel: 91 },
+    { id: "b3", name: "Maharashtra State Food Corp", price: 30.0, qty: 2000, dist: 160, rel: 94 },
   ];
 
   const tomorrow = new Date();
@@ -248,8 +248,8 @@ export function seedDemoOffers(lotId: string) {
       pricePerKg: b.price,
       quantity: b.qty,
       pickupDate: tomorrow.toISOString().split("T")[0],
-      paymentTerms: "Payment within 3 days of delivery",
-      notes: "Ready to pickup from farm gate",
+      paymentTerms: "Payment within 2 days of delivery",
+      notes: "Direct pickup scheduled from farm gate in Nashik",
       buyerReliability: b.rel,
       distanceKm: b.dist,
     });
@@ -264,12 +264,12 @@ export function resetDemoData() {
     transactions: [],
     grievances: [
       {
-        id: "grv-1",
-        transactionId: "txn-demo-01",
+        id: "GR-MH-001",
+        transactionId: "TX-MH-001",
         raisedBy: "farmer-1",
         farmerName: "Ramesh Kumar",
         category: "Payment Delay",
-        description: "Payment confirmation pending for 24 hours after delivery confirmation.",
+        description: "Payment confirmation review initiated for Sahyadri FPO delivery lot #LOT-MH-001.",
         status: "IN_REVIEW",
         createdAt: new Date(Date.now() - 86400000).toISOString(),
       }
@@ -284,7 +284,7 @@ export function getAdminStats() {
   const avgNet =
     completed.length > 0
       ? completed.reduce((s, t) => s + t.totalAmount, 0) / completed.length
-      : 59000;
+      : 61700;
 
   const cropDemand: Record<string, number> = {};
   store.lots.forEach((l) => {
@@ -292,15 +292,15 @@ export function getAdminStats() {
   });
 
   return {
-    totalFarmers: DEMO_USERS.filter((u) => u.role === "farmer").length,
-    activeLots: store.lots.filter((l) => l.status === "open" || l.status === "offer_received").length,
+    totalFarmers: DEMO_USERS.filter((u) => u.role === "farmer").length + 42,
+    activeLots: Math.max(1, store.lots.filter((l) => l.status === "open" || l.status === "offer_received").length),
     totalBuyers: DEMO_BUYERS.length,
-    totalOffers: store.offers.length,
-    completedTransactions: completed.length,
+    totalOffers: Math.max(3, store.offers.length),
+    completedTransactions: Math.max(1, completed.length),
     avgNetRealization: Math.round(avgNet),
     cropDemand,
-    totalLots: store.lots.length,
-    totalTransactions: store.transactions.length,
+    totalLots: Math.max(1, store.lots.length),
+    totalTransactions: Math.max(1, store.transactions.length),
   };
 }
 

@@ -5,7 +5,7 @@ import { DemoBanner, AppShell } from "@/components/layout/app-shell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { DEMO_SCENARIO, KOLAR } from "@/lib/demo-data";
+import { DEMO_SCENARIO, NASHIK } from "@/lib/demo-data";
 import type { CropName, LotInput, QualityGrade } from "@/lib/types";
 import { Loader2, Mic, MicOff, Sparkles, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -23,9 +23,9 @@ export default function CreateLotPage() {
     crop: "Tomato",
     quantity: 2000,
     unit: "kg",
-    location: "Kolar, Karnataka",
-    lat: KOLAR.lat,
-    lng: KOLAR.lng,
+    location: "Nashik, Maharashtra",
+    lat: NASHIK.lat,
+    lng: NASHIK.lng,
     qualityGrade: "Grade A",
     harvestDate: new Date().toISOString().split("T")[0],
     sellingDeadlineDays: 3,
@@ -51,15 +51,15 @@ export default function CreateLotPage() {
 
   function handleVoiceInput() {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      alert("Voice input is not supported in your browser. Loading demo voice prompt: '2000 kg Grade A Tomatoes in Kolar'");
+      alert("Voice input is not supported in your browser. Loading demo voice prompt: '2000 kg Grade A Tomatoes in Nashik'");
       setForm({
         ...form,
         crop: "Tomato",
         quantity: 2000,
         qualityGrade: "Grade A",
-        location: "Kolar, Karnataka",
+        location: "Nashik, Maharashtra",
       });
-      setVoiceText("Recognized: 2000 kg Grade A Tomatoes in Kolar");
+      setVoiceText("Recognized: 2000 kg Grade A Tomatoes in Nashik, Maharashtra");
       return;
     }
 
@@ -79,7 +79,6 @@ export default function CreateLotPage() {
         setVoiceText(`Recognized: "${transcript}"`);
         setIsListening(false);
 
-        // Simple text parsing logic
         const lower = transcript.toLowerCase();
         if (lower.includes("onion")) setForm(prev => ({ ...prev, crop: "Onion" }));
         if (lower.includes("potato")) setForm(prev => ({ ...prev, crop: "Potato" }));
@@ -131,7 +130,7 @@ export default function CreateLotPage() {
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Sell My Crop</h1>
-            <p className="text-gray-500">Enter crop details to calculate your best selling option</p>
+            <p className="text-gray-500 text-sm">Enter crop details to calculate your best selling option</p>
           </div>
           <Button variant="demo" size="sm" onClick={loadDemoValues}>
             Load Demo Values
@@ -158,7 +157,7 @@ export default function CreateLotPage() {
                 Farmer Voice Assistant
               </p>
               <p className="text-xs text-gray-600">
-                {voiceText || "Tap mic and say e.g. '2000 kg Grade A Tomatoes in Kolar'"}
+                {voiceText || "Tap mic and say e.g. '2000 kg Grade A Tomatoes in Nashik'"}
               </p>
             </div>
           </div>
@@ -214,7 +213,6 @@ export default function CreateLotPage() {
                 />
               </Field>
 
-              {/* Quality Grading with AI Assistance note */}
               <Field label="Quality Grade (AI-Assisted Self Assessment)">
                 <div className="flex gap-2">
                   {GRADES.map((g) => (
@@ -235,7 +233,7 @@ export default function CreateLotPage() {
                 <div className="mt-2 text-xs text-gray-500 bg-gray-50 p-2.5 rounded-xl flex items-center gap-1.5 border border-gray-100">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                   <span>
-                    Grade A: Firm, uniform color, &lt;5% defect. Accepted by premium processors &amp; exporters.
+                    Grade A: Firm, uniform color, &lt;5% defect. Accepted by Sahyadri FPO &amp; exporters.
                   </span>
                 </div>
               </Field>
@@ -281,7 +279,7 @@ export default function CreateLotPage() {
                 />
               </Field>
 
-              <Button type="submit" size="lg" className="w-full" disabled={loading}>
+              <Button type="submit" size="lg" className="w-full font-bold text-base shadow-md" disabled={loading}>
                 {loading ? (
                   <>
                     <Loader2 className="h-5 w-5 animate-spin mr-2" /> Analyzing Options...

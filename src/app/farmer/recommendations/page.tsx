@@ -13,6 +13,7 @@ import {
 } from "@/components/agri/recommendation-card";
 import { SaleWindow } from "@/components/agri/sale-window";
 import { WhatIfSimulator } from "@/components/agri/what-if-simulator";
+import { HighestPriceCard } from "@/components/agri/highest-price-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { LotInput, RecommendationResult } from "@/lib/types";
@@ -47,9 +48,9 @@ function RecommendationsContent() {
             crop: "Tomato",
             quantity: 2000,
             unit: "kg",
-            location: "Kolar, Karnataka",
-            lat: 13.1361,
-            lng: 78.1291,
+            location: "Nashik, Maharashtra",
+            lat: 19.9975,
+            lng: 73.7898,
             qualityGrade: "Grade A",
             harvestDate: new Date().toISOString().split("T")[0],
             sellingDeadlineDays: 3,
@@ -106,7 +107,7 @@ function RecommendationsContent() {
       const data = await res.json();
       setAiExplanation(data.explanation);
     } catch {
-      setAiExplanation("Our decision engine computed FreshFoods Pvt Ltd as top option due to higher net realization after deducting transport (₹2,000) & storage (₹1,000).");
+      setAiExplanation("Our decision engine computed Sahyadri Farmers Producer Co (Nashik) as top option due to higher net realization after deducting transport (₹1,000) & storage (₹300).");
     } finally {
       setAiLoading(false);
     }
@@ -137,10 +138,10 @@ function RecommendationsContent() {
 
   const input = recommendations.lotInput;
   const top = recommendations.topRecommendation;
-  const priceTrend = [24, 25, 26, 27, 28]; // Demo 5-day trend for Kolar Tomato
+  const priceTrend = [25, 26, 27, 28, 29]; // Demo 5-day trend for Nashik APMC Tomato
 
   const sampleQuestions = [
-    "Why FreshFoods over Kolar Mandi?",
+    "Why Sahyadri FPO over Pune APMC?",
     "What if I delay selling by 2 days?",
     "How was transport cost calculated?",
   ];
@@ -152,19 +153,24 @@ function RecommendationsContent() {
       <div className="mb-6">
         <div className="flex items-center gap-2 text-emerald-700">
           <Sparkles className="h-5 w-5" />
-          <span className="text-sm font-medium uppercase tracking-wide">AI Selling Recommendation</span>
+          <span className="text-sm font-semibold uppercase tracking-wide">AI Selling Recommendation</span>
         </div>
         <h1 className="mt-1 text-2xl font-bold text-gray-900">
-          Best Options for Your {input.crop}
+          Best Farm-to-Market Options for Your {input.crop}
         </h1>
-        <p className="text-gray-500">
+        <p className="text-gray-500 text-sm">
           {formatNumber(input.quantity)} {input.unit} · {input.qualityGrade} · {input.location} ·{" "}
-          {input.sellingDeadlineDays}-day deadline
+          {input.sellingDeadlineDays}-day selling window
         </p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-6">
+
+          {/* Signature Insight Card: Highest Price != Best Net Realization */}
+          <HighestPriceCard crop={input.crop} quantity={input.quantity} />
+
+          {/* Top Recommendation Card */}
           <RecommendationCard
             option={top}
             isTop
@@ -194,7 +200,7 @@ function RecommendationsContent() {
 
           {recommendations.alternatives.length > 0 && (
             <div>
-              <h2 className="mb-3 font-semibold text-gray-800">Alternative Options</h2>
+              <h2 className="mb-3 font-semibold text-gray-800 text-base">Alternative Buying Options</h2>
               <div className="space-y-4">
                 {recommendations.alternatives.map((opt, i) => (
                   <RecommendationCard key={opt.id} option={opt} rank={i + 2} />
@@ -204,7 +210,7 @@ function RecommendationsContent() {
           )}
 
           {!createdLotId && (
-            <Button size="lg" className="w-full" onClick={handleCreateLot} disabled={creating}>
+            <Button size="lg" className="w-full text-base font-bold shadow-md" onClick={handleCreateLot} disabled={creating}>
               {creating ? (
                 <>
                   <Loader2 className="h-5 w-5 animate-spin mr-2" /> Creating Digital Lot...
@@ -216,8 +222,8 @@ function RecommendationsContent() {
           )}
 
           {createdLotId && (
-            <Button size="lg" className="w-full" onClick={() => router.push(`/farmer/lots/${createdLotId}`)}>
-              View Lot & Manage Offers →
+            <Button size="lg" className="w-full text-base font-bold" onClick={() => router.push(`/farmer/lots/${createdLotId}`)}>
+              View Lot &amp; Manage Offers →
             </Button>
           )}
         </div>

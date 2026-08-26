@@ -1,14 +1,15 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { DEMO_MARKETS, DEMO_BUYERS } from '@/lib/demo-data';
+import { DEMO_MARKETS, DEMO_BUYERS, DEMO_DATA_LABEL } from '@/lib/demo-data';
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { AppShell, DemoBanner, EmptyState } from '@/components/layout/app-shell';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { cn, formatCurrencyPerKg, formatNumber } from '@/lib/utils';
-import { MapPin, TrendingUp, Users } from 'lucide-react';
+import { MapPin, TrendingUp, Users, ShieldCheck } from 'lucide-react';
 import type { CropName } from '@/lib/types';
+import { MaharashtraMap } from '@/components/agri/maharashtra-map';
 
 const COLORS = ['#059669', '#0284c7', '#d97706', '#dc2626', '#7c3aed'];
 
@@ -35,20 +36,30 @@ export default function MarketIntelligencePage() {
     <AppShell role="farmer" userName="Ramesh Kumar">
       <DemoBanner />
       
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Market Intelligence</h1>
-          <p className="mt-1 text-gray-500">Real-time prices and demand across markets</p>
+          <h1 className="text-2xl font-bold text-gray-900">Maharashtra Market Intelligence</h1>
+          <p className="mt-1 text-sm text-gray-500">Current Market Snapshot across Maharashtra APMC Markets &amp; Verified Buyers</p>
         </div>
+        <div className="flex items-center gap-1.5 text-xs text-emerald-800 bg-emerald-100/70 border border-emerald-200 px-3 py-1.5 rounded-full w-fit">
+          <ShieldCheck className="h-3.5 w-3.5 text-emerald-700" />
+          <span>{DEMO_DATA_LABEL}</span>
+        </div>
+      </div>
+
+      {/* Maharashtra District Map Component */}
+      <div className="mb-8">
+        <MaharashtraMap />
       </div>
 
       <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
         {crops.map((crop) => (
           <button
             key={crop}
+            type="button"
             onClick={() => setSelectedCrop(crop)}
             className={cn(
-              "whitespace-nowrap rounded-xl border px-5 py-2.5 text-sm font-medium transition-colors",
+              "whitespace-nowrap rounded-xl border px-5 py-2.5 text-sm font-semibold transition-colors",
               selectedCrop === crop
                 ? "border-emerald-700 bg-emerald-700 text-white shadow-sm"
                 : "border-gray-200 bg-white text-gray-600 hover:bg-emerald-50"
@@ -63,10 +74,13 @@ export default function MarketIntelligencePage() {
         {/* Prices Table */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-lg">
               <TrendingUp className="h-5 w-5 text-emerald-600" />
-              Current Market Prices - {selectedCrop}
+              Current APMC Market Snapshot — {selectedCrop}
             </CardTitle>
+            <CardDescription>
+              Modal price, arrival volume &amp; buyer demand level per district APMC
+            </CardDescription>
           </CardHeader>
           <CardContent>
             {cropMarkets.length > 0 ? (
@@ -74,8 +88,8 @@ export default function MarketIntelligencePage() {
                 <table className="w-full text-left text-sm">
                   <thead className="bg-gray-50 text-gray-500">
                     <tr>
-                      <th className="px-4 py-3 font-medium">Market Name</th>
-                      <th className="px-4 py-3 font-medium">Location</th>
+                      <th className="px-4 py-3 font-medium">APMC Market</th>
+                      <th className="px-4 py-3 font-medium">District</th>
                       <th className="px-4 py-3 text-right font-medium">Price Range (₹/kg)</th>
                       <th className="px-4 py-3 text-right font-medium">Modal Price</th>
                       <th className="px-4 py-3 text-right font-medium">Arrivals (Qtl)</th>
@@ -89,17 +103,17 @@ export default function MarketIntelligencePage() {
                         <td className="px-4 py-3 font-medium text-gray-900">{market.name}</td>
                         <td className="px-4 py-3 text-gray-500">
                           <div className="flex items-center gap-1">
-                            <MapPin className="h-3 w-3" />
+                            <MapPin className="h-3 w-3 text-emerald-600" />
                             {market.location}
                           </div>
                         </td>
                         <td className="px-4 py-3 text-right text-gray-600">
-                          {market.minPrice} - {market.maxPrice}
+                          ₹{market.minPrice} - ₹{market.maxPrice}
                         </td>
-                        <td className="px-4 py-3 text-right font-semibold text-emerald-700">
+                        <td className="px-4 py-3 text-right font-bold text-emerald-700">
                           {formatCurrencyPerKg(market.modalPrice)}
                         </td>
-                        <td className="px-4 py-3 text-right text-gray-600">
+                        <td className="px-4 py-3 text-right text-gray-600 font-medium">
                           {formatNumber(market.arrivalVolume)}
                         </td>
                         <td className="px-4 py-3">
@@ -109,7 +123,7 @@ export default function MarketIntelligencePage() {
                             {market.demandLevel}
                           </Badge>
                         </td>
-                        <td className="px-4 py-3 text-right text-gray-500">
+                        <td className="px-4 py-3 text-right text-gray-500 font-medium">
                           {market.distanceKm} km
                         </td>
                       </tr>
@@ -126,8 +140,8 @@ export default function MarketIntelligencePage() {
         {/* Price Trend Chart */}
         <Card>
           <CardHeader>
-            <CardTitle>5-Day Price Trend (₹/kg)</CardTitle>
-            <CardDescription>Historical modal prices for {selectedCrop} across top markets</CardDescription>
+            <CardTitle>5-Day Market Price Trend (₹/kg)</CardTitle>
+            <CardDescription>Historical modal price trajectories across Maharashtra pilot APMCs</CardDescription>
           </CardHeader>
           <CardContent>
             {chartData.length > 0 ? (
@@ -166,7 +180,7 @@ export default function MarketIntelligencePage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Users className="h-5 w-5 text-emerald-600" />
-              Active Buyer Demand - {selectedCrop}
+              Active Verified Buyer Demand — {selectedCrop}
             </CardTitle>
           </CardHeader>
           <CardContent>
