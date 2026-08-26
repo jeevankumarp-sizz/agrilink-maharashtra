@@ -12,18 +12,24 @@ import {
   Settings,
   Leaf,
   AlertTriangle,
+  BarChart3,
+  Scale,
+  Globe,
 } from "lucide-react";
+import { useState } from "react";
 
 const farmerLinks = [
   { href: "/farmer", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/farmer/create-lot", label: "Create Lot", icon: Package },
-  { href: "/farmer/market", label: "Market", icon: TrendingUp },
-  { href: "/farmer/offers", label: "Offers", icon: Users },
+  { href: "/farmer/create-lot", label: "Sell My Crop", icon: Package },
+  { href: "/farmer/market", label: "Market Prices", icon: TrendingUp },
+  { href: "/farmer/offers", label: "My Offers", icon: Users },
+  { href: "/farmer/fpo", label: "FPO", icon: Scale },
 ];
 
 const buyerLinks = [
   { href: "/buyer", label: "Dashboard", icon: LayoutDashboard },
   { href: "/buyer/lots", label: "Available Lots", icon: Package },
+  { href: "/buyer/aggregate", label: "Lot Aggregation", icon: Scale },
 ];
 
 const adminLinks = [
@@ -32,7 +38,12 @@ const adminLinks = [
   { href: "/admin/buyers", label: "Buyers", icon: Users },
   { href: "/admin/transactions", label: "Transactions", icon: Truck },
   { href: "/admin/grievances", label: "Grievances", icon: AlertTriangle },
+  { href: "/admin/impact", label: "Impact", icon: BarChart3 },
 ];
+
+type LangKey = "en" | "hi" | "kn";
+const LANG_LABELS: Record<LangKey, string> = { en: "EN", hi: "हिं", kn: "ಕ" };
+const LANG_NAMES: Record<LangKey, string> = { en: "English", hi: "हिन्दी", kn: "ಕನ್ನಡ" };
 
 export function AppShell({
   children,
@@ -45,6 +56,8 @@ export function AppShell({
 }) {
   const pathname = usePathname();
   const links = role === "farmer" ? farmerLinks : role === "buyer" ? buyerLinks : adminLinks;
+  const [lang, setLang] = useState<LangKey>("en");
+  const [langOpen, setLangOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#f4f7f4]">
@@ -56,14 +69,43 @@ export function AppShell({
             </div>
             <div>
               <p className="text-lg font-bold text-emerald-900">AgriLink</p>
-              <p className="text-xs text-gray-500">From farm-gate to the best buyer</p>
+              <p className="text-xs text-gray-500 hidden sm:block">From farm-gate to the best buyer</p>
             </div>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Language Selector */}
+            <div className="relative">
+              <button
+                onClick={() => setLangOpen(!langOpen)}
+                className="flex items-center gap-1 rounded-lg border border-gray-200 px-2 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50"
+              >
+                <Globe className="h-3.5 w-3.5" />
+                {LANG_LABELS[lang]}
+              </button>
+              {langOpen && (
+                <div className="absolute right-0 top-full mt-1 w-28 rounded-xl border border-gray-200 bg-white py-1 shadow-lg z-50">
+                  {(Object.keys(LANG_NAMES) as LangKey[]).map((key) => (
+                    <button
+                      key={key}
+                      onClick={() => {
+                        setLang(key);
+                        setLangOpen(false);
+                      }}
+                      className={cn(
+                        "w-full px-3 py-1.5 text-left text-xs hover:bg-emerald-50",
+                        lang === key ? "font-bold text-emerald-700" : "text-gray-600"
+                      )}
+                    >
+                      {LANG_NAMES[key]}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             <span className="hidden text-sm text-gray-600 sm:block">{userName}</span>
-            <Badge role={role} />
+            <RoleBadge role={role} />
             <Link href="/" className="text-sm text-emerald-700 hover:underline">
-              Switch Role
+              Switch
             </Link>
           </div>
         </div>
@@ -95,19 +137,19 @@ export function AppShell({
 
       <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-emerald-100 bg-white md:hidden">
         <div className="flex justify-around py-2">
-          {links.slice(0, 4).map(({ href, label, icon: Icon }) => (
+          {links.slice(0, 5).map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
               href={href}
               className={cn(
-                "flex flex-col items-center gap-1 px-3 py-1 text-xs",
+                "flex flex-col items-center gap-1 px-2 py-1 text-xs",
                 pathname === href || pathname.startsWith(href + "/")
                   ? "text-emerald-700"
                   : "text-gray-500"
               )}
             >
               <Icon className="h-5 w-5" />
-              {label}
+              <span className="truncate max-w-[60px]">{label}</span>
             </Link>
           ))}
         </div>
@@ -116,7 +158,7 @@ export function AppShell({
   );
 }
 
-function Badge({ role }: { role: string }) {
+function RoleBadge({ role }: { role: string }) {
   const colors = {
     farmer: "bg-emerald-100 text-emerald-800",
     buyer: "bg-blue-100 text-blue-800",

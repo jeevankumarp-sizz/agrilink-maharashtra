@@ -11,6 +11,8 @@ import {
   RecommendationCard,
   ScoreBreakdown,
 } from "@/components/agri/recommendation-card";
+import { SaleWindow } from "@/components/agri/sale-window";
+import { WhatIfSimulator } from "@/components/agri/what-if-simulator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { LotInput, RecommendationResult } from "@/lib/types";
@@ -135,6 +137,7 @@ function RecommendationsContent() {
 
   const input = recommendations.lotInput;
   const top = recommendations.topRecommendation;
+  const priceTrend = [24, 25, 26, 27, 28]; // Demo 5-day trend for Kolar Tomato
 
   const sampleQuestions = [
     "Why FreshFoods over Kolar Mandi?",
@@ -166,6 +169,27 @@ function RecommendationsContent() {
             option={top}
             isTop
             onSelect={createdLotId ? undefined : handleCreateLot}
+          />
+
+          {/* Sale Window Section (Phase 6) */}
+          <SaleWindow
+            crop={input.crop}
+            location={input.location}
+            demandLevel={top.demandLevel}
+            priceTrend={priceTrend}
+            storageCostPerDay={top.storageCost}
+            quantity={input.quantity}
+          />
+
+          {/* What-If Simulator Section (Phase 7) */}
+          <WhatIfSimulator
+            currentNetRealization={top.expectedNetRealization}
+            pricePerKg={top.pricePerKg}
+            quantity={input.quantity}
+            storageCostPerKgPerDay={0.15}
+            transportCost={top.transportCost}
+            transactionCostPercent={1}
+            priceTrend={priceTrend}
           />
 
           {recommendations.alternatives.length > 0 && (

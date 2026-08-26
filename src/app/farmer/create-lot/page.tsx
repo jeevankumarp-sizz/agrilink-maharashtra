@@ -1,12 +1,13 @@
 "use client";
 
-import { actionAnalyzeLot, actionCreateLot } from "@/actions/agri-actions";
+import { actionAnalyzeLot } from "@/actions/agri-actions";
 import { DemoBanner, AppShell } from "@/components/layout/app-shell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { DEMO_SCENARIO, KOLAR } from "@/lib/demo-data";
 import type { CropName, LotInput, QualityGrade } from "@/lib/types";
-import { Loader2 } from "lucide-react";
+import { Loader2, Mic, MicOff, Sparkles, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -16,6 +17,8 @@ const GRADES: QualityGrade[] = ["Grade A", "Grade B", "Grade C"];
 export default function CreateLotPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [voiceText, setVoiceText] = useState("");
   const [form, setForm] = useState<LotInput>({
     crop: "Tomato",
     quantity: 2000,
@@ -46,6 +49,68 @@ export default function CreateLotPage() {
     });
   }
 
+  function handleVoiceInput() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert("Voice input is not supported in your browser. Loading demo voice prompt: '2000 kg Grade A Tomatoes in Kolar'");
+      setForm({
+        ...form,
+        crop: "Tomato",
+        quantity: 2000,
+        qualityGrade: "Grade A",
+        location: "Kolar, Karnataka",
+      });
+      setVoiceText("Recognized: 2000 kg Grade A Tomatoes in Kolar");
+      return;
+    }
+
+    try {
+      const SpeechRecognition = (window as unknown as { SpeechRecognition?: any; webkitSpeechRecognition?: any }).SpeechRecognition || (window as unknown as { SpeechRecognition?: any; webkitSpeechRecognition?: any }).webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-IN';
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        setIsListening(true);
+        setVoiceText("Listening... Speak crop, quantity and location.");
+      };
+
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setVoiceText(`Recognized: "${transcript}"`);
+        setIsListening(false);
+
+        // Simple text parsing logic
+        const lower = transcript.toLowerCase();
+        if (lower.includes("onion")) setForm(prev => ({ ...prev, crop: "Onion" }));
+        if (lower.includes("potato")) setForm(prev => ({ ...prev, crop: "Potato" }));
+        if (lower.includes("tomato")) setForm(prev => ({ ...prev, crop: "Tomato" }));
+
+        const qtyMatch = transcript.match(/\d+/);
+        if (qtyMatch) {
+          setForm(prev => ({ ...prev, quantity: parseInt(qtyMatch[0], 10) }));
+        }
+
+        if (lower.includes("grade b") || lower.includes("b grade")) setForm(prev => ({ ...prev, qualityGrade: "Grade B" }));
+        if (lower.includes("grade c") || lower.includes("c grade")) setForm(prev => ({ ...prev, qualityGrade: "Grade C" }));
+      };
+
+      recognition.onerror = () => {
+        setIsListening(false);
+        setVoiceText("Voice error. Loaded default demo fields.");
+        loadDemoValues();
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } catch {
+      setIsListening(false);
+      loadDemoValues();
+    }
+  }
+
   async function handleAnalyze(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -65,17 +130,43 @@ export default function CreateLotPage() {
       <div className="mx-auto max-w-2xl">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Create Crop Lot</h1>
-            <p className="text-gray-500">Enter your crop details to find the best selling option</p>
+            <h1 className="text-2xl font-bold text-gray-900">Sell My Crop</h1>
+            <p className="text-gray-500">Enter crop details to calculate your best selling option</p>
           </div>
           <Button variant="demo" size="sm" onClick={loadDemoValues}>
             Load Demo Values
           </Button>
         </div>
 
+        {/* Voice Input Assist Bar */}
+        <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={handleVoiceInput}
+              className={`flex h-12 w-12 items-center justify-center rounded-2xl font-bold transition-all shadow-sm ${
+                isListening
+                  ? "bg-red-600 text-white animate-pulse"
+                  : "bg-emerald-700 text-white hover:bg-emerald-800"
+              }`}
+            >
+              {isListening ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+            </button>
+            <div>
+              <p className="font-semibold text-gray-900 text-sm flex items-center gap-1.5">
+                <Sparkles className="h-4 w-4 text-emerald-700" />
+                Farmer Voice Assistant
+              </p>
+              <p className="text-xs text-gray-600">
+                {voiceText || "Tap mic and say e.g. '2000 kg Grade A Tomatoes in Kolar'"}
+              </p>
+            </div>
+          </div>
+        </div>
+
         <Card>
           <CardHeader>
-            <CardTitle>Crop Details</CardTitle>
+            <CardTitle>Crop Lot Details</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleAnalyze} className="space-y-5">
@@ -83,7 +174,7 @@ export default function CreateLotPage() {
                 <select
                   value={form.crop}
                   onChange={(e) => setForm({ ...form, crop: e.target.value as CropName })}
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-100"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-emerald-500 focus:outline-none"
                 >
                   {CROPS.map((c) => (
                     <option key={c}>{c}</option>
@@ -123,7 +214,8 @@ export default function CreateLotPage() {
                 />
               </Field>
 
-              <Field label="Quality Grade">
+              {/* Quality Grading with AI Assistance note */}
+              <Field label="Quality Grade (AI-Assisted Self Assessment)">
                 <div className="flex gap-2">
                   {GRADES.map((g) => (
                     <button
@@ -139,6 +231,12 @@ export default function CreateLotPage() {
                       {g}
                     </button>
                   ))}
+                </div>
+                <div className="mt-2 text-xs text-gray-500 bg-gray-50 p-2.5 rounded-xl flex items-center gap-1.5 border border-gray-100">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  <span>
+                    Grade A: Firm, uniform color, &lt;5% defect. Accepted by premium processors &amp; exporters.
+                  </span>
                 </div>
               </Field>
 
@@ -186,10 +284,10 @@ export default function CreateLotPage() {
               <Button type="submit" size="lg" className="w-full" disabled={loading}>
                 {loading ? (
                   <>
-                    <Loader2 className="h-5 w-5 animate-spin" /> Analyzing Markets...
+                    <Loader2 className="h-5 w-5 animate-spin mr-2" /> Analyzing Options...
                   </>
                 ) : (
-                  "Analyze & Get Recommendation"
+                  "Calculate Net Realization & Find Buyers"
                 )}
               </Button>
             </form>
