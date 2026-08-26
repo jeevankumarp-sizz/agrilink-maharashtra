@@ -23,10 +23,10 @@ export default function ImpactPage() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-2xl border border-emerald-100 shadow-xs">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <Badge variant="verified" className="bg-emerald-100 text-emerald-900 border-emerald-300 font-bold">
-                STATE PILOT METRICS
+              <Badge variant="verified" className="bg-amber-100 text-amber-900 border-amber-300 font-bold">
+                DEMO / PROTOTYPE METRICS
               </Badge>
-              <span className="text-xs text-gray-500">Government of Maharashtra MSINS Pilot</span>
+              <span className="text-xs text-gray-500">SIH 2026 Prototype — Demonstration Dataset</span>
             </div>
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">AgriLink Impact Dashboard</h1>
             <p className="text-sm text-gray-600 mt-1">

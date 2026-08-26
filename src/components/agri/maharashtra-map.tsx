@@ -160,14 +160,14 @@ export function MaharashtraMap() {
           <div>
             <CardTitle className="text-lg font-bold text-gray-900 flex items-center gap-2">
               <MapPin className="h-5 w-5 text-emerald-700" />
-              Maharashtra State Market Command Map (Pilot Hubs)
+              Maharashtra State Market Command Map (Demo Districts)
             </CardTitle>
             <p className="text-xs text-gray-500">
               Interactive district market health, arrival volumes, and buyer demand monitoring
             </p>
           </div>
           <span className="text-xs font-semibold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full w-fit">
-            Source: Maharashtra State Innovation Society Pilot
+            Source: Demonstration Dataset
           </span>
         </div>
       </CardHeader>
@@ -215,7 +215,7 @@ export function MaharashtraMap() {
                     {statusIcons[selectedDistrict.status]}
                   </Badge>
                 </div>
-                <p className="text-xs text-gray-500">{selectedDistrict.region} Pilot Zone</p>
+                <p className="text-xs text-gray-500">{selectedDistrict.region} Demo Zone</p>
               </div>
               <div className="text-right">
                 <p className="text-xs text-gray-500">Benchmark Modal Price</p>

@@ -220,16 +220,22 @@ export default function SIHCoveragePage() {
             Audit checklist mapping official problem statement requirements to implemented AgriLink Maharashtra features.
           </p>
 
-          <div className="flex flex-wrap gap-4 text-xs font-semibold pt-2 border-t border-gray-100">
-            <span className="flex items-center gap-1.5 text-emerald-800">
-              🟢 Implemented: <strong>14 Modules</strong>
-            </span>
-            <span className="flex items-center gap-1.5 text-amber-800">
-              🟡 Prototype / Demo: <strong>3 Workflow Modules</strong>
-            </span>
-            <span className="flex items-center gap-1.5 text-blue-800">
-              🔵 Future Integration: <strong>2 Ecosystem Roadmap Modules</strong>
-            </span>
+          <div className="flex flex-wrap gap-4 text-xs font-semibold pt-2 border-t border-gray-100 items-center justify-between">
+            <div className="flex items-center gap-2 bg-emerald-50 text-emerald-950 px-3 py-1.5 rounded-xl border border-emerald-200 font-extrabold text-sm">
+              <CheckCircle2 className="h-4 w-4 text-emerald-700" />
+              18 / 18 Core Requirements Covered
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <span className="flex items-center gap-1 text-emerald-800 font-bold">
+                🟢 Implemented: <strong>13</strong>
+              </span>
+              <span className="flex items-center gap-1 text-amber-800 font-bold">
+                🟡 Prototype / Demo: <strong>5</strong>
+              </span>
+              <span className="flex items-center gap-1 text-blue-800 font-bold">
+                🔵 Future Roadmap: <strong>0 Unaddressed</strong>
+              </span>
+            </div>
           </div>
         </div>
 

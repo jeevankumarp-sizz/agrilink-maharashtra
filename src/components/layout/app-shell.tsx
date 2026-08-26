@@ -72,6 +72,7 @@ export function AppShell({
   const links = role === "farmer" ? farmerLinks : role === "buyer" ? buyerLinks : adminLinks;
   const [lang, setLang] = useState<Language>("en");
   const [langOpen, setLangOpen] = useState(false);
+  const [roleOpen, setRoleOpen] = useState(false);
 
   // Role Guarding (PART 21)
   const isFarmerRoute = pathname.startsWith("/farmer");
@@ -172,9 +173,67 @@ export function AppShell({
             </div>
             <span className="hidden text-xs text-gray-700 sm:block font-bold">{userName}</span>
             <RoleBadge role={role} />
-            <Link href="/" className="text-xs font-semibold text-emerald-700 hover:underline">
-              {t("switchRole", lang)}
-            </Link>
+
+            {/* Switch Demo Role Dropdown */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setRoleOpen(!roleOpen)}
+                className="text-xs font-bold text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 px-2.5 py-1 rounded-lg border border-emerald-200 flex items-center gap-1 transition-colors"
+              >
+                <span>Switch Demo Role</span>
+                <span className="text-[10px]">▼</span>
+              </button>
+              {roleOpen && (
+                <div className="absolute right-0 top-full mt-1 w-44 rounded-xl border border-emerald-100 bg-white py-1 shadow-xl z-50">
+                  <div className="px-3 py-1.5 border-b border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                    Switch Demo Portal
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setRoleOpen(false);
+                      router.push('/farmer');
+                    }}
+                    className={cn(
+                      "w-full px-3 py-2 text-left text-xs font-bold flex items-center justify-between transition-colors hover:bg-emerald-50",
+                      role === 'farmer' ? "text-emerald-800 bg-emerald-50/60" : "text-gray-700"
+                    )}
+                  >
+                    <span>🌾 Farmer / FPO</span>
+                    {role === 'farmer' && <span className="text-emerald-700">✓</span>}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setRoleOpen(false);
+                      router.push('/buyer');
+                    }}
+                    className={cn(
+                      "w-full px-3 py-2 text-left text-xs font-bold flex items-center justify-between transition-colors hover:bg-blue-50",
+                      role === 'buyer' ? "text-blue-800 bg-blue-50/60" : "text-gray-700"
+                    )}
+                  >
+                    <span>🏢 Buyer Portal</span>
+                    {role === 'buyer' && <span className="text-blue-700">✓</span>}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setRoleOpen(false);
+                      router.push('/admin');
+                    }}
+                    className={cn(
+                      "w-full px-3 py-2 text-left text-xs font-bold flex items-center justify-between transition-colors hover:bg-purple-50",
+                      role === 'admin' ? "text-purple-800 bg-purple-50/60" : "text-gray-700"
+                    )}
+                  >
+                    <span>🏛️ Government</span>
+                    {role === 'admin' && <span className="text-purple-700">✓</span>}
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>

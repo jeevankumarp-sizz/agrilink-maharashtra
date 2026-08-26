@@ -67,12 +67,13 @@ export default function AdminDashboard() {
               State-level intelligence, market anomaly detection &amp; transaction monitoring system
             </p>
           </div>
-          <Badge variant="verified" className="bg-emerald-100 text-emerald-900 border-emerald-300 text-xs px-3 py-1 font-bold">
-            Government of Maharashtra · MSINS Pilot
+          <Badge variant="verified" className="bg-amber-100 text-amber-900 border-amber-300 text-xs px-3 py-1 font-bold">
+            SIH 2026 Prototype — Demonstration Dataset
           </Badge>
         </div>
 
         {/* Stats Grid */}
+        <p className="text-[11px] text-amber-700 font-bold bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 w-fit">⚠ Demo / Prototype Metrics — derived from demonstration dataset</p>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <Card>
             <CardContent className="p-4 flex items-center space-x-3">

@@ -60,8 +60,31 @@ export default function OffersManagementPage() {
 
   if (loading) {
     return (
-      <AppShell role="farmer" userName="Loading...">
-        <LoadingSpinner />
+      <AppShell role="farmer" userName="Ramesh Kumar">
+        <DemoBanner />
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">My Offers</h1>
+            <p className="text-sm text-gray-500 mt-1">Loading incoming buyer offers...</p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {[1, 2].map(i => (
+              <div key={i} className="rounded-2xl border border-gray-200 bg-white p-6 space-y-4 animate-pulse">
+                <div className="h-5 bg-gray-200 rounded w-2/3" />
+                <div className="h-4 bg-gray-100 rounded w-1/2" />
+                <div className="space-y-2">
+                  <div className="h-3 bg-gray-100 rounded w-full" />
+                  <div className="h-3 bg-gray-100 rounded w-3/4" />
+                  <div className="h-3 bg-gray-100 rounded w-1/2" />
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <div className="h-10 bg-emerald-100 rounded-xl flex-1" />
+                  <div className="h-10 bg-gray-100 rounded-xl flex-1" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </AppShell>
     );
   }

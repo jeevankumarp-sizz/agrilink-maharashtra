@@ -47,7 +47,35 @@ export default function FarmerTrackSalePage() {
   if (loading) {
     return (
       <AppShell role="farmer" userName="Ramesh Kumar">
-        <LoadingSpinner />
+        <DemoBanner />
+        <div className="mx-auto max-w-4xl space-y-6 pb-12">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">Track My Sale &amp; Payout</h1>
+            <p className="text-sm text-gray-500 mt-1">Loading delivery progress...</p>
+          </div>
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 space-y-5 animate-pulse">
+            <div className="flex justify-between">
+              <div className="h-5 bg-gray-200 rounded w-1/3" />
+              <div className="h-5 bg-emerald-100 rounded w-1/4" />
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="space-y-2 bg-gray-50 p-4 rounded-xl">
+                  <div className="h-3 bg-gray-200 rounded w-2/3" />
+                  <div className="h-5 bg-gray-200 rounded w-full" />
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-4 items-center justify-between pt-2">
+              {[1, 2, 3, 4, 5].map(i => (
+                <div key={i} className="flex flex-col items-center gap-1">
+                  <div className="h-8 w-8 bg-gray-200 rounded-full" />
+                  <div className="h-2 bg-gray-100 rounded w-12" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </AppShell>
     );
   }
