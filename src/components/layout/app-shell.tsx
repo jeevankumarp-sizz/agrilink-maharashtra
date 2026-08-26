@@ -15,6 +15,7 @@ import {
   BarChart3,
   Scale,
   Globe,
+  CheckSquare,
 } from "lucide-react";
 import { useState } from "react";
 import { Language, t } from "@/lib/translations";
@@ -25,12 +26,14 @@ const farmerLinks = [
   { href: "/farmer/market", labelKey: "checkPrices", defaultLabel: "Market Prices", icon: TrendingUp },
   { href: "/farmer/offers", labelKey: "findBuyers", defaultLabel: "My Offers", icon: Users },
   { href: "/farmer/fpo", labelKey: "fpoAggregation", defaultLabel: "FPO Aggregation", icon: Scale },
+  { href: "/sih-coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
 ];
 
 const buyerLinks = [
   { href: "/buyer", labelKey: "findBuyers", defaultLabel: "Dashboard", icon: LayoutDashboard },
   { href: "/buyer/lots", labelKey: "sellCrop", defaultLabel: "Available Lots", icon: Package },
   { href: "/buyer/aggregate", labelKey: "fpoAggregation", defaultLabel: "Lot Aggregation", icon: Scale },
+  { href: "/sih-coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
 ];
 
 const adminLinks = [
@@ -40,6 +43,7 @@ const adminLinks = [
   { href: "/admin/transactions", labelKey: "trackSale", defaultLabel: "Transactions", icon: Truck },
   { href: "/admin/grievances", labelKey: "fpoAggregation", defaultLabel: "Grievances", icon: AlertTriangle },
   { href: "/admin/impact", labelKey: "fpoAggregation", defaultLabel: "Impact", icon: BarChart3 },
+  { href: "/sih-coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
 ];
 
 const LANG_LABELS: Record<Language, string> = { en: "EN", mr: "मराठी", hi: "हिंदी" };
@@ -70,7 +74,7 @@ export function AppShell({
               <div className="flex items-center gap-2">
                 <p className="text-base font-bold text-emerald-950">AgriLink Maharashtra</p>
                 <span className="hidden sm:inline-block rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800">
-                  MSINS Pilot
+                  SIH 2026 Prototype
                 </span>
               </div>
               <p className="text-[11px] text-gray-500 hidden md:block">
@@ -79,6 +83,14 @@ export function AppShell({
             </div>
           </Link>
           <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              href="/sih-coverage"
+              className="hidden sm:flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-800 hover:bg-emerald-100"
+            >
+              <CheckSquare className="h-3.5 w-3.5" />
+              SIH Coverage
+            </Link>
+
             {/* Language Selector Dropdown */}
             <div className="relative">
               <button
@@ -188,10 +200,10 @@ export function DemoBanner() {
   return (
     <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50/80 px-4 py-2 text-xs text-amber-900 flex items-center justify-between gap-2 shadow-xs">
       <div>
-        <strong>Demonstration Dataset</strong> — Maharashtra Region Pilot (Nashik, Pune, Nagpur, Solapur, Sangli, Kolhapur).
+        <strong>Demonstration Dataset</strong> — Maharashtra Region Prototype (Nashik, Pune, Nagpur, Solapur, Sangli, Kolhapur).
       </div>
       <span className="hidden sm:inline-block font-semibold bg-amber-100 px-2 py-0.5 rounded text-[10px]">
-        MSINS Govt Pilot
+        SIH 2026 Prototype
       </span>
     </div>
   );

@@ -9,6 +9,7 @@ import {
   ArrowRight,
   BarChart3,
   CheckCircle2,
+  CheckSquare,
   Globe,
   Layers,
   Leaf,
@@ -52,10 +53,13 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
           <div className="flex items-center gap-2 font-medium">
             <span className="bg-emerald-800 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase">SIH26132</span>
-            <span>Government of Maharashtra · Maharashtra State Innovation Society</span>
+            <span>Government of Maharashtra · SIH 2026 Prototype</span>
           </div>
-          <div className="text-emerald-300 text-[11px]">
-            State Agricultural Market Intelligence &amp; Transaction Enablement Platform
+          <div className="text-emerald-300 text-[11px] flex items-center gap-3">
+            <span>State Agricultural Market Intelligence &amp; Transaction Enablement Platform</span>
+            <Link href="/sih-coverage" className="underline font-bold text-amber-300 flex items-center gap-1">
+              <CheckSquare className="h-3 w-3" /> Requirement Coverage
+            </Link>
           </div>
         </div>
       </div>
@@ -73,7 +77,7 @@ export default function HomePage() {
             </div>
             <div>
               <h1 className="text-3xl font-bold sm:text-4xl tracking-tight">AgriLink Maharashtra</h1>
-              <p className="text-sm text-emerald-200">Department of Skills, Employment, Entrepreneurship and Innovation</p>
+              <p className="text-sm text-emerald-200">Prototype developed for SIH 2026 PS 26132</p>
             </div>
           </div>
 
@@ -114,7 +118,7 @@ export default function HomePage() {
 
           <div className="mt-5 flex items-center gap-2 text-xs text-emerald-300 bg-white/5 w-fit px-3.5 py-1.5 rounded-full border border-white/10">
             <MapPin className="h-3.5 w-3.5 text-amber-400" />
-            <span>Pilot Demo Scenario: Ramesh Kumar · Nashik, Maharashtra · 2,000 kg Grade A Tomato · 3-day deadline</span>
+            <span>SIH Demo Scenario: Ramesh Kumar · Nashik, Maharashtra · 2,000 kg Grade A Tomato · 3-day deadline</span>
           </div>
         </div>
       </section>
@@ -212,7 +216,7 @@ export default function HomePage() {
               How AgriLink Fits Into Maharashtra&apos;s Agricultural Ecosystem
             </h2>
             <p className="text-sm text-gray-600 max-w-2xl mx-auto">
-              AgriLink is designed as an intelligence and decision-support layer that integrates existing agricultural market ecosystems rather than replacing them.
+              AgriLink is designed as an intelligence and decision-support layer that can integrate existing agricultural market ecosystems rather than replace them.
             </p>
           </div>
 
@@ -243,32 +247,38 @@ export default function HomePage() {
 
       {/* SIH PS Checklist */}
       <section className="mx-auto max-w-4xl px-4 py-14">
-        <p className="text-center text-xs font-bold uppercase tracking-wider text-emerald-700 mb-2">
-          Problem Statement SIH26132 Compliance
-        </p>
-        <h2 className="text-center text-xl font-bold text-gray-900 mb-8">
-          Every Official PS Requirement — Implemented &amp; Verifiable
-        </h2>
+        <div className="flex flex-col items-center mb-8 space-y-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
+            Problem Statement SIH26132 Compliance
+          </span>
+          <h2 className="text-center text-xl font-bold text-gray-900">
+            SIH26132 Requirement Coverage
+          </h2>
+          <Link href="/sih-coverage" className="text-xs font-bold text-emerald-700 hover:underline flex items-center gap-1">
+            View Complete Requirement Matrix &amp; Feature Links <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
+
         <div className="grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
           {[
-            "Mandi price intelligence & arrivals",
-            "Buyer demand aggregation",
-            "Quality requirements & grading (Grade A/B/C)",
-            "Arrival volume tracking & anomaly alerts",
-            "Transport cost calculator",
-            "Storage cost calculator",
-            "Localized price trends across Maharashtra",
-            "Sale-window recommendation (e.g. 24-48 hrs)",
-            "Verified buyer trust profiles & reliability scores",
-            "Farmer & FPO lot creation",
-            "Digital offer system (accept/reject)",
-            "Logistics coordination & tracking",
-            "Payment tracking & visual transaction timeline",
-            "Dispute / grievance resolution workflow",
-            "FPO aggregation dashboard (bulk lots)",
-            "Buyer-side lot aggregation",
-            "Explainable decision engine (deterministic + LLM)",
-            "Maharashtra state command center dashboard",
+            "🟢 Mandi price intelligence & arrivals",
+            "🟢 Buyer demand aggregation",
+            "🟡 Quality requirements & grading (Grade A/B/C)",
+            "🟢 Arrival volume tracking & anomaly alerts",
+            "🟢 Transport cost calculator",
+            "🟢 Storage cost calculator",
+            "🟢 Localized price trends across Maharashtra",
+            "🟢 Sale-window recommendation (24-48 hrs)",
+            "🟢 Verified buyer trust profiles & reliability scores",
+            "🟢 Farmer & FPO lot creation",
+            "🟢 Digital offer system (accept/reject)",
+            "🟡 Logistics coordination & tracking",
+            "🟡 Payment tracking & visual transaction timeline",
+            "🟢 Dispute / grievance resolution workflow",
+            "🟢 FPO aggregation dashboard (bulk lots)",
+            "🟢 Buyer-side lot aggregation",
+            "🟢 Explainable decision engine (deterministic + LLM)",
+            "🟢 Maharashtra state command center dashboard",
           ].map((item) => (
             <div key={item} className="flex items-center gap-2 py-1">
               <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
@@ -327,8 +337,8 @@ export default function HomePage() {
         <p className="font-semibold text-gray-800 text-sm">
           &ldquo;Farmers don&apos;t just need today&apos;s price. They need the best selling decision.&rdquo;
         </p>
-        <p>AgriLink Maharashtra · Problem Statement SIH26132 · {DEMO_DATA_LABEL}</p>
-        <p>Government of Maharashtra · Maharashtra State Innovation Society</p>
+        <p>AgriLink Maharashtra · Problem Statement SIH26132 · Prototype developed for SIH 2026 PS 26132</p>
+        <p>Government of Maharashtra Demonstration Prototype</p>
       </footer>
     </div>
   );

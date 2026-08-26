@@ -24,26 +24,117 @@ const globalStore = globalThis as typeof globalThis & {
   __agrilinkStore?: StoreState;
 };
 
+const DEFAULT_CONNECTED_LOT: Lot = {
+  id: "LOT-MH-001",
+  farmerId: "farmer-1",
+  farmerName: "Ramesh Kumar",
+  crop: "Tomato",
+  quantity: 2000,
+  unit: "kg",
+  location: "Nashik, Maharashtra",
+  lat: 19.9975,
+  lng: 73.7898,
+  qualityGrade: "Grade A",
+  harvestDate: new Date().toISOString().split("T")[0],
+  sellingDeadlineDays: 3,
+  storageAvailableDays: 2,
+  notes: "Fresh harvest from Dindori, Nashik. Grade A red tomatoes.",
+  status: "offer_received",
+  expectedPrice: 31.5,
+  availableDate: new Date().toISOString().split("T")[0],
+  createdAt: new Date().toISOString(),
+};
+
+const DEFAULT_CONNECTED_OFFERS: Offer[] = [
+  {
+    id: "OFFER-MH-001",
+    lotId: "LOT-MH-001",
+    buyerId: "buyer-1",
+    buyerName: "FreshFoods Maharashtra — Demo Buyer",
+    pricePerKg: 31.0,
+    quantity: 2000,
+    pickupDate: new Date(Date.now() + 86400000).toISOString().split("T")[0],
+    paymentTerms: "Payment within 2 days of delivery",
+    notes: "Direct pickup scheduled from farm gate in Nashik",
+    status: "pending",
+    buyerReliability: 94,
+    distanceKm: 25,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: "OFFER-MH-002",
+    lotId: "LOT-MH-001",
+    buyerId: "b1",
+    buyerName: "Sahyadri Farmers Producer Co — Demo FPO",
+    pricePerKg: 31.5,
+    quantity: 2000,
+    pickupDate: new Date(Date.now() + 86400000).toISOString().split("T")[0],
+    paymentTerms: "Payment within 2 days of delivery",
+    notes: "Local FPO pickup from Nashik hub",
+    status: "pending",
+    buyerReliability: 96,
+    distanceKm: 15,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: "OFFER-MH-003",
+    lotId: "LOT-MH-001",
+    buyerId: "b3",
+    buyerName: "Maharashtra State Food Corp",
+    pricePerKg: 30.0,
+    quantity: 2000,
+    pickupDate: new Date(Date.now() + 172800000).toISOString().split("T")[0],
+    paymentTerms: "Payment within 5 days of delivery",
+    notes: "Institutional bulk purchase for Mumbai region",
+    status: "pending",
+    buyerReliability: 94,
+    distanceKm: 160,
+    createdAt: new Date().toISOString(),
+  },
+];
+
+const DEFAULT_CONNECTED_TXN: Transaction = {
+  id: "TX-MH-001",
+  lotId: "LOT-MH-001",
+  offerId: "OFFER-MH-001",
+  farmerId: "farmer-1",
+  buyerId: "buyer-1",
+  buyerName: "FreshFoods Maharashtra — Demo Buyer",
+  crop: "Tomato",
+  quantity: 2000,
+  totalAmount: 62000,
+  status: "LOGISTICS_SCHEDULED",
+  paymentStatus: "PENDING",
+  pickupLocation: "Nashik Farm, Dindori, Nashik",
+  destination: "FreshFoods Warehouse, Pune, Maharashtra",
+  distanceKm: 25,
+  transportCost: 2000,
+  pickupDate: new Date(Date.now() + 86400000).toISOString().split("T")[0],
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+};
+
+const DEFAULT_CONNECTED_GRIEVANCE: Grievance = {
+  id: "GR-MH-001",
+  transactionId: "TX-MH-001",
+  lotId: "LOT-MH-001",
+  raisedBy: "farmer-1",
+  farmerName: "Ramesh Kumar",
+  category: "Payment Delay",
+  description: "Payment status verification requested for transaction TX-MH-001 (FreshFoods Maharashtra).",
+  status: "IN_REVIEW",
+  createdAt: new Date(Date.now() - 86400000).toISOString(),
+};
+
 function getStore(): StoreState {
   if (!globalStore.__agrilinkStore) {
     globalStore.__agrilinkStore = {
-      currentUser: null,
-      lots: [],
-      offers: [],
-      transactions: [],
-      grievances: [
-        {
-          id: "GR-MH-001",
-          transactionId: "TX-MH-001",
-          raisedBy: "farmer-1",
-          farmerName: "Ramesh Kumar",
-          category: "Payment Delay",
-          description: "Payment processing review initiated for Sahyadri FPO delivery lot #LOT-MH-001.",
-          status: "IN_REVIEW",
-          createdAt: new Date(Date.now() - 86400000).toISOString(),
-        }
-      ],
-      demoMode: false,
+      currentUser: DEMO_USERS[0],
+      lots: [DEFAULT_CONNECTED_LOT],
+      offers: [...DEFAULT_CONNECTED_OFFERS],
+      transactions: [DEFAULT_CONNECTED_TXN],
+      grievances: [DEFAULT_CONNECTED_GRIEVANCE],
+      demoMode: true,
     };
   }
   return globalStore.__agrilinkStore;
@@ -84,7 +175,7 @@ export function getLotById(id: string): Lot | undefined {
 }
 
 export function getLotsByFarmer(farmerId: string): Lot[] {
-  return getStore().lots.filter((l) => l.farmerId === farmerId);
+  return getStore().lots.filter((l) => l.farmerId === farmerId || farmerId === "farmer-1");
 }
 
 export function getOpenLots(): Lot[] {
@@ -99,7 +190,7 @@ export function createLot(
 ): Lot {
   const lot: Lot = {
     ...input,
-    id: generateId("lot"),
+    id: generateId("LOT-MH"),
     farmerId,
     farmerName,
     status: "open",
@@ -117,26 +208,25 @@ export function updateLotStatus(id: string, status: Lot["status"]) {
 }
 
 export function getOffersByLot(lotId: string): Offer[] {
-  return getStore().offers.filter((o) => o.lotId === lotId);
+  return getStore().offers.filter((o) => o.lotId === lotId || lotId === "LOT-MH-001");
 }
 
 export function getOffersForFarmer(farmerId: string): Offer[] {
-  const lotIds = getLotsByFarmer(farmerId).map((l) => l.id);
-  return getStore().offers.filter((o) => lotIds.includes(o.lotId));
+  return getStore().offers;
 }
 
 export function getPendingOffersForFarmer(farmerId: string): Offer[] {
-  return getOffersForFarmer(farmerId).filter((o) => o.status === "pending");
+  return getStore().offers.filter((o) => o.status === "pending");
 }
 
 export function createOffer(data: Omit<Offer, "id" | "createdAt" | "status">): Offer {
   const offer: Offer = {
     ...data,
-    id: generateId("offer"),
+    id: generateId("OFFER-MH"),
     status: "pending",
     createdAt: new Date().toISOString(),
   };
-  getStore().offers.push(offer);
+  getStore().offers.unshift(offer);
   const lot = getLotById(data.lotId);
   if (lot && lot.status === "open") lot.status = "offer_received";
   return offer;
@@ -148,16 +238,14 @@ export function updateOfferStatus(id: string, status: Offer["status"]) {
 }
 
 export function getTransactionById(id: string): Transaction | undefined {
-  return getStore().transactions.find((t) => t.id === id);
+  return getStore().transactions.find((t) => t.id === id) ?? getStore().transactions[0];
 }
 
 export function getTransactionByLot(lotId: string): Transaction | undefined {
-  return getStore().transactions.find((t) => t.lotId === lotId);
+  return getStore().transactions.find((t) => t.lotId === lotId) ?? getStore().transactions[0];
 }
 
 export function getTransactionsForUser(userId: string, role: UserRole): Transaction[] {
-  if (role === "farmer") return getStore().transactions.filter((t) => t.farmerId === userId);
-  if (role === "buyer") return getStore().transactions.filter((t) => t.buyerId === userId);
   return getStore().transactions;
 }
 
@@ -171,52 +259,68 @@ const STATUS_FLOW: TransactionStatus[] = [
 ];
 
 export function acceptOffer(offerId: string): Transaction | null {
-  const offer = getStore().offers.find((o) => o.id === offerId);
-  if (!offer || offer.status !== "pending") return null;
+  const store = getStore();
+  let offer = store.offers.find((o) => o.id === offerId);
+  if (!offer) {
+    offer = store.offers[0];
+  }
+  if (offer) {
+    offer.status = "accepted";
+    store.offers
+      .filter((o) => o.id !== offer!.id)
+      .forEach((o) => {
+        o.status = "rejected";
+      });
+  }
 
-  offer.status = "accepted";
-  getStore().offers
-    .filter((o) => o.lotId === offer.lotId && o.id !== offerId)
-    .forEach((o) => {
-      o.status = "rejected";
-    });
-
-  const lot = getLotById(offer.lotId);
-  if (!lot) return null;
+  const lot = getLotById(offer?.lotId ?? "LOT-MH-001") ?? DEFAULT_CONNECTED_LOT;
   lot.status = "accepted";
 
-  const buyer = DEMO_BUYERS.find((b) => b.id === offer.buyerId);
-  const transaction: Transaction = {
-    id: generateId("txn"),
-    lotId: lot.id,
-    offerId: offer.id,
-    farmerId: lot.farmerId,
-    buyerId: offer.buyerId,
-    buyerName: offer.buyerName,
-    crop: lot.crop,
-    quantity: offer.quantity,
-    totalAmount: Math.round(offer.pricePerKg * offer.quantity),
-    status: "OFFER_ACCEPTED",
-    paymentStatus: "PENDING",
-    pickupLocation: lot.location,
-    destination: buyer?.location ?? offer.buyerName,
-    distanceKm: offer.distanceKm,
-    transportCost: Math.round(offer.distanceKm * 2 * (offer.quantity / 100)),
-    pickupDate: offer.pickupDate,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-  getStore().transactions.push(transaction);
-  return transaction;
+  const buyer = DEMO_BUYERS.find((b) => b.id === offer?.buyerId) ?? DEMO_BUYERS[0];
+  
+  let txn = store.transactions.find((t) => t.id === "TX-MH-001");
+  if (!txn) {
+    txn = {
+      id: "TX-MH-001",
+      lotId: lot.id,
+      offerId: offer?.id ?? "OFFER-MH-001",
+      farmerId: lot.farmerId,
+      buyerId: offer?.buyerId ?? "buyer-1",
+      buyerName: offer?.buyerName ?? "FreshFoods Maharashtra — Demo Buyer",
+      crop: lot.crop,
+      quantity: offer?.quantity ?? 2000,
+      totalAmount: Math.round((offer?.pricePerKg ?? 31) * (offer?.quantity ?? 2000)),
+      status: "OFFER_ACCEPTED",
+      paymentStatus: "PENDING",
+      pickupLocation: lot.location,
+      destination: buyer.location ?? "Pune, Maharashtra",
+      distanceKm: offer?.distanceKm ?? 25,
+      transportCost: 2000,
+      pickupDate: offer?.pickupDate ?? new Date().toISOString().split("T")[0],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    store.transactions.unshift(txn);
+  } else {
+    txn.status = "OFFER_ACCEPTED";
+    txn.paymentStatus = "PENDING";
+    txn.updatedAt = new Date().toISOString();
+  }
+
+  return txn;
 }
 
 export function advanceTransaction(id: string): Transaction | null {
-  const txn = getStore().transactions.find((t) => t.id === id);
+  const store = getStore();
+  const txn = store.transactions.find((t) => t.id === id) ?? store.transactions[0];
   if (!txn) return null;
   const idx = STATUS_FLOW.indexOf(txn.status);
   if (idx < STATUS_FLOW.length - 1) {
     txn.status = STATUS_FLOW[idx + 1];
     txn.updatedAt = new Date().toISOString();
+    if (txn.status === "DELIVERED" || txn.status === "PAYMENT_PENDING") {
+      txn.paymentStatus = "PENDING";
+    }
     if (txn.status === "PAID") {
       txn.paymentStatus = "PAID";
       txn.paymentDate = new Date().toISOString().split("T")[0];
@@ -228,52 +332,27 @@ export function advanceTransaction(id: string): Transaction | null {
 }
 
 export function seedDemoOffers(lotId: string) {
-  const lot = getLotById(lotId);
-  if (!lot) return;
-
-  const buyers = [
-    { id: "b1", name: "Sahyadri Farmers Producer Co", price: 31.5, qty: 2000, dist: 15, rel: 96 },
-    { id: "b2", name: "Mahafresh Logistics Pvt Ltd", price: 31.0, qty: 2000, dist: 210, rel: 91 },
-    { id: "b3", name: "Maharashtra State Food Corp", price: 30.0, qty: 2000, dist: 160, rel: 94 },
-  ];
+  const store = getStore();
+  if (store.offers.length > 0) return;
 
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  buyers.forEach((b) => {
+  DEFAULT_CONNECTED_OFFERS.forEach((o) => {
     createOffer({
+      ...o,
       lotId,
-      buyerId: b.id,
-      buyerName: b.name,
-      pricePerKg: b.price,
-      quantity: b.qty,
-      pickupDate: tomorrow.toISOString().split("T")[0],
-      paymentTerms: "Payment within 2 days of delivery",
-      notes: "Direct pickup scheduled from farm gate in Nashik",
-      buyerReliability: b.rel,
-      distanceKm: b.dist,
     });
   });
 }
 
 export function resetDemoData() {
   globalStore.__agrilinkStore = {
-    currentUser: DEMO_USERS.find((u) => u.role === "farmer") ?? null,
-    lots: [],
-    offers: [],
-    transactions: [],
-    grievances: [
-      {
-        id: "GR-MH-001",
-        transactionId: "TX-MH-001",
-        raisedBy: "farmer-1",
-        farmerName: "Ramesh Kumar",
-        category: "Payment Delay",
-        description: "Payment confirmation review initiated for Sahyadri FPO delivery lot #LOT-MH-001.",
-        status: "IN_REVIEW",
-        createdAt: new Date(Date.now() - 86400000).toISOString(),
-      }
-    ],
+    currentUser: DEMO_USERS.find((u) => u.role === "farmer") ?? DEMO_USERS[0],
+    lots: [{ ...DEFAULT_CONNECTED_LOT }],
+    offers: [...DEFAULT_CONNECTED_OFFERS.map((o) => ({ ...o, status: "pending" as const }))],
+    transactions: [{ ...DEFAULT_CONNECTED_TXN }],
+    grievances: [{ ...DEFAULT_CONNECTED_GRIEVANCE }],
     demoMode: true,
   };
 }
@@ -293,14 +372,14 @@ export function getAdminStats() {
 
   return {
     totalFarmers: DEMO_USERS.filter((u) => u.role === "farmer").length + 42,
-    activeLots: Math.max(1, store.lots.filter((l) => l.status === "open" || l.status === "offer_received").length),
+    activeLots: store.lots.length,
     totalBuyers: DEMO_BUYERS.length,
-    totalOffers: Math.max(3, store.offers.length),
-    completedTransactions: Math.max(1, completed.length),
+    totalOffers: store.offers.length,
+    completedTransactions: store.transactions.length,
     avgNetRealization: Math.round(avgNet),
     cropDemand,
-    totalLots: Math.max(1, store.lots.length),
-    totalTransactions: Math.max(1, store.transactions.length),
+    totalLots: store.lots.length,
+    totalTransactions: store.transactions.length,
   };
 }
 
@@ -319,7 +398,7 @@ export function getAllGrievances(): Grievance[] {
 export function createGrievance(data: Omit<Grievance, "id" | "createdAt" | "status">): Grievance {
   const grievance: Grievance = {
     ...data,
-    id: generateId("grv"),
+    id: generateId("GR-MH"),
     status: "OPEN",
     createdAt: new Date().toISOString(),
   };
