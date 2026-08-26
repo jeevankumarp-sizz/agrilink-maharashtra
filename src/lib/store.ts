@@ -51,7 +51,7 @@ const DEFAULT_CONNECTED_OFFERS: Offer[] = [
     lotId: "LOT-MH-001",
     buyerId: "buyer-1",
     buyerName: "FreshFoods Maharashtra — Demo Buyer",
-    pricePerKg: 31.0,
+    pricePerKg: 31.5,
     quantity: 2000,
     pickupDate: new Date(Date.now() + 86400000).toISOString().split("T")[0],
     paymentTerms: "Payment within 2 days of delivery",
@@ -102,7 +102,7 @@ const DEFAULT_CONNECTED_TXN: Transaction = {
   buyerName: "FreshFoods Maharashtra — Demo Buyer",
   crop: "Tomato",
   quantity: 2000,
-  totalAmount: 62000,
+  totalAmount: 63000,
   status: "LOGISTICS_SCHEDULED",
   paymentStatus: "PENDING",
   pickupLocation: "Nashik Farm, Dindori, Nashik",
@@ -278,6 +278,8 @@ export function acceptOffer(offerId: string): Transaction | null {
 
   const buyer = DEMO_BUYERS.find((b) => b.id === offer?.buyerId) ?? DEMO_BUYERS[0];
   
+  const calculatedTotal = offer ? Math.round(offer.pricePerKg * offer.quantity) : 63000;
+  
   let txn = store.transactions.find((t) => t.id === "TX-MH-001");
   if (!txn) {
     txn = {
@@ -289,7 +291,7 @@ export function acceptOffer(offerId: string): Transaction | null {
       buyerName: offer?.buyerName ?? "FreshFoods Maharashtra — Demo Buyer",
       crop: lot.crop,
       quantity: offer?.quantity ?? 2000,
-      totalAmount: Math.round((offer?.pricePerKg ?? 31) * (offer?.quantity ?? 2000)),
+      totalAmount: calculatedTotal,
       status: "OFFER_ACCEPTED",
       paymentStatus: "PENDING",
       pickupLocation: lot.location,
@@ -302,6 +304,10 @@ export function acceptOffer(offerId: string): Transaction | null {
     };
     store.transactions.unshift(txn);
   } else {
+    txn.offerId = offer?.id ?? txn.offerId;
+    txn.buyerName = offer?.buyerName ?? txn.buyerName;
+    txn.quantity = offer?.quantity ?? txn.quantity;
+    txn.totalAmount = calculatedTotal;
     txn.status = "OFFER_ACCEPTED";
     txn.paymentStatus = "PENDING";
     txn.updatedAt = new Date().toISOString();

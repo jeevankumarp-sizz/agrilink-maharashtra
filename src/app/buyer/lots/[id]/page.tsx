@@ -37,7 +37,7 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
   tomorrow.setDate(tomorrow.getDate() + 1);
 
   const [formData, setFormData] = useState({
-    pricePerKg: '31.00',
+    pricePerKg: '31.50',
     quantity: '2000',
     pickupDate: tomorrow.toISOString().split('T')[0],
     paymentTerms: 'Payment within 2 days of delivery',
@@ -53,7 +53,7 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
           setFormData(prev => ({ 
             ...prev, 
             quantity: details.lot!.quantity.toString(),
-            pricePerKg: details.lot!.expectedPrice ? details.lot!.expectedPrice.toString() : '31.00'
+            pricePerKg: details.lot!.expectedPrice ? details.lot!.expectedPrice.toString() : '31.50'
           }));
         }
       } catch (error) {
@@ -280,7 +280,7 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
                 </div>
 
                 <Button type="submit" size="lg" className="w-full bg-emerald-700 hover:bg-emerald-800 font-bold text-sm" disabled={submitting || success}>
-                  {submitting ? 'Submitting Digital Offer...' : 'Submit Digital Offer (₹62,000)'}
+                  {submitting ? 'Submitting Digital Offer...' : `Submit Digital Offer (${formatCurrency(Number(formData.pricePerKg || 31.5) * Number(formData.quantity || 2000))})`}
                 </Button>
                 
                 {formData.pricePerKg && formData.quantity && !isNaN(Number(formData.pricePerKg)) && !isNaN(Number(formData.quantity)) && (

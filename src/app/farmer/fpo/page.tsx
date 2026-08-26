@@ -22,7 +22,14 @@ export default function FPOPage() {
     { name: "Kumar Gaikwad (Sinnar)", qty: 1800, percentage: 28 },
   ];
 
-  const totalQty = members.reduce((acc, m) => acc + m.qty, 0);
+  const totalQty = members.reduce((acc, m) => acc + m.qty, 0); // 6,500 kg
+  const buyerReqQty = 6000;
+  const matchedQty = 6000;
+  const surplusQty = totalQty - matchedQty; // 500 kg
+  const weightedPrice = 30.50;
+
+  const totalAvailableValue = totalQty * weightedPrice; // ₹1,98,250
+  const matchedPurchaseValue = matchedQty * weightedPrice; // ₹1,83,000
 
   const handleCreateFpoLot = async () => {
     setLoading(true);
@@ -41,7 +48,7 @@ export default function FPOPage() {
           storageAvailableDays: 2,
           notes: "Sahyadri Farmers Producer Co pooled lot from 4 smallholder farmers in Nashik district.",
         },
-        30.5
+        weightedPrice
       );
       if (res.success) {
         setCreated(true);
@@ -55,7 +62,7 @@ export default function FPOPage() {
   };
 
   return (
-    <AppShell role="farmer" userName="Ramesh Kumar">
+    <AppShell role="farmer" userName="Sahyadri Farmers Producer Co">
       <DemoBanner />
 
       <div className="mx-auto max-w-5xl space-y-6 pb-10">
@@ -66,7 +73,7 @@ export default function FPOPage() {
               <Badge variant="verified" className="bg-emerald-100 text-emerald-900 border-emerald-300 font-bold">
                 PRODUCER ORGANISATION
               </Badge>
-              <span className="text-xs text-gray-500">Nashik District Pilot</span>
+              <span className="text-xs text-gray-500">Nashik District FPO Hub</span>
             </div>
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">Sahyadri Farmers Producer Co (FPO)</h1>
             <p className="text-sm text-gray-600 mt-1">
@@ -100,10 +107,10 @@ export default function FPOPage() {
               <CardTitle className="text-base font-bold text-gray-900 flex items-center justify-between">
                 <span className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-emerald-700" />
-                  Smallholder Member Contributions
+                  Smallholder Member Contributions ({members.length} Farmers)
                 </span>
                 <span className="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-full">
-                  Total: {formatNumber(totalQty)} kg
+                  Total Available: {formatNumber(totalQty)} kg
                 </span>
               </CardTitle>
             </CardHeader>
@@ -130,7 +137,7 @@ export default function FPOPage() {
           {/* Buyer Requirement Match */}
           <Card className="border-2 border-emerald-500 bg-emerald-50/30">
             <CardHeader className="pb-2">
-              <Badge variant="success" className="w-fit mb-1 font-bold">100% MATCH FOUND</Badge>
+              <Badge variant="success" className="w-fit mb-1 font-bold">100% DEMAND FULFILLMENT</Badge>
               <CardTitle className="text-base font-bold text-emerald-950">
                 Institutional Buyer Match
               </CardTitle>
@@ -138,51 +145,68 @@ export default function FPOPage() {
             <CardContent className="space-y-3 text-xs">
               <div className="bg-white p-3 rounded-xl border border-emerald-200 space-y-1">
                 <p className="font-bold text-gray-900">Maharashtra State Food Corp</p>
-                <p className="text-gray-600">Requirement: 6,000 kg Grade A Tomato</p>
-                <p className="text-emerald-700 font-bold text-sm">Quote: ₹30.50/kg</p>
+                <p className="text-gray-600">Contract Rate: ₹30.50/kg</p>
+                <div className="grid grid-cols-2 gap-1 pt-1 text-[11px] border-t border-gray-100 mt-1">
+                  <div>
+                    <span className="text-gray-500 block">FPO Available:</span>
+                    <span className="font-bold text-gray-900">{formatNumber(totalQty)} kg</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block">Buyer Needed:</span>
+                    <span className="font-bold text-gray-900">{formatNumber(buyerReqQty)} kg</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block">Matched Contract:</span>
+                    <span className="font-bold text-emerald-800">{formatNumber(matchedQty)} kg</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 block">Unmatched Surplus:</span>
+                    <span className="font-bold text-amber-800">{formatNumber(surplusQty)} kg</span>
+                  </div>
+                </div>
               </div>
 
-              <div className="space-y-1.5 text-emerald-900 bg-emerald-100/60 p-3 rounded-xl border border-emerald-200">
+              <div className="space-y-1 text-emerald-900 bg-emerald-100/60 p-3 rounded-xl border border-emerald-200 text-[11px]">
                 <p className="font-bold flex items-center gap-1">
                   <CheckCircle2 className="h-4 w-4 text-emerald-700" />
-                  AI Aggregation Insight:
+                  AI Aggregation Result:
                 </p>
-                <p className="leading-relaxed text-[11px]">
-                  FPO total (6,500 kg) completely satisfies institutional buyer requirement of 6,000 kg.
+                <p className="leading-relaxed">
+                  FPO lot ({formatNumber(totalQty)} kg) fulfills 100% of buyer requirement ({formatNumber(buyerReqQty)} kg), with {formatNumber(surplusQty)} kg remaining for local retail.
                 </p>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Benefits Card */}
+        {/* Financial Valuation Breakdown */}
         <Card>
           <CardHeader>
             <CardTitle className="text-base font-bold text-gray-900 flex items-center gap-2">
               <Scale className="h-5 w-5 text-emerald-700" />
-              FPO Aggregation Financial Benefits
+              FPO Valuation &amp; Financial Payout Breakdown
             </CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-            <div className="bg-gray-50 p-4 rounded-xl space-y-1">
-              <p className="text-xs text-gray-500">Negotiation Premium</p>
-              <p className="text-lg font-bold text-emerald-700">+₹1.20/kg</p>
-              <p className="text-[11px] text-gray-400">Over individual mandi price</p>
+            <div className="bg-gray-50 p-4 rounded-xl space-y-1 border">
+              <p className="text-xs text-gray-500 font-medium">Negotiation Premium</p>
+              <p className="text-lg font-extrabold text-emerald-700">+₹1.20/kg</p>
+              <p className="text-[11px] text-gray-500">Over individual mandi price</p>
             </div>
-            <div className="bg-gray-50 p-4 rounded-xl space-y-1">
-              <p className="text-xs text-gray-500">Shared Transport</p>
-              <p className="text-lg font-bold text-emerald-700">−18% Cost</p>
-              <p className="text-[11px] text-gray-400">Bulk logistics optimization</p>
-            </div>
-            <div className="bg-gray-50 p-4 rounded-xl space-y-1">
-              <p className="text-xs text-gray-500">Quality Assured</p>
-              <p className="text-lg font-bold text-emerald-700">Grade A</p>
-              <p className="text-[11px] text-gray-400">Bulk self-assessment</p>
+            <div className="bg-gray-50 p-4 rounded-xl space-y-1 border">
+              <p className="text-xs text-gray-500 font-medium">Shared Transport Savings</p>
+              <p className="text-lg font-extrabold text-emerald-700">−18% Logistics</p>
+              <p className="text-[11px] text-gray-500">Bulk dispatch efficiency</p>
             </div>
             <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 space-y-1">
-              <p className="text-xs text-emerald-800 font-medium">Combined Lot Value</p>
-              <p className="text-xl font-extrabold text-emerald-800">{formatCurrency(totalQty * 30.5)}</p>
-              <p className="text-[11px] text-emerald-700">Net payout for FPO</p>
+              <p className="text-xs text-emerald-900 font-bold">Matched Contract Value</p>
+              <p className="text-xl font-extrabold text-emerald-800">{formatCurrency(matchedPurchaseValue)}</p>
+              <p className="text-[11px] text-emerald-700">6,000 kg × ₹30.50/kg</p>
+            </div>
+            <div className="bg-emerald-900 text-white p-4 rounded-xl shadow-sm space-y-1">
+              <p className="text-xs text-emerald-200 font-bold">Total FPO Lot Value</p>
+              <p className="text-xl font-extrabold text-amber-300">{formatCurrency(totalAvailableValue)}</p>
+              <p className="text-[11px] text-emerald-200">6,500 kg total produce</p>
             </div>
           </CardContent>
         </Card>

@@ -154,7 +154,7 @@ export default function CreateLotPage() {
             <div>
               <p className="font-semibold text-gray-900 text-sm flex items-center gap-1.5">
                 <Sparkles className="h-4 w-4 text-emerald-700" />
-                Farmer Voice Assistant
+                Farmer Voice Assistant — Prototype
               </p>
               <p className="text-xs text-gray-600">
                 {voiceText || "Tap mic and say e.g. '2000 kg Grade A Tomatoes in Nashik'"}

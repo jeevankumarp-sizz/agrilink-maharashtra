@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
@@ -16,33 +16,43 @@ import {
   Scale,
   Globe,
   CheckSquare,
+  ShoppingCart,
+  ShieldCheck,
+  Building2,
+  Lock,
 } from "lucide-react";
 import { useState } from "react";
 import { Language, t } from "@/lib/translations";
+import { Button } from "@/components/ui/button";
 
 const farmerLinks = [
-  { href: "/farmer", labelKey: "sellCrop", defaultLabel: "Dashboard", icon: LayoutDashboard },
+  { href: "/farmer", labelKey: "dashboard", defaultLabel: "Dashboard", icon: LayoutDashboard },
   { href: "/farmer/create-lot", labelKey: "sellCrop", defaultLabel: "Sell My Crop", icon: Package },
-  { href: "/farmer/market", labelKey: "checkPrices", defaultLabel: "Market Prices", icon: TrendingUp },
-  { href: "/farmer/offers", labelKey: "findBuyers", defaultLabel: "My Offers", icon: Users },
+  { href: "/farmer/market", labelKey: "checkPrices", defaultLabel: "Check Market Prices", icon: TrendingUp },
+  { href: "/farmer/recommendations", labelKey: "findBuyers", defaultLabel: "Find Buyers", icon: Users },
+  { href: "/farmer/offers", labelKey: "myOffers", defaultLabel: "My Offers", icon: ShoppingCart },
+  { href: "/farmer/track", labelKey: "trackSale", defaultLabel: "Track My Sale", icon: Truck },
   { href: "/farmer/fpo", labelKey: "fpoAggregation", defaultLabel: "FPO Aggregation", icon: Scale },
   { href: "/sih-coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
 ];
 
 const buyerLinks = [
-  { href: "/buyer", labelKey: "findBuyers", defaultLabel: "Dashboard", icon: LayoutDashboard },
-  { href: "/buyer/lots", labelKey: "sellCrop", defaultLabel: "Available Lots", icon: Package },
-  { href: "/buyer/aggregate", labelKey: "fpoAggregation", defaultLabel: "Lot Aggregation", icon: Scale },
+  { href: "/buyer", labelKey: "dashboard", defaultLabel: "Dashboard", icon: LayoutDashboard },
+  { href: "/buyer/lots", labelKey: "availableLots", defaultLabel: "Available Lots", icon: Package },
+  { href: "/buyer/aggregate", labelKey: "aiLotAggregation", defaultLabel: "AI Lot Aggregation", icon: Scale },
+  { href: "/buyer/procurement", labelKey: "myProcurement", defaultLabel: "My Procurement", icon: ShoppingCart },
+  { href: "/admin/transactions", labelKey: "transactions", defaultLabel: "Transactions", icon: Truck },
   { href: "/sih-coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
 ];
 
 const adminLinks = [
   { href: "/admin", labelKey: "commandCenter", defaultLabel: "Command Center", icon: LayoutDashboard },
-  { href: "/admin/markets", labelKey: "checkPrices", defaultLabel: "Markets", icon: TrendingUp },
-  { href: "/admin/buyers", labelKey: "findBuyers", defaultLabel: "Buyers", icon: Users },
-  { href: "/admin/transactions", labelKey: "trackSale", defaultLabel: "Transactions", icon: Truck },
-  { href: "/admin/grievances", labelKey: "fpoAggregation", defaultLabel: "Grievances", icon: AlertTriangle },
-  { href: "/admin/impact", labelKey: "fpoAggregation", defaultLabel: "Impact", icon: BarChart3 },
+  { href: "/admin/markets", labelKey: "marketIntelligence", defaultLabel: "Market Intelligence", icon: TrendingUp },
+  { href: "/admin/buyers", labelKey: "buyerRegistry", defaultLabel: "Buyer Registry", icon: Building2 },
+  { href: "/farmer/fpo", labelKey: "fpoInsights", defaultLabel: "FPO Insights", icon: Scale },
+  { href: "/admin/transactions", labelKey: "transactions", defaultLabel: "Transactions", icon: Truck },
+  { href: "/admin/grievances", labelKey: "grievances", defaultLabel: "Grievances", icon: AlertTriangle },
+  { href: "/admin/impact", labelKey: "impactDashboard", defaultLabel: "Impact Dashboard", icon: BarChart3 },
   { href: "/sih-coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
 ];
 
@@ -58,9 +68,44 @@ export function AppShell({
   userName: string;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const links = role === "farmer" ? farmerLinks : role === "buyer" ? buyerLinks : adminLinks;
   const [lang, setLang] = useState<Language>("en");
   const [langOpen, setLangOpen] = useState(false);
+
+  // Role Guarding (PART 21)
+  const isFarmerRoute = pathname.startsWith("/farmer");
+  const isBuyerRoute = pathname.startsWith("/buyer");
+  const isAdminRoute = pathname.startsWith("/admin");
+
+  const accessDenied =
+    (role === "farmer" && isBuyerRoute) ||
+    (role === "buyer" && isFarmerRoute && pathname !== "/farmer/fpo"); // Allow FPO insights if needed
+
+  if (accessDenied) {
+    return (
+      <div className="min-h-screen bg-[#f4f7f4] flex items-center justify-center p-6">
+        <div className="max-w-md w-full bg-white rounded-2xl p-8 border border-red-200 text-center shadow-lg space-y-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600 mx-auto">
+            <Lock className="h-6 w-6" />
+          </div>
+          <h2 className="text-xl font-bold text-gray-900">Access Restricted</h2>
+          <p className="text-xs text-gray-600">
+            Your current role (<strong>{role.toUpperCase()}</strong>) cannot access <code>{pathname}</code>.
+            Please switch roles to proceed.
+          </p>
+          <div className="flex gap-2 justify-center pt-2">
+            <Button onClick={() => router.push(`/${role}`)} variant="outline" size="sm" className="font-bold">
+              Go to My Dashboard
+            </Button>
+            <Button onClick={() => router.push("/")} className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold" size="sm">
+              Switch Role
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f4f7f4]">
@@ -122,9 +167,9 @@ export function AppShell({
                 </div>
               )}
             </div>
-            <span className="hidden text-xs text-gray-600 sm:block font-medium">{userName}</span>
+            <span className="hidden text-xs text-gray-700 sm:block font-bold">{userName}</span>
             <RoleBadge role={role} />
-            <Link href="/" className="text-xs font-medium text-emerald-700 hover:underline">
+            <Link href="/" className="text-xs font-semibold text-emerald-700 hover:underline">
               {t("switchRole", lang)}
             </Link>
           </div>
@@ -139,13 +184,13 @@ export function AppShell({
                 key={href}
                 href={href}
                 className={cn(
-                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
-                  pathname === href || pathname.startsWith(href + "/")
+                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-bold transition-colors",
+                  pathname === href || (href !== "/farmer" && href !== "/buyer" && href !== "/admin" && pathname.startsWith(href))
                     ? "bg-emerald-700 text-white shadow-xs"
-                    : "text-gray-600 hover:bg-emerald-50 hover:text-emerald-800"
+                    : "text-gray-700 hover:bg-emerald-50 hover:text-emerald-800"
                 )}
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-4 w-4 shrink-0" />
                 {t(labelKey, lang) || defaultLabel}
               </Link>
             ))}
@@ -163,7 +208,7 @@ export function AppShell({
               href={href}
               className={cn(
                 "flex flex-col items-center gap-1 px-2 py-1 text-[11px] font-medium",
-                pathname === href || pathname.startsWith(href + "/")
+                pathname === href || (href !== "/farmer" && href !== "/buyer" && href !== "/admin" && pathname.startsWith(href))
                   ? "text-emerald-700 font-bold"
                   : "text-gray-500"
               )}
@@ -179,19 +224,20 @@ export function AppShell({
 }
 
 function RoleBadge({ role }: { role: string }) {
-  const colors = {
-    farmer: "bg-emerald-100 text-emerald-800 border-emerald-200",
-    buyer: "bg-blue-100 text-blue-800 border-blue-200",
-    admin: "bg-purple-100 text-purple-800 border-purple-200",
+  const badgeConfig = {
+    farmer: { label: "FARMER", style: "bg-emerald-100 text-emerald-900 border-emerald-300 font-bold" },
+    buyer: { label: "BUYER", style: "bg-blue-100 text-blue-900 border-blue-300 font-bold" },
+    admin: { label: "GOVERNMENT", style: "bg-purple-100 text-purple-900 border-purple-300 font-bold" },
   };
+  const config = badgeConfig[role as keyof typeof badgeConfig] ?? { label: role.toUpperCase(), style: "bg-gray-100 text-gray-800" };
   return (
     <span
       className={cn(
-        "rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize border",
-        colors[role as keyof typeof colors]
+        "rounded-full px-2.5 py-0.5 text-[10px] uppercase border tracking-wide",
+        config.style
       )}
     >
-      {role}
+      {config.label}
     </span>
   );
 }
@@ -200,7 +246,7 @@ export function DemoBanner() {
   return (
     <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50/80 px-4 py-2 text-xs text-amber-900 flex items-center justify-between gap-2 shadow-xs">
       <div>
-        <strong>Demonstration Dataset</strong> — Maharashtra Region Prototype (Nashik, Pune, Nagpur, Solapur, Sangli, Kolhapur).
+        <strong>Source: Demonstration Dataset</strong> — Region: Maharashtra (Nashik, Pune, Nagpur, Solapur, Sangli, Kolhapur) · Status: Prototype Data.
       </div>
       <span className="hidden sm:inline-block font-semibold bg-amber-100 px-2 py-0.5 rounded text-[10px]">
         SIH 2026 Prototype

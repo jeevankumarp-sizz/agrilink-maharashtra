@@ -19,7 +19,7 @@ export default function BuyerAggregatePage() {
   const avgPrice = totalCost / totalQty;
 
   return (
-    <AppShell role="buyer" userName="Sahyadri Farmers Producer Co">
+    <AppShell role="buyer" userName="FreshFoods Maharashtra — Demo Buyer">
       <DemoBanner />
 
       <div className="mx-auto max-w-5xl space-y-6 pb-10">

@@ -7,7 +7,7 @@ import { AppShell, DemoBanner, LoadingSpinner, EmptyState } from '@/components/l
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { cn, formatCurrencyPerKg, formatNumber } from '@/lib/utils';
+import { cn, formatCurrency, formatCurrencyPerKg, formatNumber } from '@/lib/utils';
 import { MapPin, ShieldCheck, Check, X, ArrowRight } from 'lucide-react';
 import type { Lot, Offer, User } from '@/lib/types';
 import Link from 'next/link';
@@ -149,7 +149,7 @@ export default function OffersManagementPage() {
                           onClick={() => handleAccept(offer.id)}
                         >
                           <Check className="h-4 w-4 mr-1" />
-                          Accept Offer (₹62,000)
+                          Accept Offer ({formatCurrency(offer.pricePerKg * offer.quantity)})
                         </Button>
                         <Button 
                           variant="outline" 
