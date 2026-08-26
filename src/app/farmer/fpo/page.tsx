@@ -1,13 +1,20 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { AppShell, DemoBanner } from "@/components/layout/app-shell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency, formatNumber } from "@/lib/utils";
+import { actionCreateLot } from "@/actions/agri-actions";
 import { ArrowRight, CheckCircle2, Package, Scale, TrendingUp, Truck, Users } from "lucide-react";
 
 export default function FPOPage() {
+  const router = useRouter();
+  const [created, setCreated] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const members = [
     { name: "Ramesh Kumar (Dindori)", qty: 2000, percentage: 31 },
     { name: "Suresh Patil (Panchavati)", qty: 1500, percentage: 23 },
@@ -16,6 +23,36 @@ export default function FPOPage() {
   ];
 
   const totalQty = members.reduce((acc, m) => acc + m.qty, 0);
+
+  const handleCreateFpoLot = async () => {
+    setLoading(true);
+    try {
+      const res = await actionCreateLot(
+        {
+          crop: "Tomato",
+          quantity: totalQty,
+          unit: "kg",
+          location: "Nashik Region, Maharashtra",
+          lat: 19.9975,
+          lng: 73.7898,
+          qualityGrade: "Grade A",
+          harvestDate: new Date().toISOString().split("T")[0],
+          sellingDeadlineDays: 3,
+          storageAvailableDays: 2,
+          notes: "Sahyadri Farmers Producer Co pooled lot from 4 smallholder farmers in Nashik district.",
+        },
+        30.5
+      );
+      if (res.success) {
+        setCreated(true);
+        alert(`Aggregated FPO Lot ${res.lot.id} (${formatNumber(totalQty)} kg) created successfully! Sent to Buyer Portal.`);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <AppShell role="farmer" userName="Ramesh Kumar">
@@ -37,13 +74,23 @@ export default function FPOPage() {
             </p>
           </div>
           <Button
-            onClick={() => alert("Aggregated FPO Lot created! Sent to Maharashtra State Food Corp & Sahyadri Procurement.")}
+            onClick={handleCreateFpoLot}
+            disabled={loading || created}
             size="lg"
             className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold"
           >
-            Create Aggregated Lot ({formatNumber(totalQty)} kg)
+            {loading ? "Creating Lot..." : created ? "✓ Aggregated Lot Created" : `Create Aggregated Lot (${formatNumber(totalQty)} kg)`}
           </Button>
         </div>
+
+        {created && (
+          <div className="p-4 bg-emerald-100 border border-emerald-300 text-emerald-950 rounded-xl font-bold text-xs flex items-center justify-between">
+            <span>✓ Aggregated FPO Lot (6,500 kg Grade A Tomato) created and visible in Buyer Portal!</span>
+            <Button size="sm" variant="outline" onClick={() => router.push("/buyer")} className="bg-white font-bold text-xs">
+              View in Buyer Portal →
+            </Button>
+          </div>
+        )}
 
         {/* Top Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
