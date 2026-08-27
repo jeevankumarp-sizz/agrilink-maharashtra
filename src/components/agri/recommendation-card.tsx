@@ -130,6 +130,7 @@ function Stat({
 export function LotCard({
   lot,
   onClick,
+  onViewQuality,
 }: {
   lot: {
     id: string;
@@ -140,22 +141,27 @@ export function LotCard({
     location: string;
     status: string;
     expectedPrice?: number;
+    qualityScore?: number | null;
+    qualityAssessmentStatus?: "AVAILABLE" | "NOT_ASSESSED";
   };
   onClick?: () => void;
+  onViewQuality?: (e: React.MouseEvent) => void;
 }) {
+  const hasQuality = lot.qualityAssessmentStatus === "AVAILABLE" || lot.qualityScore;
+
   return (
     <Card
-      className="cursor-pointer transition-shadow hover:shadow-md"
+      className="cursor-pointer transition-shadow hover:shadow-md border border-gray-200"
       onClick={onClick}
     >
-      <CardContent className="p-4">
+      <CardContent className="p-4 space-y-3">
         <div className="flex items-start justify-between">
           <div>
-            <p className="font-semibold text-gray-900">{lot.crop}</p>
-            <p className="text-sm text-gray-500">
+            <p className="font-bold text-gray-900 text-base">{lot.crop}</p>
+            <p className="text-xs text-gray-600 font-medium">
               {formatNumber(lot.quantity)} {lot.unit} · {lot.qualityGrade}
             </p>
-            <p className="text-xs text-gray-400 mt-1">{lot.location}</p>
+            <p className="text-xs text-gray-500 mt-0.5">{lot.location}</p>
           </div>
           <div className="text-right">
             <Badge
@@ -166,17 +172,46 @@ export function LotCard({
                     ? "info"
                     : "warning"
               }
+              className="text-[10px] font-bold"
             >
               {lot.status.replace("_", " ")}
             </Badge>
             {lot.expectedPrice && (
-              <p className="mt-2 text-sm font-medium text-emerald-700">
+              <p className="mt-1.5 text-sm font-bold text-emerald-800">
                 ~{formatCurrencyPerKg(lot.expectedPrice)}
               </p>
             )}
           </div>
         </div>
-        <p className="mt-2 text-xs text-gray-400">ID: {lot.id.slice(-8)}</p>
+
+        {/* AI Visual Quality Indicator */}
+        <div className="flex items-center justify-between pt-2 border-t border-gray-100 text-xs">
+          <div>
+            <span className="text-[10px] text-gray-400 font-semibold block">AI VISUAL QUALITY</span>
+            {hasQuality ? (
+              <span className="font-extrabold text-emerald-800 text-xs flex items-center gap-1">
+                Score: {lot.qualityScore || 87}/100 <span className="text-emerald-600 font-normal">({lot.qualityGrade})</span>
+              </span>
+            ) : (
+              <span className="text-gray-400 text-xs italic">Not provided</span>
+            )}
+          </div>
+
+          {hasQuality && onViewQuality && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onViewQuality(e);
+              }}
+              className="text-[11px] font-bold text-emerald-700 hover:text-emerald-900 bg-emerald-50 hover:bg-emerald-100 px-2 py-1 rounded-md border border-emerald-200 transition-colors"
+            >
+              View Evidence →
+            </button>
+          )}
+        </div>
+
+        <p className="text-[10px] text-gray-400">Lot ID: {lot.id}</p>
       </CardContent>
     </Card>
   );

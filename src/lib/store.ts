@@ -34,7 +34,6 @@ const DEFAULT_CONNECTED_LOT: Lot = {
   location: "Nashik, Maharashtra",
   lat: 19.9975,
   lng: 73.7898,
-  qualityGrade: "Grade A",
   harvestDate: new Date().toISOString().split("T")[0],
   sellingDeadlineDays: 3,
   storageAvailableDays: 2,
@@ -43,6 +42,21 @@ const DEFAULT_CONNECTED_LOT: Lot = {
   expectedPrice: 31.5,
   availableDate: new Date().toISOString().split("T")[0],
   createdAt: new Date().toISOString(),
+  qualityAssessmentId: "QA-MH-001",
+  qualityScore: 87,
+  qualityConfidence: 89,
+  qualityGrade: "Grade A",
+  qualityImage: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=800&auto=format&fit=crop",
+  qualityAssessmentStatus: "AVAILABLE",
+  qualityParameters: {
+    colourUniformity: 92,
+    sizeUniformity: 84,
+    visibleDefectsPct: 6,
+    surfaceDamagePct: 4,
+    ripenessPct: 88,
+  },
+  visibleDefects: ["Minor surface blemishes", "Slight size variation"],
+  qualityExplanation: "The image shows relatively uniform colour and limited visible surface damage. Minor blemishes and size variation slightly reduce the visual quality score.",
 };
 
 const DEFAULT_CONNECTED_OFFERS: Offer[] = [

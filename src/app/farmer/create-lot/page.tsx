@@ -6,10 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DEMO_SCENARIO, NASHIK } from "@/lib/demo-data";
-import type { CropName, LotInput, QualityGrade } from "@/lib/types";
-import { Loader2, Mic, MicOff, Sparkles, CheckCircle2 } from "lucide-react";
+import type { CropName, LotInput, QualityAssessment, QualityGrade } from "@/lib/types";
+import { Loader2, Mic, MicOff, Sparkles, CheckCircle2, Eye } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { AiQualityAssessment } from "@/components/agri/ai-quality-assessment";
 
 const CROPS: CropName[] = ["Tomato", "Onion", "Potato"];
 const GRADES: QualityGrade[] = ["Grade A", "Grade B", "Grade C"];
@@ -19,6 +20,8 @@ export default function CreateLotPage() {
   const [loading, setLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [voiceText, setVoiceText] = useState("");
+  const [assessment, setAssessment] = useState<QualityAssessment | null>(null);
+
   const [form, setForm] = useState<LotInput>({
     crop: "Tomato",
     quantity: 2000,
@@ -31,6 +34,7 @@ export default function CreateLotPage() {
     sellingDeadlineDays: 3,
     storageAvailableDays: 2,
     notes: "",
+    qualityAssessmentStatus: "NOT_ASSESSED",
   });
 
   function loadDemoValues() {
@@ -46,6 +50,20 @@ export default function CreateLotPage() {
       sellingDeadlineDays: DEMO_SCENARIO.sellingDeadlineDays,
       storageAvailableDays: DEMO_SCENARIO.storageAvailableDays,
       notes: DEMO_SCENARIO.notes,
+      qualityAssessmentId: "QA-MH-001",
+      qualityScore: 87,
+      qualityConfidence: 89,
+      qualityImage: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=800&auto=format&fit=crop",
+      qualityAssessmentStatus: "AVAILABLE",
+      qualityParameters: {
+        colourUniformity: 92,
+        sizeUniformity: 84,
+        visibleDefectsPct: 6,
+        surfaceDamagePct: 4,
+        ripenessPct: 88,
+      },
+      visibleDefects: ["Minor surface blemishes", "Slight size variation"],
+      qualityExplanation: "The image shows relatively uniform colour and limited visible surface damage. Minor blemishes and size variation slightly reduce the visual quality score.",
     });
   }
 
@@ -110,6 +128,22 @@ export default function CreateLotPage() {
     }
   }
 
+  const handleApplyAssessment = (result: QualityAssessment) => {
+    setAssessment(result);
+    setForm(prev => ({
+      ...prev,
+      qualityGrade: result.grade,
+      qualityAssessmentId: result.id,
+      qualityScore: result.qualityScore,
+      qualityConfidence: result.confidence,
+      qualityImage: result.originalImage,
+      qualityAssessmentStatus: "AVAILABLE",
+      qualityParameters: result.visualParameters,
+      visibleDefects: result.visibleDefects,
+      qualityExplanation: result.explanation,
+    }));
+  };
+
   async function handleAnalyze(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -126,8 +160,8 @@ export default function CreateLotPage() {
   return (
     <AppShell role="farmer" userName="Ramesh Kumar">
       <DemoBanner />
-      <div className="mx-auto max-w-2xl">
-        <div className="mb-6 flex items-center justify-between">
+      <div className="mx-auto max-w-2xl space-y-6 pb-12">
+        <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Sell My Crop</h1>
             <p className="text-gray-500 text-sm">Enter crop details to calculate your best selling option</p>
@@ -138,7 +172,7 @@ export default function CreateLotPage() {
         </div>
 
         {/* Voice Input Assist Bar */}
-        <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4 flex items-center justify-between gap-4">
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <button
               type="button"
@@ -163,9 +197,23 @@ export default function CreateLotPage() {
           </div>
         </div>
 
+        {/* Optional AI Visual Quality Assessment Section */}
+        <AiQualityAssessment
+          crop={form.crop}
+          onApplyAssessment={handleApplyAssessment}
+          initialAssessment={assessment}
+        />
+
         <Card>
           <CardHeader>
-            <CardTitle>Crop Lot Details</CardTitle>
+            <CardTitle className="flex items-center justify-between">
+              <span>Crop Lot Details</span>
+              {form.qualityAssessmentStatus === "AVAILABLE" && (
+                <Badge variant="verified" className="bg-emerald-100 text-emerald-900 border-emerald-300 font-bold text-xs">
+                  ✓ AI Quality Attached ({form.qualityScore}/100)
+                </Badge>
+              )}
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleAnalyze} className="space-y-5">
@@ -230,11 +278,18 @@ export default function CreateLotPage() {
                     </button>
                   ))}
                 </div>
-                <div className="mt-2 text-xs text-gray-500 bg-gray-50 p-2.5 rounded-xl flex items-center gap-1.5 border border-gray-100">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span>
-                    Grade A: Firm, uniform color, &lt;5% defect. Accepted by Sahyadri FPO &amp; exporters.
-                  </span>
+                <div className="mt-2 text-xs text-gray-500 bg-gray-50 p-2.5 rounded-xl flex items-center justify-between border border-gray-100">
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                    <span>
+                      Grade A: Firm, uniform color, &lt;5% defect.
+                    </span>
+                  </div>
+                  {form.qualityScore && (
+                    <span className="font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
+                      AI Score: {form.qualityScore}/100
+                    </span>
+                  )}
                 </div>
               </Field>
 

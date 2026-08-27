@@ -20,9 +20,10 @@ import { Badge } from '@/components/ui/badge';
 import { actionGetLotDetails, actionSubmitOffer } from '@/actions/agri-actions';
 import { formatCurrency, formatCurrencyPerKg, formatNumber } from '@/lib/utils';
 import type { Lot } from '@/lib/types';
-import { MapPin, Scale, Star, ArrowLeft } from 'lucide-react';
+import { MapPin, Scale, Star, ArrowLeft, Sparkles, Eye } from 'lucide-react';
 import Link from 'next/link';
 import { BuyerTrustCard } from '@/components/agri/buyer-trust-card';
+import { QualityVerificationModal } from '@/components/agri/quality-verification-modal';
 
 export default function MakeOfferPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
@@ -32,6 +33,7 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
   const [submitting, setSubmitting] = useState(false);
   const [lot, setLot] = useState<Lot | null>(null);
   const [success, setSuccess] = useState(false);
+  const [qualityModalOpen, setQualityModalOpen] = useState(false);
 
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -129,6 +131,8 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
     );
   }
 
+  const hasQuality = lot.qualityAssessmentStatus === "AVAILABLE" || lot.qualityScore;
+
   return (
     <AppShell role="buyer" userName="FreshFoods Maharashtra">
       <DemoBanner />
@@ -165,7 +169,7 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
                 </Badge>
               </div>
             </CardHeader>
-            <CardContent className="pt-6 space-y-4">
+            <CardContent className="pt-6 space-y-5">
               <div className="grid grid-cols-2 gap-y-4 text-xs">
                 <div className="flex items-start gap-2">
                   <Scale className="h-4 w-4 text-emerald-600 mt-0.5" />
@@ -191,8 +195,44 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
                   </div>
                 </div>
               </div>
+
+              {/* AI Visual Quality Evidence Panel */}
+              <div className="p-3.5 bg-emerald-50/80 rounded-xl border border-emerald-200 space-y-2 text-xs">
+                <div className="flex justify-between items-center">
+                  <span className="font-bold text-emerald-950 flex items-center gap-1.5">
+                    <Sparkles className="h-4 w-4 text-emerald-700" /> AI Visual Quality
+                  </span>
+                  {hasQuality ? (
+                    <Badge variant="verified" className="bg-emerald-700 text-white font-bold text-[10px]">
+                      {lot.qualityScore || 87}/100 ({lot.qualityGrade})
+                    </Badge>
+                  ) : (
+                    <span className="text-gray-400 text-xs italic">Not provided</span>
+                  )}
+                </div>
+
+                {hasQuality ? (
+                  <div className="space-y-2 pt-1">
+                    <p className="text-[11px] text-gray-600">
+                      Visual Assessment Confidence: <strong>{lot.qualityConfidence || 89}%</strong>
+                    </p>
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={() => setQualityModalOpen(true)}
+                      className="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs"
+                    >
+                      <Eye className="h-3.5 w-3.5" /> View Quality Evidence &amp; Photos
+                    </Button>
+                  </div>
+                ) : (
+                  <p className="text-[11px] text-gray-500">
+                    This crop lot was created without an AI visual quality assessment.
+                  </p>
+                )}
+              </div>
               
-              <div className="pt-4 border-t border-gray-100 text-xs">
+              <div className="pt-2 border-t border-gray-100 text-xs">
                 <p className="text-gray-500">Farmer</p>
                 <p className="font-bold text-gray-900 text-sm">{lot.farmerName}</p>
               </div>
@@ -295,6 +335,15 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
             </CardContent>
           </Card>
         </div>
+
+        {/* Quality Verification Modal */}
+        {qualityModalOpen && lot && (
+          <QualityVerificationModal
+            lot={lot}
+            isOpen={qualityModalOpen}
+            onClose={() => setQualityModalOpen(false)}
+          />
+        )}
       </div>
     </AppShell>
   );

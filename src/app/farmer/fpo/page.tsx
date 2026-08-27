@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency, formatNumber } from "@/lib/utils";
 import { actionCreateLot } from "@/actions/agri-actions";
-import { ArrowRight, CheckCircle2, Package, Scale, TrendingUp, Truck, Users } from "lucide-react";
+import { ArrowRight, CheckCircle2, Package, Scale, Sparkles, TrendingUp, Truck, Users } from "lucide-react";
 
 export default function FPOPage() {
   const router = useRouter();
@@ -175,6 +175,35 @@ export default function FPOPage() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Financial Valuation Breakdown */}
+        {/* Quality Distribution Breakdown */}
+        <Card className="border border-emerald-100">
+          <CardHeader className="bg-emerald-50/40 pb-3">
+            <CardTitle className="text-base font-bold text-gray-900 flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-emerald-700" />
+              FPO Pooled Lots AI Quality Distribution
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+            <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-200 text-center">
+              <span className="text-gray-500 text-[10px] font-semibold block">AI Grade A Lots</span>
+              <span className="text-lg font-extrabold text-emerald-800">4,800 kg (74%)</span>
+            </div>
+            <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-200 text-center">
+              <span className="text-gray-500 text-[10px] font-semibold block">AI Grade B Lots</span>
+              <span className="text-lg font-extrabold text-emerald-800">1,700 kg (26%)</span>
+            </div>
+            <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-200 text-center">
+              <span className="text-gray-500 text-[10px] font-semibold block">Weighted Visual Score</span>
+              <span className="text-lg font-extrabold text-emerald-800">85 / 100</span>
+            </div>
+            <div className="bg-gray-50 p-3 rounded-xl border text-center">
+              <span className="text-gray-500 text-[10px] font-semibold block">Unassessed Produce</span>
+              <span className="text-lg font-extrabold text-gray-600">0 kg (0%)</span>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Financial Valuation Breakdown */}
         <Card>

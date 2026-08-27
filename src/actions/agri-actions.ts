@@ -170,6 +170,7 @@ export async function actionSeedOffers(lotId: string) {
 export async function actionCreateGrievance(data: {
   transactionId?: string;
   lotId?: string;
+  qualityAssessmentId?: string;
   raisedBy: string;
   farmerName: string;
   category: Grievance["category"];

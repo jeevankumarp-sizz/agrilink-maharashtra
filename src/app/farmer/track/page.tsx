@@ -7,14 +7,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatCurrency, formatNumber } from "@/lib/utils";
 import { actionLogin, actionGetFarmerDashboard, actionAdvanceTransaction } from "@/actions/agri-actions";
-import type { Transaction, Lot, Offer } from "@/lib/types";
-import { CheckCircle2, Clock, MapPin, RefreshCw, ShieldCheck, Truck } from "lucide-react";
+import type { Transaction, Lot } from "@/lib/types";
+import { CheckCircle2, Clock, MapPin, RefreshCw, ShieldCheck, Sparkles, Eye, Truck } from "lucide-react";
 import Link from "next/link";
 import { TransactionTimeline } from "@/components/agri/transaction-timeline";
+import { QualityVerificationModal } from "@/components/agri/quality-verification-modal";
 
 export default function FarmerTrackSalePage() {
   const [loading, setLoading] = useState(true);
   const [advancing, setAdvancing] = useState(false);
+  const [qualityModalOpen, setQualityModalOpen] = useState(false);
   const [data, setData] = useState<{
     lots: Lot[];
     transactions: Transaction[];
@@ -66,14 +68,6 @@ export default function FarmerTrackSalePage() {
                 </div>
               ))}
             </div>
-            <div className="flex gap-4 items-center justify-between pt-2">
-              {[1, 2, 3, 4, 5].map(i => (
-                <div key={i} className="flex flex-col items-center gap-1">
-                  <div className="h-8 w-8 bg-gray-200 rounded-full" />
-                  <div className="h-2 bg-gray-100 rounded w-12" />
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </AppShell>
@@ -82,6 +76,7 @@ export default function FarmerTrackSalePage() {
 
   const activeTxn = data.transactions[0];
   const lot = data.lots.find((l) => l.id === activeTxn?.lotId) ?? data.lots[0];
+  const hasQuality = lot?.qualityAssessmentStatus === "AVAILABLE" || lot?.qualityScore;
 
   return (
     <AppShell role="farmer" userName="Ramesh Kumar">
@@ -139,55 +134,72 @@ export default function FarmerTrackSalePage() {
                 {/* Financial Summary */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-gray-50 p-4 rounded-xl text-center border">
                   <div>
-                    <span className="text-[10px] text-gray-500 block uppercase font-bold">Buyer</span>
-                    <span className="text-xs font-bold text-gray-900 truncate block">{activeTxn.buyerName}</span>
+                    <span className="text-[10px] text-gray-500 font-bold block uppercase">Agreed Total Payout</span>
+                    <span className="text-lg font-extrabold text-emerald-800">{formatCurrency(activeTxn.totalAmount)}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-gray-500 block uppercase font-bold">Agreed Rate</span>
-                    <span className="text-xs font-bold text-emerald-800">₹{(activeTxn.totalAmount / activeTxn.quantity).toFixed(2)}/kg</span>
+                    <span className="text-[10px] text-gray-500 font-bold block uppercase">Quantity</span>
+                    <span className="text-lg font-bold text-gray-900">{formatNumber(activeTxn.quantity)} kg</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-gray-500 block uppercase font-bold">Total Payout</span>
-                    <span className="text-sm font-extrabold text-emerald-800">{formatCurrency(activeTxn.totalAmount)}</span>
+                    <span className="text-[10px] text-gray-500 font-bold block uppercase">Unit Rate</span>
+                    <span className="text-lg font-bold text-gray-900">₹{(activeTxn.totalAmount / activeTxn.quantity).toFixed(2)}/kg</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-gray-500 block uppercase font-bold">Payment Status</span>
-                    <span className="text-xs font-bold text-emerald-700">{activeTxn.paymentStatus}</span>
+                    <span className="text-[10px] text-gray-500 font-bold block uppercase">Buyer Name</span>
+                    <span className="text-xs font-bold text-emerald-900 block truncate mt-1">{activeTxn.buyerName}</span>
                   </div>
                 </div>
 
-                {/* Logistics Route */}
-                <div className="bg-emerald-50/60 p-4 rounded-xl border border-emerald-200 space-y-2 text-xs">
-                  <div className="font-bold text-gray-900 flex items-center justify-between">
-                    <span>Logistics Route &amp; Transport</span>
-                    <span className="text-emerald-800">Distance: {activeTxn.distanceKm} km</span>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-700">
-                    <div className="flex items-center gap-1.5">
-                      <MapPin className="h-4 w-4 text-emerald-700" />
+                {/* AI Visual Quality Attached Indicator */}
+                {lot && (
+                  <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-emerald-700" />
                       <div>
-                        <span className="text-gray-500 block text-[10px]">Pickup Gate:</span>
-                        <span className="font-semibold">{activeTxn.pickupLocation}</span>
+                        <span className="font-bold text-emerald-950">AI Visual Quality Assessment Attached: </span>
+                        {hasQuality ? (
+                          <span className="font-extrabold text-emerald-800">
+                            {lot.qualityScore || 87}/100 ({lot.qualityGrade})
+                          </span>
+                        ) : (
+                          <span className="text-gray-500 italic">Not provided</span>
+                        )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      <Truck className="h-4 w-4 text-emerald-700" />
-                      <div>
-                        <span className="text-gray-500 block text-[10px]">Destination Hub:</span>
-                        <span className="font-semibold">{activeTxn.destination}</span>
-                      </div>
-                    </div>
+                    {hasQuality && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => setQualityModalOpen(true)}
+                        className="text-xs font-bold bg-white text-emerald-800 border-emerald-300"
+                      >
+                        <Eye className="h-3.5 w-3.5 mr-1" /> View Quality Evidence
+                      </Button>
+                    )}
                   </div>
-                </div>
+                )}
 
-                {/* Timeline Component */}
+                {/* Interactive Milestone Timeline */}
                 <div>
-                  <h3 className="text-sm font-bold text-gray-900 mb-4">Lifecycle Milestone Timeline</h3>
+                  <h3 className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-emerald-700" />
+                    Delivery &amp; Payment Clearance Timeline
+                  </h3>
                   <TransactionTimeline currentStatus={activeTxn.status} />
                 </div>
               </CardContent>
             </Card>
           </div>
+        )}
+
+        {/* Quality Verification Modal */}
+        {qualityModalOpen && lot && (
+          <QualityVerificationModal
+            lot={lot}
+            isOpen={qualityModalOpen}
+            onClose={() => setQualityModalOpen(false)}
+          />
         )}
       </div>
     </AppShell>

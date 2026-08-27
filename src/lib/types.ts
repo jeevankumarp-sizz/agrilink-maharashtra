@@ -81,6 +81,30 @@ export interface Buyer {
   demandLevel: DemandLevel;
 }
 
+export interface VisualParameters {
+  colourUniformity: number; // e.g. 92%
+  sizeUniformity: number;   // e.g. 84%
+  visibleDefectsPct: number; // e.g. 6%
+  surfaceDamagePct: number; // e.g. 4%
+  ripenessPct: number;      // e.g. 88%
+}
+
+export interface QualityAssessment {
+  id: string;
+  lotId?: string;
+  farmerId?: string;
+  originalImage: string; // Base64 Data URL or HTTP Image URL
+  product: CropName;
+  qualityScore: number; // e.g. 87 / 100
+  grade: QualityGrade; // e.g. "Grade A"
+  confidence: number;   // e.g. 89%
+  visualParameters: VisualParameters;
+  visibleDefects: string[];
+  explanation: string;
+  assessmentTimestamp: string;
+  assessmentStatus: "AVAILABLE" | "NOT_ASSESSED";
+}
+
 export interface LotInput {
   crop: CropName;
   quantity: number;
@@ -93,6 +117,16 @@ export interface LotInput {
   sellingDeadlineDays: number;
   storageAvailableDays: number;
   notes?: string;
+  
+  // Extended AI Quality Assessment fields
+  qualityAssessmentId?: string | null;
+  qualityScore?: number | null;
+  qualityConfidence?: number | null;
+  qualityImage?: string | null;
+  qualityAssessmentStatus?: "AVAILABLE" | "NOT_ASSESSED";
+  qualityParameters?: VisualParameters | null;
+  visibleDefects?: string[] | null;
+  qualityExplanation?: string | null;
 }
 
 export interface Lot extends LotInput {
@@ -187,6 +221,7 @@ export interface Grievance {
   id: string;
   transactionId?: string;
   lotId?: string;
+  qualityAssessmentId?: string;
   raisedBy: string;
   farmerName: string;
   category: "Payment Delay" | "Quality Discrepancy" | "Logistics Delay" | "Price Dispute" | "Other";

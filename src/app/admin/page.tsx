@@ -8,7 +8,7 @@ import { formatCurrency, formatNumber } from '@/lib/utils';
 import { actionLogin, actionGetAdminDashboard } from '@/actions/agri-actions';
 import { DEMO_MARKETS, DEMO_BUYERS } from '@/lib/demo-data';
 import { MaharashtraMap } from '@/components/agri/maharashtra-map';
-import { Users, Sprout, ShoppingCart, CheckCircle, FileText, IndianRupee, AlertTriangle, ShieldCheck, Layers } from 'lucide-react';
+import { Users, Sprout, ShoppingCart, CheckCircle, FileText, IndianRupee, AlertTriangle, ShieldCheck, Layers, Sparkles } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, CartesianGrid } from 'recharts';
 
 export default function AdminDashboard() {
@@ -142,6 +142,43 @@ export default function AdminDashboard() {
             </CardContent>
           </Card>
         </div>
+
+        {/* State AI Quality Assessment Aggregate Insights */}
+        <Card className="border border-emerald-200">
+          <CardHeader className="bg-emerald-50/50 pb-3">
+            <CardTitle className="text-base font-bold text-gray-900 flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-emerald-700" />
+                Statewide AI Produce Quality Assessment Aggregate Insights
+              </span>
+              <Badge variant="verified" className="bg-emerald-700 text-white font-bold text-[10px]">
+                STATEWIDE SUMMARY
+              </Badge>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-4 grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs text-center">
+            <div className="bg-white p-3 rounded-xl border border-emerald-100 shadow-2xs">
+              <span className="text-gray-500 text-[10px] block font-bold uppercase">AI-Assessed Lots</span>
+              <span className="text-xl font-extrabold text-emerald-800">42 Lots</span>
+            </div>
+            <div className="bg-white p-3 rounded-xl border border-emerald-100 shadow-2xs">
+              <span className="text-gray-500 text-[10px] block font-bold uppercase">Grade A Share</span>
+              <span className="text-xl font-extrabold text-emerald-800">68%</span>
+            </div>
+            <div className="bg-white p-3 rounded-xl border border-emerald-100 shadow-2xs">
+              <span className="text-gray-500 text-[10px] block font-bold uppercase">Grade B Share</span>
+              <span className="text-xl font-extrabold text-amber-700">24%</span>
+            </div>
+            <div className="bg-white p-3 rounded-xl border border-emerald-100 shadow-2xs">
+              <span className="text-gray-500 text-[10px] block font-bold uppercase">Grade C Share</span>
+              <span className="text-xl font-extrabold text-amber-800">8%</span>
+            </div>
+            <div className="bg-white p-3 rounded-xl border border-emerald-100 shadow-2xs">
+              <span className="text-gray-500 text-[10px] block font-bold uppercase">Unassessed Lots</span>
+              <span className="text-xl font-extrabold text-gray-500">12%</span>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Market Anomaly Detection & Reference Price Layer */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

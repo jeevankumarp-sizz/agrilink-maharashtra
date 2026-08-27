@@ -11,14 +11,16 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { LotCard } from '@/components/agri/recommendation-card';
+import { QualityVerificationModal } from '@/components/agri/quality-verification-modal';
 import { actionGetBuyerDashboard } from '@/actions/agri-actions';
 import type { Lot } from '@/lib/types';
-import { Filter, Package, ShieldCheck } from 'lucide-react';
+import { Filter, Package } from 'lucide-react';
 
 export default function AvailableLotsPage() {
   const [loading, setLoading] = useState(true);
   const [lots, setLots] = useState<Lot[]>([]);
   const [filterCrop, setFilterCrop] = useState<string>('All');
+  const [selectedQualityLot, setSelectedQualityLot] = useState<Lot | null>(null);
 
   useEffect(() => {
     async function loadLots() {
@@ -89,11 +91,28 @@ export default function AvailableLotsPage() {
         ) : (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {filteredLots.map((lot) => (
-              <Link href={`/buyer/lots/${lot.id}`} key={lot.id} className="block transition-transform hover:-translate-y-1">
-                <LotCard lot={lot} />
-              </Link>
+              <div key={lot.id} className="relative group">
+                <Link href={`/buyer/lots/${lot.id}`} className="block transition-transform hover:-translate-y-1">
+                  <LotCard
+                    lot={lot}
+                    onViewQuality={(e) => {
+                      e.preventDefault();
+                      setSelectedQualityLot(lot);
+                    }}
+                  />
+                </Link>
+              </div>
             ))}
           </div>
+        )}
+
+        {/* Quality Verification Modal */}
+        {selectedQualityLot && (
+          <QualityVerificationModal
+            lot={selectedQualityLot}
+            isOpen={!!selectedQualityLot}
+            onClose={() => setSelectedQualityLot(null)}
+          />
         )}
       </div>
     </AppShell>
