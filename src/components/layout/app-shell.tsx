@@ -115,7 +115,7 @@ export function AppShell({
     <div className="min-h-screen bg-[#f4f7f4]">
       <header className="sticky top-0 z-40 border-b border-emerald-100 bg-white/95 backdrop-blur shadow-xs">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5">
-          <Link href={`/${role}`} className="flex items-center gap-2.5">
+          <Link href="/" className="flex items-center gap-2.5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-700 text-white font-bold shadow-sm">
               <Leaf className="h-5 w-5" />
             </div>
