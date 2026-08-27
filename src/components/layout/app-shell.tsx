@@ -231,6 +231,15 @@ export function AppShell({
                     <span>🏛️ Government</span>
                     {role === 'admin' && <span className="text-purple-700">✓</span>}
                   </button>
+                  <div className="border-t border-gray-100 mt-1 pt-1">
+                    <Link
+                      href="/"
+                      onClick={() => setRoleOpen(false)}
+                      className="w-full px-3 py-2 text-left text-xs font-bold text-gray-600 hover:text-emerald-800 hover:bg-emerald-50/50 flex items-center gap-1.5 transition-colors"
+                    >
+                      <span>🏠 Back to Main Home</span>
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
