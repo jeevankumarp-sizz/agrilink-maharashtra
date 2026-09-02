@@ -109,7 +109,7 @@ export default function OffersManagementPage() {
             <span>Pending Buyer Offers ({pendingOffers.length})</span>
             {pendingOffers.length > 0 && (
               <span className="text-xs font-normal text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full">
-                AGMARKNET 2.0 Active
+                State Market Data Feed
               </span>
             )}
           </h2>

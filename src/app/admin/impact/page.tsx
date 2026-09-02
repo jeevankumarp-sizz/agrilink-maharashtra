@@ -10,7 +10,7 @@ export default function ImpactPage() {
     { label: "Estimated Potential Price Improvement", value: "+12.6%", subtext: "Calculated potential net realization improvement", color: "border-emerald-500 bg-emerald-50/50 text-emerald-950" },
     { label: "Estimated Transport Cost Savings", value: "−18.4%", subtext: "Shared transport & route optimization potential", color: "border-blue-500 bg-blue-50/50 text-blue-950" },
     { label: "Estimated Discovery Time Reduction", value: "−31%", subtext: "Average automated buyer matching within 4 hours", color: "border-purple-500 bg-purple-50/50 text-purple-950" },
-    { label: "Matched Lots Success Rate", value: "86.4%", subtext: "Across Nashik, Pune & Nagpur pilot regions", color: "border-teal-500 bg-teal-50/50 text-teal-950" },
+    { label: "Matched Lots Success Rate", value: "86.4%", subtext: "Across Nashik, Pune & Nagpur operational APMC zones", color: "border-teal-500 bg-teal-50/50 text-teal-950" },
     { label: "Estimated Post-Harvest Loss Reduction", value: "14.2%", subtext: "Reduced transit time & storage waste potential", color: "border-amber-500 bg-amber-50/50 text-amber-950" },
     { label: "Estimated FPO Aggregation Uplift", value: "+₹1.20/kg", subtext: "Bulk negotiation potential price premium", color: "border-emerald-500 bg-emerald-50/50 text-emerald-950" },
   ];

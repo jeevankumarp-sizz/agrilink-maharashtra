@@ -125,7 +125,7 @@ export default function FarmerTrackSalePage() {
                       className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs"
                     >
                       <RefreshCw className="h-3 w-3 mr-1" />
-                      {advancing ? "Advancing..." : activeTxn.status === "PAID" ? "PAID ✓" : "Advance Status (Demo)"}
+                      {advancing ? "Advancing..." : activeTxn.status === "PAID" ? "PAID ✓" : "Update Delivery Status"}
                     </Button>
                   </div>
                 </div>

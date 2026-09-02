@@ -215,7 +215,7 @@ export function MaharashtraMap() {
                     {statusIcons[selectedDistrict.status]}
                   </Badge>
                 </div>
-                <p className="text-xs text-gray-500">{selectedDistrict.region} Demo Zone</p>
+                <p className="text-xs text-gray-500">{selectedDistrict.region} Region</p>
               </div>
               <div className="text-right">
                 <p className="text-xs text-gray-500">Benchmark Modal Price</p>

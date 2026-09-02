@@ -26,7 +26,7 @@ export default function AdminBuyers() {
             </p>
           </div>
           <Badge variant="verified" className="bg-emerald-100 text-emerald-900 border-emerald-300 font-bold text-xs px-3 py-1 w-fit">
-            <Building2 className="h-3.5 w-3.5 mr-1" /> Platform Verified — Demo
+            <Building2 className="h-3.5 w-3.5 mr-1" /> Registered Business Registry
           </Badge>
         </div>
 
@@ -45,7 +45,7 @@ export default function AdminBuyers() {
                     </CardDescription>
                   </div>
                   <Badge variant="verified" className="bg-emerald-700 text-white font-bold text-[10px]">
-                    Platform Verified — Demo
+                      Registered Business Profile
                   </Badge>
                 </div>
               </CardHeader>

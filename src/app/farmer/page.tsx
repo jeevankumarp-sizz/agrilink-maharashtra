@@ -64,7 +64,7 @@ export default async function FarmerDashboard() {
           {
             title: "4. Track My Sale",
             sub: "माझी विक्री ट्रॅक करा",
-            href: "/farmer/fpo",
+            href: "/farmer/track",
             icon: Truck,
             color: "border-amber-300 bg-amber-50/60 text-amber-950",
             iconColor: "bg-amber-700 text-white",

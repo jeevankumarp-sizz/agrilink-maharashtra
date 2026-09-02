@@ -67,7 +67,7 @@ export default function AdminTransactions() {
             <CardTitle className="text-lg font-bold text-gray-900 flex items-center justify-between">
               <span>Active State Transactions ({transactions.length})</span>
               <span className="text-xs font-semibold text-emerald-800 bg-white px-3 py-1 rounded-full border">
-                AGMARKNET 2.0 Connected
+                State Market Data Feed
               </span>
             </CardTitle>
             <CardDescription className="text-xs">
@@ -91,7 +91,7 @@ export default function AdminTransactions() {
                       <th className="px-4 py-3">Total Payout</th>
                       <th className="px-4 py-3">Lifecycle Status</th>
                       <th className="px-4 py-3">Payment</th>
-                      <th className="px-4 py-3 text-center">Demo Lifecycle Action</th>
+                      <th className="px-4 py-3 text-center">Transaction Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
@@ -127,7 +127,7 @@ export default function AdminTransactions() {
                             className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-[11px] h-8 px-3"
                           >
                             <RefreshCw className="h-3 w-3 mr-1" />
-                            {advancing === tx.id ? 'Advancing...' : tx.status === 'PAID' ? 'PAID ✓' : 'Advance Lifecycle →'}
+                            {advancing === tx.id ? 'Advancing...' : tx.status === 'PAID' ? 'PAID ✓' : 'Update Status'}
                           </Button>
                         </td>
                       </tr>

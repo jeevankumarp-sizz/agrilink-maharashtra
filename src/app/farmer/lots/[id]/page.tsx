@@ -160,7 +160,7 @@ export default function LotDetailPage() {
                     className="bg-emerald-700 hover:bg-emerald-800 text-white"
                   >
                     <RefreshCw className="h-4 w-4 mr-2" />
-                    Advance Status (Demo)
+                    {actionLoading === 'advance' ? 'Advancing...' : transaction.status === 'PAID' ? 'PAID ✓' : 'Update Delivery Status'}
                   </Button>
                   <Button
                     onClick={async () => {

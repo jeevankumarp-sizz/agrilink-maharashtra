@@ -55,7 +55,7 @@ export default function BuyerTransactionsPage() {
             <CardTitle className="text-lg font-bold text-gray-900 flex items-center justify-between">
               <span>Accepted Procurement Orders ({transactions.length})</span>
               <span className="text-xs font-semibold text-blue-800 bg-white px-3 py-1 rounded-full border">
-                AGMARKNET 2.0 Connected
+                State Market Data Feed
               </span>
             </CardTitle>
             <CardDescription className="text-xs">
