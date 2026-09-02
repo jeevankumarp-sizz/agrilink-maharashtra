@@ -10,7 +10,7 @@ interface RequirementItem {
   id: string;
   title: string;
   category: string;
-  status: "IMPLEMENTED" | "PROTOTYPE" | "FUTURE";
+  status: "IMPLEMENTED" | "ACTIVE" | "FUTURE";
   link: string;
   featureName: string;
   details: string;
@@ -85,7 +85,7 @@ const ADMIN_REQUIREMENTS: RequirementItem[] = [
 export default function AdminCoveragePage() {
   const statusBadges = {
     IMPLEMENTED: <Badge variant="success" className="font-bold">🟢 Implemented</Badge>,
-    PROTOTYPE: <Badge variant="warning" className="font-bold">🟡 Active Feature</Badge>,
+    ACTIVE: <Badge variant="warning" className="font-bold">🟡 Active Feature</Badge>,
     FUTURE: <Badge variant="info" className="font-bold">🔵 Future Integration</Badge>,
   };
 

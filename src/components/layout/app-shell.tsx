@@ -15,34 +15,34 @@ import {
   BarChart3,
   Scale,
   Globe,
-  CheckSquare,
   ShoppingCart,
   ShieldCheck,
   Building2,
   Lock,
+  Database,
+  HelpCircle,
 } from "lucide-react";
 import { useState } from "react";
 import { Language, t } from "@/lib/translations";
+import { useLanguage } from "@/lib/language-context";
 import { Button } from "@/components/ui/button";
 
 const farmerLinks = [
   { href: "/farmer", labelKey: "dashboard", defaultLabel: "Dashboard", icon: LayoutDashboard },
   { href: "/farmer/create-lot", labelKey: "sellCrop", defaultLabel: "Sell My Crop", icon: Package },
-  { href: "/farmer/market", labelKey: "checkPrices", defaultLabel: "Check Market Prices", icon: TrendingUp },
+  { href: "/farmer/market", labelKey: "checkPrices", defaultLabel: "Market Prices", icon: TrendingUp },
   { href: "/farmer/recommendations", labelKey: "findBuyers", defaultLabel: "Find Buyers", icon: Users },
   { href: "/farmer/offers", labelKey: "myOffers", defaultLabel: "My Offers", icon: ShoppingCart },
   { href: "/farmer/track", labelKey: "trackSale", defaultLabel: "Track My Sale", icon: Truck },
-  { href: "/farmer/fpo", labelKey: "fpoAggregation", defaultLabel: "FPO Aggregation", icon: Scale },
-  { href: "/farmer/coverage", labelKey: "platformCoverage", defaultLabel: "Platform Coverage", icon: CheckSquare },
+  { href: "/farmer/fpo", labelKey: "fpoAggregation", defaultLabel: "FPO Services", icon: Scale },
 ];
 
 const buyerLinks = [
   { href: "/buyer", labelKey: "dashboard", defaultLabel: "Dashboard", icon: LayoutDashboard },
   { href: "/buyer/lots", labelKey: "availableLots", defaultLabel: "Available Lots", icon: Package },
-  { href: "/buyer/aggregate", labelKey: "aiLotAggregation", defaultLabel: "AI Lot Aggregation", icon: Scale },
+  { href: "/buyer/aggregate", labelKey: "aiLotAggregation", defaultLabel: "Lot Aggregation", icon: Scale },
   { href: "/buyer/procurement", labelKey: "myProcurement", defaultLabel: "My Procurement", icon: ShoppingCart },
   { href: "/buyer/transactions", labelKey: "transactions", defaultLabel: "Transactions", icon: Truck },
-  { href: "/buyer/coverage", labelKey: "platformCoverage", defaultLabel: "Platform Coverage", icon: CheckSquare },
 ];
 
 const adminLinks = [
@@ -52,11 +52,10 @@ const adminLinks = [
   { href: "/admin/fpo", labelKey: "fpoInsights", defaultLabel: "FPO Insights", icon: Scale },
   { href: "/admin/transactions", labelKey: "transactions", defaultLabel: "Transactions", icon: Truck },
   { href: "/admin/grievances", labelKey: "grievances", defaultLabel: "Grievance Center", icon: AlertTriangle },
-  { href: "/admin/impact", labelKey: "impactDashboard", defaultLabel: "Impact Dashboard", icon: BarChart3 },
-  { href: "/admin/coverage", labelKey: "platformCoverage", defaultLabel: "Platform Coverage", icon: CheckSquare },
+  { href: "/admin/impact", labelKey: "impactDashboard", defaultLabel: "Reports & Analytics", icon: BarChart3 },
 ];
 
-const LANG_LABELS: Record<Language, string> = { en: "EN", mr: "मराठी", hi: "हिंदी" };
+const LANG_LABELS: Record<Language, string> = { en: "English", mr: "मराठी", hi: "हिंदी" };
 
 export function AppShell({
   children,
@@ -69,12 +68,12 @@ export function AppShell({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { language, setLanguage, t: translate } = useLanguage();
   const links = role === "farmer" ? farmerLinks : role === "buyer" ? buyerLinks : adminLinks;
-  const [lang, setLang] = useState<Language>("en");
   const [langOpen, setLangOpen] = useState(false);
   const [roleOpen, setRoleOpen] = useState(false);
 
-  // Role Guarding (PART 21)
+  // Role Guarding
   const isFarmerRoute = pathname.startsWith("/farmer");
   const isBuyerRoute = pathname.startsWith("/buyer");
   const isAdminRoute = pathname.startsWith("/admin");
@@ -87,7 +86,7 @@ export function AppShell({
   if (accessDenied) {
     return (
       <div className="min-h-screen bg-[#f4f7f4] flex items-center justify-center p-6">
-        <div className="max-w-md w-full bg-white rounded-2xl p-8 border border-red-200 text-center shadow-lg space-y-4">
+        <div className="max-w-md w-full bg-white rounded-xl p-8 border border-red-200 text-center shadow-lg space-y-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600 mx-auto">
             <Lock className="h-6 w-6" />
           </div>
@@ -100,16 +99,13 @@ export function AppShell({
               Return to Dashboard
             </Button>
             <Button onClick={() => router.push("/")} className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold" size="sm">
-              Switch Role
+              {translate("mainHome") || "Go to Homepage"}
             </Button>
           </div>
         </div>
       </div>
     );
   }
-
-  const roleCoverageLink =
-    role === "farmer" ? "/farmer/coverage" : role === "buyer" ? "/buyer/coverage" : "/admin/coverage";
 
   return (
     <div className="min-h-screen bg-[#f4f7f4]">
@@ -121,25 +117,14 @@ export function AppShell({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <p className="text-base font-bold text-emerald-950">AgriLink Maharashtra</p>
-                <span className="hidden sm:inline-block rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800">
-                  AgriTech Platform
-                </span>
+                <p className="text-base font-bold text-emerald-950">{translate("title") || "AgriLink Maharashtra"}</p>
               </div>
               <p className="text-[11px] text-gray-500 hidden md:block">
-                State Agricultural Market Intelligence &amp; Transaction Enablement Platform
+                {translate("subtitle") || "State Agricultural Market Intelligence & Transaction Services"}
               </p>
             </div>
           </Link>
           <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href={roleCoverageLink}
-              className="hidden sm:flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-800 hover:bg-emerald-100"
-            >
-              <CheckSquare className="h-3.5 w-3.5" />
-              Platform Coverage
-            </Link>
-
             {/* Language Selector Dropdown */}
             <div className="relative">
               <button
@@ -148,21 +133,21 @@ export function AppShell({
                 className="flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50/50 px-2.5 py-1 text-xs font-bold text-emerald-800 hover:bg-emerald-100"
               >
                 <Globe className="h-3.5 w-3.5" />
-                {LANG_LABELS[lang]}
+                {LANG_LABELS[language]}
               </button>
               {langOpen && (
-                <div className="absolute right-0 top-full mt-1 w-32 rounded-xl border border-emerald-100 bg-white py-1 shadow-xl z-50">
+                <div className="absolute right-0 top-full mt-1 w-36 rounded-xl border border-emerald-100 bg-white py-1 shadow-xl z-50">
                   {(Object.keys(LANG_LABELS) as Language[]).map((key) => (
                     <button
                       key={key}
                       type="button"
                       onClick={() => {
-                        setLang(key);
+                        setLanguage(key);
                         setLangOpen(false);
                       }}
                       className={cn(
                         "w-full px-3 py-1.5 text-left text-xs transition-colors hover:bg-emerald-50",
-                        lang === key ? "font-bold text-emerald-700 bg-emerald-50/50" : "text-gray-700"
+                        language === key ? "font-bold text-emerald-700 bg-emerald-50/50" : "text-gray-700"
                       )}
                     >
                       {key === "mr" ? "मराठी (Marathi)" : key === "hi" ? "हिंदी (Hindi)" : "English"}
@@ -174,20 +159,20 @@ export function AppShell({
             <span className="hidden text-xs text-gray-700 sm:block font-bold">{userName}</span>
             <RoleBadge role={role} />
 
-            {/* Switch Demo Role Dropdown */}
+            {/* Portal Switcher Dropdown */}
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setRoleOpen(!roleOpen)}
                 className="text-xs font-bold text-emerald-800 hover:text-emerald-950 bg-emerald-50 hover:bg-emerald-100 px-2.5 py-1 rounded-lg border border-emerald-200 flex items-center gap-1 transition-colors"
               >
-                <span>Switch Demo Role</span>
+                <span>{translate("switchPortal") || "Navigate Portal"}</span>
                 <span className="text-[10px]">▼</span>
               </button>
               {roleOpen && (
-                <div className="absolute right-0 top-full mt-1 w-44 rounded-xl border border-emerald-100 bg-white py-1 shadow-xl z-50">
+                <div className="absolute right-0 top-full mt-1 w-48 rounded-xl border border-emerald-100 bg-white py-1 shadow-xl z-50">
                   <div className="px-3 py-1.5 border-b border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
-                    Switch Demo Portal
+                    {translate("switchPortal") || "Navigate Portal"}
                   </div>
                   <button
                     type="button"
@@ -200,7 +185,7 @@ export function AppShell({
                       role === 'farmer' ? "text-emerald-800 bg-emerald-50/60" : "text-gray-700"
                     )}
                   >
-                    <span>🌾 Farmer / FPO</span>
+                    <span>🌾 {translate("farmerPortal") || "Farmer & FPO Portal"}</span>
                     {role === 'farmer' && <span className="text-emerald-700">✓</span>}
                   </button>
                   <button
@@ -214,7 +199,7 @@ export function AppShell({
                       role === 'buyer' ? "text-blue-800 bg-blue-50/60" : "text-gray-700"
                     )}
                   >
-                    <span>🏢 Buyer Portal</span>
+                    <span>🏢 {translate("buyerPortal") || "Buyer Procurement Portal"}</span>
                     {role === 'buyer' && <span className="text-blue-700">✓</span>}
                   </button>
                   <button
@@ -228,7 +213,7 @@ export function AppShell({
                       role === 'admin' ? "text-purple-800 bg-purple-50/60" : "text-gray-700"
                     )}
                   >
-                    <span>🏛️ Government</span>
+                    <span>🏛️ {translate("adminPortal") || "State Command Center"}</span>
                     {role === 'admin' && <span className="text-purple-700">✓</span>}
                   </button>
                   <div className="border-t border-gray-100 mt-1 pt-1">
@@ -237,7 +222,7 @@ export function AppShell({
                       onClick={() => setRoleOpen(false)}
                       className="w-full px-3 py-2 text-left text-xs font-bold text-gray-600 hover:text-emerald-800 hover:bg-emerald-50/50 flex items-center gap-1.5 transition-colors"
                     >
-                      <span>🏠 Back to Main Home</span>
+                      <span>🏠 {translate("mainHome") || "Portal Homepage"}</span>
                     </Link>
                   </div>
                 </div>
@@ -249,20 +234,20 @@ export function AppShell({
 
       <div className="mx-auto flex max-w-7xl gap-6 px-4 py-6">
         <nav className="hidden w-56 shrink-0 md:block">
-          <div className="sticky top-20 space-y-1 rounded-2xl border border-emerald-100 bg-white p-3 shadow-xs">
+          <div className="sticky top-20 space-y-1 rounded-xl border border-emerald-100 bg-white p-3 shadow-xs">
             {links.map(({ href, labelKey, defaultLabel, icon: Icon }) => (
               <Link
                 key={href}
                 href={href}
                 className={cn(
-                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-bold transition-colors",
+                  "flex items-center gap-3 rounded-lg px-3 py-2.5 text-xs font-bold transition-colors",
                   pathname === href || (href !== "/farmer" && href !== "/buyer" && href !== "/admin" && pathname.startsWith(href))
                     ? "bg-emerald-700 text-white shadow-xs"
                     : "text-gray-700 hover:bg-emerald-50 hover:text-emerald-800"
                 )}
               >
                 <Icon className="h-4 w-4 shrink-0" />
-                {t(labelKey, lang) || defaultLabel}
+                {translate(labelKey) || defaultLabel}
               </Link>
             ))}
           </div>
@@ -285,7 +270,7 @@ export function AppShell({
               )}
             >
               <Icon className="h-5 w-5" />
-              <span className="truncate max-w-[64px]">{t(labelKey, lang) || defaultLabel}</span>
+              <span className="truncate max-w-[64px]">{translate(labelKey) || defaultLabel}</span>
             </Link>
           ))}
         </div>
@@ -298,7 +283,7 @@ function RoleBadge({ role }: { role: string }) {
   const badgeConfig = {
     farmer: { label: "FARMER", style: "bg-emerald-100 text-emerald-900 border-emerald-300 font-bold" },
     buyer: { label: "BUYER", style: "bg-blue-100 text-blue-900 border-blue-300 font-bold" },
-    admin: { label: "GOVERNMENT", style: "bg-purple-100 text-purple-900 border-purple-300 font-bold" },
+    admin: { label: "STATE OFFICER", style: "bg-purple-100 text-purple-900 border-purple-300 font-bold" },
   };
   const config = badgeConfig[role as keyof typeof badgeConfig] ?? { label: role.toUpperCase(), style: "bg-gray-100 text-gray-800" };
   return (
@@ -315,12 +300,15 @@ function RoleBadge({ role }: { role: string }) {
 
 export function DemoBanner() {
   return (
-    <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50/80 px-4 py-2 text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-xs">
-      <div>
-        <strong>Regional Market Intelligence</strong> — Primary Coverage: Maharashtra (Nashik, Pune, Ahilyanagar, Solapur, Sangli, Nagpur) · AGMARKNET 2.0 Integration Active.
+    <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50/80 px-4 py-2 text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-xs">
+      <div className="flex items-center gap-2">
+        <Database className="h-4 w-4 text-emerald-700 shrink-0" />
+        <span>
+          <strong>State Market Intelligence</strong> — Primary Coverage: Maharashtra APMCs (Nashik, Pune, Ahilyanagar, Solapur, Sangli, Nagpur) · AGMARKNET 2.0 Direct Feed.
+        </span>
       </div>
       <span className="hidden sm:inline-block font-semibold bg-emerald-200/80 text-emerald-900 px-2 py-0.5 rounded text-[10px]">
-        AgriLink Maharashtra
+        AgriLink Services
       </span>
     </div>
   );
@@ -336,7 +324,7 @@ export function LoadingSpinner() {
 
 export function EmptyState({ title, description }: { title: string; description: string }) {
   return (
-    <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-12 text-center">
+    <div className="rounded-xl border border-dashed border-gray-300 bg-white p-12 text-center">
       <Settings className="mx-auto mb-3 h-10 w-10 text-gray-300" />
       <h3 className="font-semibold text-gray-800">{title}</h3>
       <p className="mt-1 text-sm text-gray-500">{description}</p>

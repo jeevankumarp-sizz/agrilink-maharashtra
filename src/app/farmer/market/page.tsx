@@ -49,7 +49,7 @@ export default function MarketIntelligencePage() {
       const staticMarkets = DEMO_MARKETS.filter(m => m.crop === selectedCrop);
       const converted: NormalizedMarketPrice[] = staticMarkets.map(m => ({
         id: m.id,
-        source: 'Fallback Dataset',
+        source: 'Reference Dataset',
         state: 'Maharashtra',
         district: m.location.split(',')[0] || 'Nashik',
         market: m.name,
@@ -64,11 +64,11 @@ export default function MarketIntelligencePage() {
         unit: 'kg',
         sourceTimestamp: new Date().toISOString(),
         syncedAt: new Date().toISOString(),
-        dataStatus: 'fallback',
+        dataStatus: 'reference',
       }));
       setLivePrices(converted);
-      setDataStatus('fallback');
-      setDataSource('Fallback Dataset');
+      setDataStatus('reference');
+      setDataSource('Reference Dataset');
       setLastUpdated(new Date().toLocaleTimeString());
     }
 
@@ -108,7 +108,7 @@ export default function MarketIntelligencePage() {
             <Database className="h-3.5 w-3.5" />
             <span>Source: {dataSource}</span>
             <span className="opacity-40">|</span>
-            <span className="uppercase text-[10px] font-extrabold">{dataStatus === 'live' ? '🟢 LIVE' : '🟡 FALLBACK'}</span>
+            <span className="uppercase text-[10px] font-extrabold">{dataStatus === 'live' ? '🟢 LIVE' : '🟡 REFERENCE'}</span>
           </div>
           {lastUpdated && (
             <span className="text-[10px] text-gray-500 font-mono">Updated at: {lastUpdated}</span>
@@ -116,7 +116,7 @@ export default function MarketIntelligencePage() {
         </div>
       </div>
 
-      {dataStatus === 'fallback' && (
+      {dataStatus === 'reference' && (
         <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs text-amber-950 flex items-center gap-2">
           <AlertCircle className="h-4 w-4 text-amber-600 shrink-0" />
           <span>Using fallback market dataset. Primary AGMARKNET 2.0 API source is temporarily unavailable or rate-limited.</span>

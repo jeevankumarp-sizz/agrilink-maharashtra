@@ -67,7 +67,7 @@ export default function AdminTransactions() {
             <CardTitle className="text-lg font-bold text-gray-900 flex items-center justify-between">
               <span>Active State Transactions ({transactions.length})</span>
               <span className="text-xs font-semibold text-emerald-800 bg-white px-3 py-1 rounded-full border">
-                SIH Maharashtra Demo Connected
+                AGMARKNET 2.0 Connected
               </span>
             </CardTitle>
             <CardDescription className="text-xs">

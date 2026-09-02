@@ -1,340 +1,432 @@
 "use client";
 
-import { actionLoadDemoScenario, actionLogin } from "@/actions/agri-actions";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { actionLogin } from "@/actions/agri-actions";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useLanguage } from "@/lib/language-context";
+import { Language } from "@/lib/translations";
 import {
   ArrowRight,
-  BarChart3,
-  CheckCircle2,
-  CheckSquare,
+  Database,
   Globe,
   Leaf,
   MapPin,
   Package,
   Scale,
   ShieldCheck,
-  Sparkles,
   TrendingUp,
   Truck,
   Users,
   Zap,
+  Building2,
+  BarChart3,
+  HelpCircle,
 } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import type { NormalizedMarketPrice, DataStatus } from "@/lib/agmarknet";
+import { formatCurrencyPerKg, formatNumber } from "@/lib/utils";
+
+const LANG_LABELS: Record<Language, string> = { en: "English", mr: "मराठी", hi: "हिंदी" };
 
 export default function HomePage() {
   const router = useRouter();
-  const [loading, setLoading] = useState<string | null>(null);
+  const { language, setLanguage, t: translate } = useLanguage();
+  const [langOpen, setLangOpen] = useState(false);
+  const [loadingRole, setLoadingRole] = useState<string | null>(null);
 
-  async function handleRoleLogin(role: "farmer" | "buyer" | "admin") {
-    setLoading(role);
+  // Live AGMARKNET market preview
+  const [marketPrices, setMarketPrices] = useState<NormalizedMarketPrice[]>([]);
+  const [dataStatus, setDataStatus] = useState<DataStatus>("live");
+  const [dataSource, setDataSource] = useState<string>("AGMARKNET");
+  const [loadingMarkets, setLoadingMarkets] = useState(true);
+
+  useEffect(() => {
+    async function fetchMarketData() {
+      try {
+        const res = await fetch("/api/market/prices?state=Maharashtra");
+        const json = await res.json();
+        if (json && json.data && json.data.length > 0) {
+          setMarketPrices(json.data.slice(0, 6));
+          setDataStatus(json.dataStatus || "live");
+          setDataSource(json.source || "AGMARKNET");
+        }
+      } catch (err) {
+        console.error("Error fetching homepage markets:", err);
+      } finally {
+        setLoadingMarkets(false);
+      }
+    }
+    fetchMarketData();
+  }, []);
+
+  async function handleRoleNavigate(role: "farmer" | "buyer" | "admin") {
+    setLoadingRole(role);
     await actionLogin(role);
     router.push(`/${role}`);
   }
 
-  async function handleDemo() {
-    setLoading("demo");
-    const result = await actionLoadDemoScenario();
-    if (result.success) {
-      router.push(`/farmer/recommendations?lotId=${result.lotId}`);
-    }
-    setLoading(null);
-  }
-
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header Bar */}
-      <div className="bg-emerald-950 text-emerald-200 text-xs px-4 py-2 border-b border-emerald-800">
-        <div className="mx-auto max-w-6xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-          <div className="flex items-center gap-2 font-medium">
-            <span className="bg-emerald-800 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase">AgriLink</span>
-            <span>State Agricultural Market Intelligence &amp; Transaction Platform</span>
+    <div className="min-h-screen bg-[#f4f7f4]">
+      {/* State Public Service Top Banner */}
+      <div className="bg-emerald-950 text-emerald-100 text-xs px-4 py-2 border-b border-emerald-800">
+        <div className="mx-auto max-w-7xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <span className="bg-emerald-800 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase">
+              Official Portal
+            </span>
+            <span className="font-semibold">
+              {translate("subtitle") || "State Agricultural Market Intelligence & Transaction Services"}
+            </span>
           </div>
-          <div className="text-emerald-300 text-[11px] flex items-center gap-3">
-            <span>Better prices. Better markets. Better decisions.</span>
-            <Link href="/farmer/coverage" className="underline font-bold text-amber-300 flex items-center gap-1">
-              <CheckSquare className="h-3 w-3" /> Platform Feature Coverage
-            </Link>
+
+          <div className="flex items-center gap-4">
+            {/* Language Dropdown */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setLangOpen(!langOpen)}
+                className="flex items-center gap-1 bg-emerald-900 hover:bg-emerald-800 text-emerald-100 px-2.5 py-1 rounded text-xs font-bold border border-emerald-700"
+              >
+                <Globe className="h-3.5 w-3.5" />
+                {LANG_LABELS[language]} ▼
+              </button>
+              {langOpen && (
+                <div className="absolute right-0 top-full mt-1 w-36 rounded-lg border border-emerald-800 bg-emerald-950 py-1 shadow-xl z-50 text-white">
+                  {(Object.keys(LANG_LABELS) as Language[]).map((key) => (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => {
+                        setLanguage(key);
+                        setLangOpen(false);
+                      }}
+                      className="w-full px-3 py-1.5 text-left text-xs hover:bg-emerald-800 transition-colors"
+                    >
+                      {key === "mr" ? "मराठी (Marathi)" : key === "hi" ? "हिंदी (Hindi)" : "English"}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 text-white">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-emerald-400 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-amber-400 blur-3xl" />
-        </div>
-        <div className="relative mx-auto max-w-6xl px-4 py-14 sm:py-20">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 backdrop-blur shadow-inner">
-              <Leaf className="h-7 w-7 text-emerald-300" />
+      {/* Primary Portal Navigation Header */}
+      <header className="sticky top-0 z-40 border-b border-emerald-100 bg-white/95 backdrop-blur shadow-xs">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-700 text-white font-bold shadow-sm">
+              <Leaf className="h-6 w-6" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold sm:text-4xl tracking-tight">AgriLink Maharashtra</h1>
-              <p className="text-sm text-emerald-200">Better prices. Better markets. Better decisions.</p>
+              <h1 className="text-lg font-bold text-emerald-950">
+                {translate("title") || "AgriLink Maharashtra"}
+              </h1>
+              <p className="text-xs text-gray-500 hidden sm:block">
+                {translate("tagline") || "Transparent Price Discovery, Direct Farm-to-Buyer Trade & Market Advisory"}
+              </p>
             </div>
           </div>
 
-          <h2 className="mt-4 max-w-3xl text-2xl font-extrabold leading-tight sm:text-4xl">
-            Don&apos;t just know the price.
-            <br />
-            <span className="text-amber-300">
-              Know where, when &amp; to whom to sell.
-            </span>
-          </h2>
-
-          <p className="mt-4 max-w-2xl text-base text-emerald-100 sm:text-lg leading-relaxed">
-            AgriLink Maharashtra combines AGMARKNET market intelligence, arrivals, buyer demand, AI visual quality, logistics, storage, and buyer reliability to recommend the optimal farm-to-market decision — with your <strong>estimated net realization</strong> calculated upfront.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="flex items-center gap-3">
             <Button
-              variant="demo"
-              size="lg"
-              onClick={handleDemo}
-              disabled={!!loading}
-              className="text-base shadow-lg font-bold bg-amber-500 hover:bg-amber-600 text-slate-950"
+              variant="outline"
+              size="sm"
+              onClick={() => handleRoleNavigate("farmer")}
+              className="hidden md:flex font-bold text-xs"
             >
-              <Zap className="h-5 w-5 mr-1" />
-              {loading === "demo" ? "Loading Analysis..." : "LAUNCH DECISION ENGINE SIMULATION"}
+              🌾 {translate("farmerPortal") || "Farmer Portal"}
             </Button>
             <Button
-              variant="secondary"
-              size="lg"
-              onClick={() => handleRoleLogin("farmer")}
-              disabled={!!loading}
-              className="bg-white/10 text-white border-white/20 hover:bg-white/20 text-base"
+              variant="outline"
+              size="sm"
+              onClick={() => handleRoleNavigate("buyer")}
+              className="hidden md:flex font-bold text-xs"
             >
-              <TrendingUp className="h-5 w-5 mr-1" />
-              Explore Market Intelligence
+              🏢 {translate("buyerPortal") || "Buyer Portal"}
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => handleRoleNavigate("admin")}
+              className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs"
+            >
+              🏛️ {translate("adminPortal") || "Command Center"}
             </Button>
           </div>
-
-          <div className="mt-5 flex items-center gap-2 text-xs text-emerald-300 bg-white/5 w-fit px-3.5 py-1.5 rounded-full border border-white/10">
-            <MapPin className="h-3.5 w-3.5 text-amber-400" />
-            <span>Sample Market Lot: Nashik, Maharashtra · 2,000 kg Grade A Tomato · 3-day sale window</span>
-          </div>
         </div>
-      </section>
+      </header>
 
-      {/* Visual Flow Diagram */}
-      <section className="border-b border-gray-100 bg-emerald-50/40 py-10">
-        <div className="mx-auto max-w-6xl px-4">
-          <p className="text-center text-xs font-bold uppercase tracking-wider text-emerald-800 mb-6">
-            AgriLink Maharashtra Decision &amp; Transaction Flow
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4">
-            {[
-              { icon: Users, label: "FARMER / FPO" },
-              { icon: TrendingUp, label: "AGMARKNET 2.0 INTELLIGENCE" },
-              { icon: Sparkles, label: "AI DECISION ENGINE" },
-              { icon: BarChart3, label: "NET REALIZATION" },
-              { icon: ShieldCheck, label: "VERIFIED BUYER" },
-              { icon: Package, label: "TRANSACTION" },
-              { icon: Scale, label: "SETTLEMENT" },
-            ].map(({ icon: Icon, label }, i) => (
-              <div key={label} className="flex items-center gap-2 sm:gap-3">
-                <div className="flex flex-col items-center gap-1.5">
-                  <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-white border border-emerald-200 text-emerald-700 shadow-xs">
-                    <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                  </div>
-                  <span className="text-[10px] sm:text-xs font-bold text-gray-800 text-center max-w-[85px] leading-tight">{label}</span>
-                </div>
-                {i < 6 && (
-                  <ArrowRight className="h-4 w-4 text-emerald-500 hidden sm:block" />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Core Value Proposition Cards */}
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <div className="mb-10 text-center space-y-2">
-          <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-900 border border-emerald-300">
-            AGMARKNET 2.0 Live Integration Active
-          </span>
-          <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-            AI-Assisted Farm-to-Market Decision Engine
-          </h2>
-          <p className="text-sm text-gray-600 max-w-2xl mx-auto">
-            Not just another price board. AgriLink Maharashtra converts fragmented market signals into actionable, transparent selling decisions.
-          </p>
-        </div>
-
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              icon: TrendingUp,
-              title: "AGMARKNET 2.0 Intelligence",
-              desc: "Live daily price & arrival data across Nashik, Pune, Nagpur, Solapur, Sangli, & Ahilyanagar APMCs",
-            },
-            {
-              icon: Users,
-              title: "Verified Buyer Network",
-              desc: "Verified institutional buyers & processors ranked by estimated net realization",
-            },
-            {
-              icon: Truck,
-              title: "Net Realization Engine",
-              desc: "Upfront transport, storage, and transaction fee deductions. Transparent net earnings calculation.",
-            },
-            {
-              icon: Sparkles,
-              title: "AI Visual Quality",
-              desc: "Visual defect and grade estimation paired with deterministic mathematical sale scoring.",
-            },
-          ].map(({ icon: Icon, title, desc }) => (
-            <Card key={title} className="border border-emerald-100 hover:shadow-md transition-all">
-              <CardContent className="p-5">
-                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <h3 className="font-bold text-gray-900">{title}</h3>
-                <p className="mt-1 text-xs text-gray-500 leading-relaxed">{desc}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Ecosystem Positioning */}
-      <section className="border-t border-b border-gray-100 bg-gray-50/80 py-14">
-        <div className="mx-auto max-w-5xl px-4 space-y-6">
-          <div className="text-center space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-              Agricultural Ecosystem Alignment
-            </span>
-            <h2 className="text-2xl font-bold text-gray-900">
-              How AgriLink Fits Into Maharashtra&apos;s Agricultural Ecosystem
+      {/* Hero Service Section */}
+      <section className="bg-gradient-to-b from-emerald-900 via-emerald-850 to-emerald-950 text-white py-12 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 space-y-6">
+          <div className="max-w-3xl space-y-4">
+            <Badge variant="verified" className="bg-emerald-800 text-emerald-100 border-emerald-700 font-bold px-3 py-1 text-xs">
+              AGMARKNET 2.0 APMC MARKET DATA INTEGRATED
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+              Statewide Agricultural Market Intelligence &amp; Transparent Direct Trade
             </h2>
-            <p className="text-sm text-gray-600 max-w-2xl mx-auto">
-              AgriLink is designed as an intelligence and decision-support layer connecting farmers, FPOs, buyers, and market data sources.
+            <p className="text-sm md:text-base text-emerald-100 leading-relaxed">
+              AgriLink Maharashtra provides farmers, FPOs, and verified buyers with real-time APMC prices, arrival intelligence, upfront net realization analysis, and direct transaction enablement.
             </p>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-5 text-center font-semibold text-xs">
-            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-xs flex flex-col items-center justify-center">
-              <span className="text-emerald-700 font-bold mb-1">1. Market Systems</span>
-              <span className="text-gray-600">APMC Mandis &amp; AGMARKNET 2.0</span>
-            </div>
-            <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 text-emerald-950 flex flex-col items-center justify-center">
-              <span className="text-emerald-800 font-bold mb-1">2. Data Layer</span>
-              <span>Price, Arrival &amp; Demand Aggregation</span>
-            </div>
-            <div className="bg-emerald-700 text-white p-4 rounded-xl shadow-md flex flex-col items-center justify-center">
-              <span className="font-bold mb-1">3. AgriLink Engine</span>
-              <span>Net Realization &amp; Sale Window Scoring</span>
-            </div>
-            <div className="bg-emerald-50 p-4 rounded-xl border border-emerald-200 text-emerald-950 flex flex-col items-center justify-center">
-              <span className="text-emerald-800 font-bold mb-1">4. Buyer Matching</span>
-              <span>FPOs &amp; Verified Processors</span>
-            </div>
-            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-xs flex flex-col items-center justify-center">
-              <span className="text-emerald-700 font-bold mb-1">5. Farmer Impact</span>
-              <span className="text-gray-600">Estimated Potential Price Improvement</span>
-            </div>
+          {/* Quick Access Service Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-4">
+            <button
+              type="button"
+              onClick={() => handleRoleNavigate("farmer")}
+              className="bg-white/10 hover:bg-white/15 backdrop-blur p-4 rounded-xl border border-white/20 text-left transition-all space-y-2 group"
+            >
+              <div className="flex justify-between items-center">
+                <div className="p-2 bg-emerald-700 text-white rounded-lg group-hover:scale-105 transition-transform">
+                  <Package className="h-5 w-5" />
+                </div>
+                <ArrowRight className="h-4 w-4 text-emerald-300" />
+              </div>
+              <div>
+                <p className="font-bold text-sm text-white">{translate("sellCrop") || "Sell My Crop"}</p>
+                <p className="text-xs text-emerald-200 mt-0.5">Calculate net realization &amp; create digital lot</p>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleRoleNavigate("farmer")}
+              className="bg-white/10 hover:bg-white/15 backdrop-blur p-4 rounded-xl border border-white/20 text-left transition-all space-y-2 group"
+            >
+              <div className="flex justify-between items-center">
+                <div className="p-2 bg-blue-600 text-white rounded-lg group-hover:scale-105 transition-transform">
+                  <TrendingUp className="h-5 w-5" />
+                </div>
+                <ArrowRight className="h-4 w-4 text-emerald-300" />
+              </div>
+              <div>
+                <p className="font-bold text-sm text-white">{translate("checkPrices") || "Market Prices"}</p>
+                <p className="text-xs text-emerald-200 mt-0.5">Live APMC modal rates across Maharashtra</p>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleRoleNavigate("buyer")}
+              className="bg-white/10 hover:bg-white/15 backdrop-blur p-4 rounded-xl border border-white/20 text-left transition-all space-y-2 group"
+            >
+              <div className="flex justify-between items-center">
+                <div className="p-2 bg-purple-600 text-white rounded-lg group-hover:scale-105 transition-transform">
+                  <Building2 className="h-5 w-5" />
+                </div>
+                <ArrowRight className="h-4 w-4 text-emerald-300" />
+              </div>
+              <div>
+                <p className="font-bold text-sm text-white">{translate("buyerPortal") || "Buyer Procurement"}</p>
+                <p className="text-xs text-emerald-200 mt-0.5">Browse crop lots &amp; submit commercial offers</p>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleRoleNavigate("admin")}
+              className="bg-white/10 hover:bg-white/15 backdrop-blur p-4 rounded-xl border border-white/20 text-left transition-all space-y-2 group"
+            >
+              <div className="flex justify-between items-center">
+                <div className="p-2 bg-amber-600 text-white rounded-lg group-hover:scale-105 transition-transform">
+                  <BarChart3 className="h-5 w-5" />
+                </div>
+                <ArrowRight className="h-4 w-4 text-emerald-300" />
+              </div>
+              <div>
+                <p className="font-bold text-sm text-white">{translate("commandCenter") || "State Command Center"}</p>
+                <p className="text-xs text-emerald-200 mt-0.5">Market anomaly alerts &amp; analytics</p>
+              </div>
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Feature Coverage Checklist */}
-      <section className="mx-auto max-w-4xl px-4 py-14">
-        <div className="flex flex-col items-center mb-8 space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
-            Platform Capabilities Matrix
-          </span>
-          <h2 className="text-center text-xl font-bold text-gray-900">
-            Platform Feature Overview
-          </h2>
-          <Link href="/farmer/coverage" className="text-xs font-bold text-emerald-700 hover:underline flex items-center gap-1">
-            View Complete Platform Feature Matrix <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
-
-        <div className="grid gap-x-8 gap-y-2.5 sm:grid-cols-2">
-          {[
-            "🟢 AGMARKNET 2.0 mandi price intelligence",
-            "🟢 Buyer demand aggregation",
-            "🟢 AI visual quality assessment & grading",
-            "🟢 Arrival volume tracking & alerts",
-            "🟢 Transport cost calculator",
-            "🟢 Storage cost calculator",
-            "🟢 Localized price trends across Maharashtra",
-            "🟢 AI sale-window recommendation (24-48 hrs)",
-            "🟢 Verified buyer trust profiles & reliability scores",
-            "🟢 Farmer & FPO lot creation",
-            "🟢 Digital offer management",
-            "🟢 Logistics coordination & tracking",
-            "🟢 Payment tracking & visual transaction timeline",
-            "🟢 Dispute & grievance resolution workflow",
-            "🟢 FPO aggregation dashboard (bulk lots)",
-            "🟢 Buyer-side lot aggregation",
-            "🟢 Explainable decision engine",
-            "🟢 State command center analytics",
-          ].map((item) => (
-            <div key={item} className="flex items-center gap-2 py-1">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
-              <span className="text-xs font-medium text-gray-800">{item}</span>
+      {/* Main Content Area */}
+      <main className="mx-auto max-w-7xl px-4 py-8 space-y-8">
+        {/* Today's Market Data Snapshot */}
+        <Card className="border border-emerald-100 shadow-sm">
+          <CardHeader className="bg-emerald-50/50 pb-3 border-b border-emerald-100">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <CardTitle className="text-lg font-bold text-gray-900 flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-emerald-700" />
+                  Maharashtra APMC Daily Market Rates (AGMARKNET Direct Feed)
+                </CardTitle>
+                <CardDescription className="text-xs text-gray-600">
+                  Daily APMC mandi modal prices, arrival volumes, and min/max range across Maharashtra
+                </CardDescription>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge variant={dataStatus === "live" ? "verified" : "info"} className="text-xs font-bold">
+                  <Database className="h-3 w-3 mr-1" />
+                  Source: {dataSource} ({dataStatus.toUpperCase()})
+                </Badge>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </CardHeader>
+          <CardContent className="p-0">
+            {loadingMarkets ? (
+              <div className="p-8 text-center text-xs text-gray-500">Loading daily APMC market prices...</div>
+            ) : marketPrices.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-gray-50 text-gray-600 uppercase font-bold border-b">
+                    <tr>
+                      <th className="px-4 py-3">Market APMC</th>
+                      <th className="px-4 py-3">District</th>
+                      <th className="px-4 py-3">Commodity</th>
+                      <th className="px-4 py-3">Variety / Grade</th>
+                      <th className="px-4 py-3 text-right">Min - Max Rate</th>
+                      <th className="px-4 py-3 text-right">Modal Price</th>
+                      <th className="px-4 py-3 text-right">Arrival Volume</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {marketPrices.map((item) => (
+                      <tr key={item.id} className="hover:bg-emerald-50/30 transition-colors">
+                        <td className="px-4 py-3 font-bold text-gray-900">{item.market}</td>
+                        <td className="px-4 py-3 text-gray-600">
+                          <span className="flex items-center gap-1">
+                            <MapPin className="h-3 w-3 text-emerald-600" />
+                            {item.district}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 font-bold text-emerald-900">{item.commodity}</td>
+                        <td className="px-4 py-3 text-gray-500">
+                          {item.variety} ({item.grade})
+                        </td>
+                        <td className="px-4 py-3 text-right text-gray-600">
+                          ₹{item.minPrice} - ₹{item.maxPrice}/kg
+                        </td>
+                        <td className="px-4 py-3 text-right font-extrabold text-emerald-800 text-sm">
+                          {formatCurrencyPerKg(item.modalPrice)}
+                        </td>
+                        <td className="px-4 py-3 text-right font-semibold text-gray-700">
+                          {formatNumber(item.arrivals)} {item.unit}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="p-6 text-center text-xs text-gray-500">No market price data available at present.</div>
+            )}
+          </CardContent>
+        </Card>
 
-      {/* Role Selection */}
-      <section className="border-t border-emerald-100 bg-white py-14">
-        <div className="mx-auto max-w-4xl px-4 space-y-6">
-          <h2 className="text-center text-xl font-bold text-gray-900">
-            Explore AgriLink Portals by User Role
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {[
-              {
-                role: "farmer" as const,
-                title: "🌾 Farmer / FPO Portal",
-                desc: "Sell crops, check AGMARKNET mandi prices, find buyers, track sales",
-                color: "border-emerald-200 hover:border-emerald-400 bg-emerald-50/30",
-              },
-              {
-                role: "buyer" as const,
-                title: "🏢 Buyer Portal",
-                desc: "Browse lots, submit offers, inspect visual quality evidence, aggregate supply",
-                color: "border-blue-200 hover:border-blue-400 bg-blue-50/30",
-              },
-              {
-                role: "admin" as const,
-                title: "📊 State Command Center",
-                desc: "Market intelligence monitoring, buyer registry, grievances, platform analytics",
-                color: "border-purple-200 hover:border-purple-400 bg-purple-50/30",
-              },
-            ].map(({ role, title, desc, color }) => (
-              <button
-                key={role}
-                type="button"
-                onClick={() => handleRoleLogin(role)}
-                disabled={!!loading}
-                className={`rounded-2xl border-2 p-5 text-left transition-all hover:shadow-md ${color}`}
-              >
-                <p className="text-base font-bold text-gray-900">{title}</p>
-                <p className="mt-1 text-xs text-gray-600 leading-relaxed">{desc}</p>
-                {loading === role && (
-                  <p className="mt-2 text-xs font-bold text-emerald-700">Entering portal...</p>
-                )}
-              </button>
-            ))}
+        {/* Core Portals Section */}
+        <div className="space-y-4">
+          <h2 className="text-xl font-bold text-gray-900">AgriLink Public Service Portals</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Farmer Portal Card */}
+            <Card className="border border-emerald-200 hover:shadow-md transition-all flex flex-col justify-between">
+              <CardHeader className="bg-emerald-50/50 pb-3">
+                <div className="flex justify-between items-start">
+                  <Badge variant="success" className="font-bold">FARMER &amp; FPO SERVICES</Badge>
+                  <Users className="h-5 w-5 text-emerald-700" />
+                </div>
+                <CardTitle className="text-lg font-bold text-gray-900 mt-2">Farmer &amp; FPO Portal</CardTitle>
+                <CardDescription className="text-xs">
+                  Create crop lots, view upfront net realization recommendations, and receive direct buyer offers.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 pt-3">
+                <ul className="space-y-2 text-xs text-gray-700">
+                  <li className="flex items-center gap-2">✓ AI-assisted net realization calculation</li>
+                  <li className="flex items-center gap-2">✓ Optional AI visual quality assessment</li>
+                  <li className="flex items-center gap-2">✓ Direct buyer offer evaluation &amp; comparison</li>
+                  <li className="flex items-center gap-2">✓ Transaction timeline &amp; payout status</li>
+                </ul>
+                <Button
+                  onClick={() => handleRoleNavigate("farmer")}
+                  className="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs"
+                >
+                  Enter Farmer Portal →
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Buyer Portal Card */}
+            <Card className="border border-blue-200 hover:shadow-md transition-all flex flex-col justify-between">
+              <CardHeader className="bg-blue-50/50 pb-3">
+                <div className="flex justify-between items-start">
+                  <Badge variant="info" className="font-bold">COMMERCIAL PROCUREMENT</Badge>
+                  <Building2 className="h-5 w-5 text-blue-700" />
+                </div>
+                <CardTitle className="text-lg font-bold text-gray-900 mt-2">Buyer Procurement Portal</CardTitle>
+                <CardDescription className="text-xs">
+                  Source verified crop lots from farmers and FPOs with transparent visual quality evidence.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 pt-3">
+                <ul className="space-y-2 text-xs text-gray-700">
+                  <li className="flex items-center gap-2">✓ Browse crop lots across Maharashtra</li>
+                  <li className="flex items-center gap-2">✓ Visual inspection &amp; quality evidence photos</li>
+                  <li className="flex items-center gap-2">✓ Multi-lot AI procurement aggregation</li>
+                  <li className="flex items-center gap-2">✓ Digital offer submission &amp; transaction tracking</li>
+                </ul>
+                <Button
+                  onClick={() => handleRoleNavigate("buyer")}
+                  className="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs"
+                >
+                  Enter Buyer Portal →
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Admin Command Center Card */}
+            <Card className="border border-purple-200 hover:shadow-md transition-all flex flex-col justify-between">
+              <CardHeader className="bg-purple-50/50 pb-3">
+                <div className="flex justify-between items-start">
+                  <Badge variant="default" className="bg-purple-100 text-purple-900 border-purple-300 font-bold">STATE COMMAND CENTER</Badge>
+                  <BarChart3 className="h-5 w-5 text-purple-700" />
+                </div>
+                <CardTitle className="text-lg font-bold text-gray-900 mt-2">Market Command Center</CardTitle>
+                <CardDescription className="text-xs">
+                  Monitor market health, arrival surges, price anomalies, and grievance tickets.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 pt-3">
+                <ul className="space-y-2 text-xs text-gray-700">
+                  <li className="flex items-center gap-2">✓ Interactive district market health map</li>
+                  <li className="flex items-center gap-2">✓ AI market anomaly detection &amp; advisories</li>
+                  <li className="flex items-center gap-2">✓ Platform verified buyer registry</li>
+                  <li className="flex items-center gap-2">✓ Farmer dispute &amp; grievance resolution</li>
+                </ul>
+                <Button
+                  onClick={() => handleRoleNavigate("admin")}
+                  className="w-full bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs"
+                >
+                  Enter Command Center →
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
-      </section>
+      </main>
 
-      <footer className="border-t border-emerald-100 py-8 text-center text-xs text-gray-500 bg-gray-50/50 space-y-2">
-        <p className="font-semibold text-gray-800 text-sm">
-          &ldquo;Better prices. Better markets. Better decisions.&rdquo;
-        </p>
-        <p>AgriLink Maharashtra · Agricultural Market Intelligence &amp; Transaction Platform</p>
+      {/* Footer */}
+      <footer className="border-t border-emerald-100 bg-white py-8 text-xs text-gray-600">
+        <div className="mx-auto max-w-7xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <p className="font-bold text-gray-900">AgriLink Maharashtra Services</p>
+            <p className="text-gray-500 mt-0.5">
+              State Agricultural Market Intelligence &amp; Transaction Enablement Services
+            </p>
+          </div>
+          <div className="text-gray-500 text-right">
+            <p>Data Feed: AGMARKNET 2.0 Direct API</p>
+            <p className="mt-0.5">Coverage: Maharashtra APMCs (Nashik, Pune, Solapur, Nagpur, Sangli, Ahilyanagar)</p>
+          </div>
+        </div>
       </footer>
     </div>
   );

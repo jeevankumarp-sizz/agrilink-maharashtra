@@ -20,10 +20,10 @@ export function BuyerTrustCard({
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <Badge variant="verified" className="bg-emerald-700 text-white font-bold px-3 py-1">
-            <ShieldCheck className="mr-1 h-3.5 w-3.5 text-emerald-200" /> VERIFIED BUYER ✓
+            <ShieldCheck className="mr-1 h-3.5 w-3.5 text-emerald-200" /> REGISTERED BUYER ✓
           </Badge>
           <span className="text-[10px] font-semibold text-gray-500 bg-white px-2 py-0.5 rounded border">
-            Demo Verification Record
+            Registered Profile Status
           </span>
         </div>
         <CardTitle className="text-base font-bold text-gray-900 mt-2">

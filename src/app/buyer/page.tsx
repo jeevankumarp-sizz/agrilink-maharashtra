@@ -50,7 +50,24 @@ export default function BuyerDashboardPage() {
   if (loading) {
     return (
       <AppShell role="buyer" userName="FreshFoods Maharashtra">
-        <LoadingSpinner />
+        <div className="space-y-6 max-w-6xl mx-auto pb-12 animate-pulse">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="space-y-2">
+              <div className="h-7 w-64 bg-gray-200 rounded"></div>
+              <div className="h-4 w-96 bg-gray-200 rounded"></div>
+            </div>
+            <div className="h-6 w-32 bg-gray-200 rounded-full"></div>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-28 bg-gray-200 rounded-xl border border-gray-100"></div>
+            ))}
+          </div>
+          <div className="h-64 bg-gray-100 rounded-xl border border-gray-200 flex flex-col items-center justify-center text-gray-500 font-medium space-y-3">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-200 border-t-emerald-700"></div>
+            <p className="text-sm font-semibold">Loading procurement information...</p>
+          </div>
+        </div>
       </AppShell>
     );
   }
@@ -58,10 +75,19 @@ export default function BuyerDashboardPage() {
   if (!data) {
     return (
       <AppShell role="buyer" userName="FreshFoods Maharashtra">
-        <EmptyState 
-          title="Error loading dashboard" 
-          description="We couldn't load your dashboard data. Please try again later."
-        />
+        <div className="max-w-md mx-auto my-12 p-8 bg-white rounded-xl border border-red-200 text-center shadow-xs space-y-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-100 text-red-600 mx-auto">
+            <Package className="h-6 w-6" />
+          </div>
+          <h3 className="text-lg font-bold text-gray-900">Market Information Temporarily Unavailable</h3>
+          <p className="text-xs text-gray-600">We couldn't connect to the procurement data service. Please try again.</p>
+          <Button 
+            onClick={() => window.location.reload()} 
+            className="bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs"
+          >
+            Retry Loading
+          </Button>
+        </div>
       </AppShell>
     );
   }
@@ -103,7 +129,7 @@ export default function BuyerDashboardPage() {
             </p>
           </div>
           <Badge variant="verified" className="bg-emerald-100 text-emerald-900 border-emerald-300 font-bold text-xs px-3 py-1 w-fit">
-            <ShieldCheck className="h-3.5 w-3.5 mr-1" /> Verified Buyer Profile
+            <ShieldCheck className="h-3.5 w-3.5 mr-1" /> Registered Buyer Profile
           </Badge>
         </div>
 

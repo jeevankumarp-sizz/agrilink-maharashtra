@@ -166,8 +166,8 @@ export default function CreateLotPage() {
             <h1 className="text-2xl font-bold text-gray-900">Sell My Crop</h1>
             <p className="text-gray-500 text-sm">Enter crop details to calculate your best selling option</p>
           </div>
-          <Button variant="demo" size="sm" onClick={loadDemoValues}>
-            Load Sample Values
+          <Button variant="secondary" size="sm" onClick={loadDemoValues}>
+            Autofill Example Values
           </Button>
         </div>
 
@@ -188,7 +188,7 @@ export default function CreateLotPage() {
             <div>
               <p className="font-semibold text-gray-900 text-sm flex items-center gap-1.5">
                 <Sparkles className="h-4 w-4 text-emerald-700" />
-                Farmer Voice Assistant — Prototype
+                Farmer Voice Assistant
               </p>
               <p className="text-xs text-gray-600">
                 {voiceText || "Tap mic and say e.g. '2000 kg Grade A Tomatoes in Nashik'"}

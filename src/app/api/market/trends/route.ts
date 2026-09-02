@@ -8,18 +8,23 @@ export async function GET(request: NextRequest) {
     const district = searchParams.get("district") || "Nashik";
 
     const pricesResult = await getMarketPrices({ commodity, district });
-    
-    // Generate trend summary from price points
-    const baseModal = pricesResult.data[0]?.modalPrice || 31.5;
-    
-    // 5-day price trend extrapolation
-    const trendPoints = [
-      Number((baseModal * 0.94).toFixed(2)),
-      Number((baseModal * 0.96).toFixed(2)),
-      Number((baseModal * 0.98).toFixed(2)),
-      baseModal,
-      Number((baseModal * 1.03).toFixed(2)),
-    ];
+    const records = pricesResult.data;
+
+    // Extract actual price observations per date if historical records exist
+    const dateMap = new Map<string, number>();
+    records.forEach((r) => {
+      if (r.date && r.modalPrice) {
+        dateMap.set(r.date, r.modalPrice);
+      }
+    });
+
+    const hasHistoricalTrends = dateMap.size > 1;
+    const actualObservations = Array.from(dateMap.entries()).map(([date, price]) => ({
+      date,
+      modalPrice: price,
+    }));
+
+    const currentModal = records[0]?.modalPrice || null;
 
     return NextResponse.json(
       {
@@ -29,10 +34,13 @@ export async function GET(request: NextRequest) {
         updatedAt: new Date().toISOString(),
         commodity,
         district,
-        currentModalPrice: baseModal,
-        trendDirection: baseModal >= trendPoints[0] ? "UPWARD" : "DOWNWARD",
-        priceTrend5Day: trendPoints,
-        marketsCount: pricesResult.count,
+        currentModalPrice: currentModal,
+        historicalTrendAvailable: hasHistoricalTrends,
+        observationsCount: actualObservations.length,
+        observations: actualObservations,
+        message: hasHistoricalTrends
+          ? "Historical observations derived from actual AGMARKNET records."
+          : "Single-day price observation available. Multi-day historical trend data unavailable for this selection.",
       },
       { status: 200 }
     );

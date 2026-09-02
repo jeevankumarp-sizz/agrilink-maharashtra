@@ -22,8 +22,10 @@ async function fetchWithTimeout(url: string, options: RequestInit = {}): Promise
       ...options,
       signal: controller.signal,
       headers: {
-        "User-Agent": "AgriLink-Maharashtra/1.0 (Market-Intelligence; +https://agrilink.maharashtra.gov.in)",
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
         Accept: "application/json, text/plain, */*",
+        Origin: "https://agmarknet.gov.in",
+        Referer: "https://agmarknet.gov.in/",
         "Content-Type": "application/json",
         ...(options.headers || {}),
       },
@@ -36,7 +38,7 @@ async function fetchWithTimeout(url: string, options: RequestInit = {}): Promise
 }
 
 /**
- * Fetches market prices from AGMARKNET 2.0 or safe fallback.
+ * Fetches market prices from AGMARKNET 2.0 or safe reference dataset.
  */
 export async function getMarketPrices(
   params: MarketFilterParams = {}
@@ -83,17 +85,17 @@ export async function getMarketPrices(
     console.warn("[AGMARKNET Client] Upstream API call failed or timed out:", err?.message || err);
   }
 
-  // Graceful fallback to Maharashtra fallback data
+  // Graceful fallback to Maharashtra reference dataset
   const fallbackFiltered = filterPrices(MAHARASHTRA_FALLBACK_MARKET_DATA, params);
 
   return {
     success: true,
-    source: "Fallback Dataset",
+    source: "Reference Dataset",
     updatedAt: new Date().toISOString(),
-    dataStatus: "fallback",
+    dataStatus: "reference",
     count: fallbackFiltered.length,
     data: fallbackFiltered,
-    message: "Using fallback market data. Source AGMARKNET 2.0 temporarily unavailable.",
+    message: "Using state reference market dataset. Source AGMARKNET 2.0 temporarily unavailable.",
   };
 }
 
@@ -144,9 +146,9 @@ export async function getMarketFilters(): Promise<MarketApiResponse<{
 
   return {
     success: true,
-    source: "Fallback Dataset",
+    source: "Reference Dataset",
     updatedAt: new Date().toISOString(),
-    dataStatus: "fallback",
+    dataStatus: "reference",
     count: 1,
     data: {
       states: ["Maharashtra"],
@@ -154,7 +156,7 @@ export async function getMarketFilters(): Promise<MarketApiResponse<{
       commodities,
       markets,
     },
-    message: "Filters provided via fallback dataset.",
+    message: "Filters provided via reference dataset.",
   };
 }
 

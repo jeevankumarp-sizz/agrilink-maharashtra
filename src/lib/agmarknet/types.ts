@@ -1,4 +1,4 @@
-export type DataStatus = "live" | "cached" | "fallback" | "error";
+export type DataStatus = "live" | "cached" | "reference" | "error";
 
 export interface AgmarknetRawPriceItem {
   state_name?: string;
@@ -27,7 +27,7 @@ export interface AgmarknetRawFilterOptions {
 
 export interface NormalizedMarketPrice {
   id: string;
-  source: "AGMARKNET" | "Fallback Dataset";
+  source: "AGMARKNET" | "Reference Dataset";
   state: string;
   district: string;
   market: string;
@@ -47,7 +47,7 @@ export interface NormalizedMarketPrice {
 
 export interface MarketApiResponse<T = NormalizedMarketPrice[]> {
   success: boolean;
-  source: "AGMARKNET" | "Fallback Dataset";
+  source: "AGMARKNET" | "Reference Dataset";
   updatedAt: string;
   dataStatus: DataStatus;
   count: number;

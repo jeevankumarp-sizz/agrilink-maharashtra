@@ -45,7 +45,7 @@ export function normalizeAgmarknetItem(
 
   return {
     id: `AGM-${market.replace(/\s+/g, "_")}-${commodity}-${dateStr}`,
-    source: dataStatus === "fallback" ? "Fallback Dataset" : "AGMARKNET",
+    source: dataStatus === "reference" ? "Reference Dataset" : "AGMARKNET",
     state,
     district,
     market,
@@ -65,12 +65,12 @@ export function normalizeAgmarknetItem(
 }
 
 /**
- * Standard fallback dataset for Maharashtra APMC markets when AGMARKNET endpoint is offline/rate-limited.
+ * Standard reference dataset for Maharashtra APMC markets when AGMARKNET endpoint is offline/rate-limited.
  */
 export const MAHARASHTRA_FALLBACK_MARKET_DATA: NormalizedMarketPrice[] = [
   {
     id: "AGM-NASHIK-TOMATO-01",
-    source: "Fallback Dataset",
+    source: "Reference Dataset",
     state: "Maharashtra",
     district: "Nashik",
     market: "Nashik APMC (Panchavati Hub)",
@@ -85,11 +85,11 @@ export const MAHARASHTRA_FALLBACK_MARKET_DATA: NormalizedMarketPrice[] = [
     unit: "kg",
     sourceTimestamp: new Date().toISOString(),
     syncedAt: new Date().toISOString(),
-    dataStatus: "fallback",
+    dataStatus: "reference",
   },
   {
     id: "AGM-PUNE-TOMATO-02",
-    source: "Fallback Dataset",
+    source: "Reference Dataset",
     state: "Maharashtra",
     district: "Pune",
     market: "Pune APMC (Gultekdi Hub)",
@@ -104,11 +104,11 @@ export const MAHARASHTRA_FALLBACK_MARKET_DATA: NormalizedMarketPrice[] = [
     unit: "kg",
     sourceTimestamp: new Date().toISOString(),
     syncedAt: new Date().toISOString(),
-    dataStatus: "fallback",
+    dataStatus: "reference",
   },
   {
     id: "AGM-NASHIK-ONION-03",
-    source: "Fallback Dataset",
+    source: "Reference Dataset",
     state: "Maharashtra",
     district: "Nashik",
     market: "Lasalgaon APMC",
@@ -123,11 +123,11 @@ export const MAHARASHTRA_FALLBACK_MARKET_DATA: NormalizedMarketPrice[] = [
     unit: "kg",
     sourceTimestamp: new Date().toISOString(),
     syncedAt: new Date().toISOString(),
-    dataStatus: "fallback",
+    dataStatus: "reference",
   },
   {
     id: "AGM-AHMEDNAGAR-ONION-04",
-    source: "Fallback Dataset",
+    source: "Reference Dataset",
     state: "Maharashtra",
     district: "Ahilyanagar",
     market: "Rahuri APMC",
@@ -142,11 +142,11 @@ export const MAHARASHTRA_FALLBACK_MARKET_DATA: NormalizedMarketPrice[] = [
     unit: "kg",
     sourceTimestamp: new Date().toISOString(),
     syncedAt: new Date().toISOString(),
-    dataStatus: "fallback",
+    dataStatus: "reference",
   },
   {
     id: "AGM-PUNE-POTATO-05",
-    source: "Fallback Dataset",
+    source: "Reference Dataset",
     state: "Maharashtra",
     district: "Pune",
     market: "Manchar APMC",
@@ -161,11 +161,11 @@ export const MAHARASHTRA_FALLBACK_MARKET_DATA: NormalizedMarketPrice[] = [
     unit: "kg",
     sourceTimestamp: new Date().toISOString(),
     syncedAt: new Date().toISOString(),
-    dataStatus: "fallback",
+    dataStatus: "reference",
   },
   {
     id: "AGM-SOLAPUR-ONION-06",
-    source: "Fallback Dataset",
+    source: "Reference Dataset",
     state: "Maharashtra",
     district: "Solapur",
     market: "Solapur APMC",
@@ -180,11 +180,11 @@ export const MAHARASHTRA_FALLBACK_MARKET_DATA: NormalizedMarketPrice[] = [
     unit: "kg",
     sourceTimestamp: new Date().toISOString(),
     syncedAt: new Date().toISOString(),
-    dataStatus: "fallback",
+    dataStatus: "reference",
   },
   {
     id: "AGM-NAGPUR-TOMATO-07",
-    source: "Fallback Dataset",
+    source: "Reference Dataset",
     state: "Maharashtra",
     district: "Nagpur",
     market: "Kalamna APMC (Nagpur)",
@@ -199,6 +199,6 @@ export const MAHARASHTRA_FALLBACK_MARKET_DATA: NormalizedMarketPrice[] = [
     unit: "kg",
     sourceTimestamp: new Date().toISOString(),
     syncedAt: new Date().toISOString(),
-    dataStatus: "fallback",
+    dataStatus: "reference",
   },
 ];

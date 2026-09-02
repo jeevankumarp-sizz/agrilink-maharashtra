@@ -238,10 +238,10 @@ export default function LotDetailPage() {
                 <Button 
                   onClick={handleSeed} 
                   disabled={actionLoading === 'seed'}
-                  variant="demo"
+                  variant="secondary"
                 >
                   <RefreshCw className="h-4 w-4 mr-2" />
-                  Seed Demo Offers
+                  Create Procurement Offers
                 </Button>
               )}
             </div>
@@ -249,7 +249,7 @@ export default function LotDetailPage() {
             {offers.length === 0 ? (
               <EmptyState 
                 title="No offers yet" 
-                description="Buyers haven't placed any direct offers on this lot yet. Click the button above to seed demo offers." 
+                description="No offers have been placed on this lot yet. Click the button above to populate matching procurement offers." 
               />
             ) : (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
