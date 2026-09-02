@@ -1,0 +1,41 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400' width='100%' height='100%'>
+  <defs>
+    <radialGradient id='bgTur' cx='50%' cy='50%' r='60%'>
+      <stop offset='0%' stop-color='#fff7ed'/>
+      <stop offset='100%' stop-color='#ffedd5'/>
+    </radialGradient>
+    <radialGradient id='turGrad' cx='35%' cy='35%' r='65%'>
+      <stop offset='0%' stop-color='#f97316'/>
+      <stop offset='50%' stop-color='#c2410c'/>
+      <stop offset='85%' stop-color='#9a3412'/>
+      <stop offset='100%' stop-color='#6c1d04'/>
+    </radialGradient>
+    <filter id='shadowTur' x='-10%' y='-10%' width='130%' height='130%'>
+      <feDropShadow dx='0' dy='12' stdDeviation='10' flood-color='#6c1d04' flood-opacity='0.22'/>
+    </filter>
+  </defs>
+  <rect width='400' height='400' rx='32' fill='url(#bgTur)'/>
+  <g filter='url(#shadowTur)'>
+    <path d='M80,160 Q150,110 240,120 Q310,130 330,170 Q280,185 200,180 Q120,175 80,160 Z' fill='#854d0e' opacity='0.75' transform='rotate(-12 200 150)'/>
+    <g transform='translate(140, 270)'>
+      <circle cx='0' cy='0' r='38' fill='url(#turGrad)'/>
+      <ellipse cx='-8' cy='-12' rx='12' ry='6' fill='#ffffff' fill-opacity='0.3'/>
+      <path d='M-10,-2 Q0,-5 10,-2' stroke='#431407' stroke-width='3' fill='none' stroke-linecap='round'/>
+    </g>
+    <g transform='translate(240, 260)'>
+      <circle cx='0' cy='0' r='48' fill='url(#turGrad)'/>
+      <ellipse cx='-12' cy='-16' rx='16' ry='8' fill='#ffffff' fill-opacity='0.35'/>
+      <path d='M-14,-3 Q0,-7 14,-3' stroke='#431407' stroke-width='4' fill='none' stroke-linecap='round'/>
+    </g>
+    <g transform='translate(195, 205)'>
+      <circle cx='0' cy='0' r='40' fill='url(#turGrad)'/>
+      <ellipse cx='-10' cy='-12' rx='14' ry='6' fill='#ffffff' fill-opacity='0.3'/>
+      <path d='M-12,-2 Q0,-5 12,-2' stroke='#431407' stroke-width='3.5' fill='none' stroke-linecap='round'/>
+    </g>
+    <g transform='translate(295, 220)'>
+      <circle cx='0' cy='0' r='34' fill='url(#turGrad)'/>
+    </g>
+  </g>
+  <rect x='16' y='16' width='175' height='36' rx='18' fill='#ffffff' fill-opacity='0.92' stroke='#ffedd5'/>
+  <text x='103' y='39' font-family='system-ui, sans-serif' font-size='14' font-weight='bold' fill='#c2410c' text-anchor='middle'>Tur / Arhar · तूर</text>
+</svg>

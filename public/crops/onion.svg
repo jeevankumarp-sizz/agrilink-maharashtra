@@ -1,0 +1,40 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400' width='100%' height='100%'>
+  <defs>
+    <radialGradient id='bg' cx='50%' cy='50%' r='60%'>
+      <stop offset='0%' stop-color='#fdfbf7'/>
+      <stop offset='100%' stop-color='#f3ece1'/>
+    </radialGradient>
+    <radialGradient id='onionSkin' cx='35%' cy='35%' r='65%'>
+      <stop offset='0%' stop-color='#c2415d'/>
+      <stop offset='45%' stop-color='#9f1239'/>
+      <stop offset='85%' stop-color='#881337'/>
+      <stop offset='100%' stop-color='#4c0519'/>
+    </radialGradient>
+    <radialGradient id='onionSkin2' cx='40%' cy='30%' r='60%'>
+      <stop offset='0%' stop-color='#e17b8f'/>
+      <stop offset='50%' stop-color='#be123c'/>
+      <stop offset='90%' stop-color='#700b2b'/>
+    </radialGradient>
+    <linearGradient id='peel' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0%' stop-color='#e5989b'/>
+      <stop offset='60%' stop-color='#b56576'/>
+      <stop offset='100%' stop-color='#6d2b3d'/>
+    </linearGradient>
+    <filter id='shadow' x='-10%' y='-10%' width='130%' height='130%'>
+      <feDropShadow dx='0' dy='14' stdDeviation='12' flood-color='#4c0519' flood-opacity='0.22'/>
+    </filter>
+  </defs>
+  <rect width='400' height='400' rx='32' fill='url(#bg)'/>
+  <g filter='url(#shadow)'>
+    <ellipse cx='140' cy='240' rx='85' ry='90' fill='url(#onionSkin)' transform='rotate(-12 140 240)'/>
+    <path d='M140,325 Q135,355 125,365 M140,325 Q145,358 145,370 M140,325 Q152,352 160,362' stroke='#b45309' stroke-width='2.5' fill='none' stroke-linecap='round'/>
+    <ellipse cx='245' cy='215' rx='105' ry='110' fill='url(#onionSkin2)' transform='rotate(8 245 215)'/>
+    <path d='M245,108 Q210,215 245,322 M245,108 Q275,215 245,322 M245,108 Q180,215 245,322 M245,108 Q310,215 245,322' stroke='#700b2b' stroke-width='2' fill='none' opacity='0.4'/>
+    <path d='M245,110 C240,85 248,55 255,40 C258,58 256,85 248,110 Z' fill='#84cc16'/>
+    <path d='M242,112 C235,90 230,70 220,55 C228,72 235,92 242,112 Z' fill='#65a30d'/>
+    <path d='M180,180 Q215,220 230,290 C200,270 170,230 180,180 Z' fill='url(#peel)' opacity='0.85'/>
+    <path d='M245,322 Q238,360 230,375 M245,322 Q248,365 250,380 M245,322 Q260,358 270,370' stroke='#ca8a04' stroke-width='3' fill='none' stroke-linecap='round'/>
+  </g>
+  <rect x='16' y='16' width='140' height='36' rx='18' fill='#ffffff' fill-opacity='0.9' stroke='#f3ece1'/>
+  <text x='86' y='39' font-family='system-ui, sans-serif' font-size='14' font-weight='bold' fill='#881337' text-anchor='middle'>Onion · कांदा</text>
+</svg>

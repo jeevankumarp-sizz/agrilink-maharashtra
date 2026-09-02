@@ -39,7 +39,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 12500,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 60,
-    image: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/onion.svg",
   },
   {
     id: "crop-tomato",
@@ -58,7 +58,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 4200,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 5,
-    image: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/tomato.svg",
   },
   {
     id: "crop-potato",
@@ -77,7 +77,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 6400,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 45,
-    image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/potato.svg",
   },
   {
     id: "crop-brinjal",
@@ -96,7 +96,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 2800,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 4,
-    image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/brinjal.svg",
   },
   {
     id: "crop-bhendi",
@@ -115,7 +115,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 3100,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 3,
-    image: "https://images.unsplash.com/photo-1589927986089-35812388d1f4?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/okra.svg",
   },
   {
     id: "crop-greenchilli",
@@ -134,7 +134,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 2500,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 5,
-    image: "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/green-chilli.svg",
   },
   {
     id: "crop-cabbage",
@@ -153,7 +153,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 4800,
     buyerDemandLevel: "MEDIUM",
     storageSuitabilityDays: 10,
-    image: "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/cabbage.svg",
   },
   {
     id: "crop-cauliflower",
@@ -172,7 +172,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 3900,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 7,
-    image: "https://images.unsplash.com/photo-1568584711075-3d021a7c3ca3?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/cauliflower.svg",
   },
 
   // PULSES & OILSEEDS
@@ -193,7 +193,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 24000,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 180,
-    image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/soybean.svg",
   },
   {
     id: "crop-tur",
@@ -212,7 +212,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 12000,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 240,
-    image: "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/tur.svg",
   },
   {
     id: "crop-chana",
@@ -231,7 +231,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 8900,
     buyerDemandLevel: "MEDIUM",
     storageSuitabilityDays: 180,
-    image: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/chana.svg",
   },
   {
     id: "crop-groundnut",
@@ -250,7 +250,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 7500,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 120,
-    image: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/groundnut.svg",
   },
 
   // CEREALS
@@ -271,7 +271,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 16200,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 360,
-    image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/wheat.svg",
   },
   {
     id: "crop-maize",
@@ -290,7 +290,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 21000,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 180,
-    image: "https://images.unsplash.com/photo-1551754655-cd27e38d2076?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/maize.svg",
   },
   {
     id: "crop-jowar",
@@ -309,7 +309,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 9500,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 240,
-    image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/jowar.svg",
   },
   {
     id: "crop-bajra",
@@ -328,7 +328,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 8200,
     buyerDemandLevel: "MEDIUM",
     storageSuitabilityDays: 180,
-    image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/bajra.svg",
   },
 
   // COMMERCIAL CROPS
@@ -349,7 +349,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 19500,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 300,
-    image: "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/cotton.svg",
   },
   {
     id: "crop-sugarcane",
@@ -368,16 +368,27 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 85000,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 2,
-    image: "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?q=80&w=800&auto=format&fit=crop",
+    image: "/crops/sugarcane.svg",
   },
 ];
 
-export function getCropCatalogItem(cropName: CropName): CropCatalogItem {
-  return (
-    MAHARASHTRA_CROP_CATALOG.find(
-      (c) => c.name.toLowerCase() === cropName.toLowerCase() || cropName.toLowerCase().includes(c.name.toLowerCase())
-    ) || MAHARASHTRA_CROP_CATALOG[0]
-  );
+export function getCropCatalogItem(cropName: string): CropCatalogItem {
+  const normalized = (cropName || "").trim().toLowerCase();
+  
+  const exact = MAHARASHTRA_CROP_CATALOG.find((c) => {
+    const cName = c.name.toLowerCase();
+    const mName = c.marathiName.toLowerCase();
+    const hName = c.hindiName.toLowerCase();
+    return (
+      cName === normalized ||
+      mName === normalized ||
+      hName === normalized ||
+      normalized.includes(cName) ||
+      cName.includes(normalized)
+    );
+  });
+
+  return exact || MAHARASHTRA_CROP_CATALOG[0];
 }
 
 export function getCropsByCategory(category: CropCatalogItem["category"]): CropCatalogItem[] {
@@ -385,11 +396,29 @@ export function getCropsByCategory(category: CropCatalogItem["category"]): CropC
 }
 
 export function getCropImage(cropName: string): string {
-  const item = MAHARASHTRA_CROP_CATALOG.find(
-    (c) =>
-      c.name.toLowerCase() === cropName.toLowerCase() ||
-      cropName.toLowerCase().includes(c.name.toLowerCase()) ||
-      c.name.toLowerCase().includes(cropName.toLowerCase())
-  );
-  return item ? item.image : "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?q=80&w=800&auto=format&fit=crop";
+  if (!cropName) return "/crops/onion.svg";
+  const s = cropName.toLowerCase().trim();
+
+  if (s.includes("soy") || s.includes("सोयाबीन")) return "/crops/soybean.svg";
+  if (s.includes("cotton") || s.includes("कापूस") || s.includes("कपास")) return "/crops/cotton.svg";
+  if (s.includes("tur") || s.includes("pigeon") || s.includes("arhar") || s.includes("तूर") || s.includes("तुअर") || s.includes("अरहर")) return "/crops/tur.svg";
+  if (s.includes("potat") || s.includes("बटाटा") || s.includes("आलू") || s.includes("batata")) return "/crops/potato.svg";
+  if (s.includes("onion") || s.includes("कांदा") || s.includes("kanda") || s.includes("प्याज़")) return "/crops/onion.svg";
+  if (s.includes("tomat") || s.includes("टोमॅटो") || s.includes("टमाटर")) return "/crops/tomato.svg";
+  if (s.includes("wheat") || s.includes("गहू") || s.includes("gehun") || s.includes("गेहूँ")) return "/crops/wheat.svg";
+  if (s.includes("maize") || s.includes("corn") || s.includes("मका") || s.includes("मक्का")) return "/crops/maize.svg";
+  if (s.includes("chilli") || s.includes("chili") || s.includes("मिरची") || s.includes("मिर्च")) return "/crops/green-chilli.svg";
+  if (s.includes("brinjal") || s.includes("eggplant") || s.includes("वांगी") || s.includes("बैंगन") || s.includes("vangi")) return "/crops/brinjal.svg";
+  if (s.includes("bhendi") || s.includes("okra") || s.includes("भेंडी") || s.includes("भिंडी") || s.includes("ladyfinger")) return "/crops/okra.svg";
+  if (s.includes("chana") || s.includes("chickpea") || s.includes("gram") || s.includes("हरभरा") || s.includes("चना")) return "/crops/chana.svg";
+  if (s.includes("groundnut") || s.includes("peanut") || s.includes("भुईमूग") || s.includes("मूंगफली")) return "/crops/groundnut.svg";
+  if (s.includes("cabbage") || s.includes("कोबी") || s.includes("पत्ता गोभी")) return "/crops/cabbage.svg";
+  if (s.includes("cauliflower") || s.includes("फ्लॉवर") || s.includes("फूलगोभी")) return "/crops/cauliflower.svg";
+  if (s.includes("jowar") || s.includes("sorghum") || s.includes("ज्वारी") || s.includes("ज्वार")) return "/crops/jowar.svg";
+  if (s.includes("bajra") || s.includes("millet") || s.includes("बाजरी") || s.includes("बाजरा")) return "/crops/bajra.svg";
+  if (s.includes("sugar") || s.includes("cane") || s.includes("ऊस") || s.includes("गन्ना")) return "/crops/sugarcane.svg";
+
+  const item = getCropCatalogItem(cropName);
+  return item ? item.image : "/crops/onion.svg";
 }
+

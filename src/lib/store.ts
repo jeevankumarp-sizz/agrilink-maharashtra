@@ -46,7 +46,7 @@ const DEFAULT_CONNECTED_LOT: Lot = {
   qualityScore: 91,
   qualityConfidence: 93,
   qualityGrade: "Grade A",
-  qualityImage: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?q=80&w=800&auto=format&fit=crop",
+  qualityImage: "/crops/onion.svg",
   qualityAssessmentStatus: "AVAILABLE",
   qualityParameters: {
     colourUniformity: 94,
@@ -83,7 +83,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityScore: 89,
     qualityConfidence: 90,
     qualityGrade: "Grade A",
-    qualityImage: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?q=80&w=800&auto=format&fit=crop",
+    qualityImage: "/crops/soybean.svg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 90,
@@ -117,7 +117,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-003",
     qualityScore: 88,
     qualityConfidence: 90,
-    qualityImage: "https://images.unsplash.com/photo-1606041008023-472dfb5e530f?q=80&w=800&auto=format&fit=crop",
+    qualityImage: "/crops/cotton.svg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 91,
@@ -151,7 +151,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-004",
     qualityScore: 85,
     qualityConfidence: 88,
-    qualityImage: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?q=80&w=800&auto=format&fit=crop",
+    qualityImage: "/crops/potato.svg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 87,
@@ -185,7 +185,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-005",
     qualityScore: 86,
     qualityConfidence: 89,
-    qualityImage: "https://images.unsplash.com/photo-1515543904379-3d757afe72e3?q=80&w=800&auto=format&fit=crop",
+    qualityImage: "/crops/tur.svg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 90,
@@ -219,7 +219,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-006",
     qualityScore: 92,
     qualityConfidence: 94,
-    qualityImage: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=800&auto=format&fit=crop",
+    qualityImage: "/crops/wheat.svg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 95,
@@ -253,7 +253,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-007",
     qualityScore: 90,
     qualityConfidence: 91,
-    qualityImage: "https://images.unsplash.com/photo-1588252303782-cb80119abd6d?q=80&w=800&auto=format&fit=crop",
+    qualityImage: "/crops/green-chilli.svg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 93,
@@ -287,7 +287,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-008",
     qualityScore: 89,
     qualityConfidence: 90,
-    qualityImage: "https://images.unsplash.com/photo-1551754655-cd27e38d2076?q=80&w=800&auto=format&fit=crop",
+    qualityImage: "/crops/maize.svg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 91,

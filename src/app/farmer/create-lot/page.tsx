@@ -11,6 +11,7 @@ import { Loader2, Mic, MicOff, Sparkles, CheckCircle2, Eye } from "lucide-react"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiQualityAssessment } from "@/components/agri/ai-quality-assessment";
+import { getCropImage } from "@/lib/crop-catalog";
 
 const CROPS: CropName[] = [
   "Tomato",
@@ -70,7 +71,7 @@ export default function CreateLotPage() {
       qualityAssessmentId: "QA-MH-001",
       qualityScore: 87,
       qualityConfidence: 89,
-      qualityImage: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=800&auto=format&fit=crop",
+      qualityImage: getCropImage(DEMO_SCENARIO.crop),
       qualityAssessmentStatus: "AVAILABLE",
       qualityParameters: {
         colourUniformity: 92,

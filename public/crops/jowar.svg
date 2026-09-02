@@ -1,0 +1,35 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400' width='100%' height='100%'>
+  <defs>
+    <radialGradient id='bgJ' cx='50%' cy='50%' r='60%'>
+      <stop offset='0%' stop-color='#fff7ed'/>
+      <stop offset='100%' stop-color='#ffedd5'/>
+    </radialGradient>
+    <radialGradient id='jowarGrain' cx='35%' cy='35%' r='65%'>
+      <stop offset='0%' stop-color='#fed7aa'/>
+      <stop offset='60%' stop-color='#ea580c'/>
+      <stop offset='100%' stop-color='#7c2d12'/>
+    </radialGradient>
+    <filter id='shadowJ' x='-10%' y='-10%' width='130%' height='130%'>
+      <feDropShadow dx='0' dy='14' stdDeviation='12' flood-color='#7c2d12' flood-opacity='0.22'/>
+    </filter>
+  </defs>
+  <rect width='400' height='400' rx='32' fill='url(#bgJ)'/>
+  <g filter='url(#shadowJ)' transform='translate(200, 200)'>
+    <ellipse cx='0' cy='0' rx='65' ry='120' fill='#c2410c'/>
+    <g fill='url(#jowarGrain)'>
+      <circle cx='-30' cy='-70' r='16'/>
+      <circle cx='10' cy='-85' r='16'/>
+      <circle cx='-20' cy='-40' r='18'/>
+      <circle cx='25' cy='-50' r='18'/>
+      <circle cx='-40' cy='0' r='18'/>
+      <circle cx='0' cy='-10' r='20'/>
+      <circle cx='35' cy='0' r='18'/>
+      <circle cx='-25' cy='45' r='18'/>
+      <circle cx='20' cy='45' r='18'/>
+      <circle cx='0' cy='80' r='16'/>
+    </g>
+    <path d='M0,120 L0,175' stroke='#65a30d' stroke-width='8' stroke-linecap='round'/>
+  </g>
+  <rect x='16' y='16' width='175' height='36' rx='18' fill='#ffffff' fill-opacity='0.92' stroke='#ffedd5'/>
+  <text x='103' y='39' font-family='system-ui, sans-serif' font-size='14' font-weight='bold' fill='#c2410c' text-anchor='middle'>Jowar / Sorghum · ज्वारी</text>
+</svg>
