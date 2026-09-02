@@ -22,7 +22,24 @@ export default function MarketIntelligencePage() {
   const [dataSource, setDataSource] = useState<string>('AGMARKNET');
   const [lastUpdated, setLastUpdated] = useState<string>('');
 
-  const crops: CropName[] = ['Tomato', 'Onion', 'Potato'];
+  const crops: CropName[] = [
+    'Tomato',
+    'Onion',
+    'Potato',
+    'Brinjal',
+    'Bhendi (Okra)',
+    'Green Chilli',
+    'Cabbage',
+    'Cauliflower',
+    'Soybean',
+    'Cotton',
+    'Tur (Pigeon Pea)',
+    'Chana (Chickpea)',
+    'Groundnut',
+    'Wheat',
+    'Maize',
+    'Sugarcane',
+  ];
 
   useEffect(() => {
     async function fetchAgmarknetData() {

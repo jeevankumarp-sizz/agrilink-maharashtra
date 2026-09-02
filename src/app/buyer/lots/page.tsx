@@ -37,7 +37,7 @@ export default function AvailableLotsPage() {
     loadLots();
   }, []);
 
-  const crops = ['All', 'Tomato', 'Onion', 'Potato'];
+  const crops = ['All', 'Tomato', 'Onion', 'Potato', 'Brinjal', 'Bhendi (Okra)', 'Green Chilli', 'Soybean', 'Cotton', 'Tur (Pigeon Pea)', 'Chana (Chickpea)', 'Groundnut', 'Wheat', 'Maize'];
   const filteredLots = filterCrop === 'All' ? lots : lots.filter(l => l.crop === filterCrop);
 
   if (loading) {

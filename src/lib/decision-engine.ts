@@ -204,14 +204,22 @@ function scoreOptions(options: SellingOption[]): SellingOption[] {
 }
 
 export function generateRecommendations(input: LotInput): RecommendationResult {
-  const matchingBuyers = DEMO_BUYERS.filter(
+  let matchingBuyers = DEMO_BUYERS.filter(
     (b) =>
       b.cropsRequired.includes(input.crop) &&
-      b.qualityRequirements.includes(input.qualityGrade) &&
-      b.quantityRequired >= input.quantity * 0.5
+      b.qualityRequirements.includes(input.qualityGrade)
   );
+  if (matchingBuyers.length === 0) {
+    matchingBuyers = DEMO_BUYERS.filter((b) => b.cropsRequired.includes(input.crop));
+  }
+  if (matchingBuyers.length === 0) {
+    matchingBuyers = DEMO_BUYERS.slice(0, 3);
+  }
 
-  const matchingMarkets = DEMO_MARKETS.filter((m) => m.crop === input.crop);
+  let matchingMarkets = DEMO_MARKETS.filter((m) => m.crop === input.crop);
+  if (matchingMarkets.length === 0) {
+    matchingMarkets = DEMO_MARKETS.slice(0, 3);
+  }
 
   const buyerOptions = matchingBuyers.map((b) => optionFromBuyer(b, input));
   const marketOptions = matchingMarkets.map((m) => optionFromMarket(m, input));
@@ -242,7 +250,8 @@ export function matchBuyers(input: LotInput) {
 }
 
 export function getMarketsForCrop(crop: string) {
-  return DEMO_MARKETS.filter((m) => m.crop === crop);
+  const found = DEMO_MARKETS.filter((m) => m.crop === crop);
+  return found.length > 0 ? found : DEMO_MARKETS.slice(0, 5);
 }
 
 export function getBuyerById(id: string) {

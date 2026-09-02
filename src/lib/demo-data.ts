@@ -88,6 +88,19 @@ export const DEMO_MARKETS: Market[] = [
   market("m8", "Pune APMC", "Pune", 18.5204, 73.8567, "Onion", 27, 1100, "HIGH", 210, [23, 24, 25, 26, 27]),
   market("m9", "Nashik APMC", "Nashik", 19.9975, 73.7898, "Potato", 19, 580, "HIGH", 8, [15, 16, 17, 18, 19]),
   market("m10", "Ahilyanagar APMC", "Ahilyanagar", 19.0948, 74.7480, "Potato", 18, 320, "MEDIUM", 155, [14, 15, 16, 17, 18]),
+  market("m11", "Latur APMC", "Latur", 18.4088, 76.5604, "Soybean", 48, 2400, "HIGH", 380, [44, 45, 46, 47, 48]),
+  market("m12", "Akola APMC", "Akola", 20.7002, 77.0082, "Cotton", 62, 1950, "HIGH", 420, [58, 59, 60, 61, 62]),
+  market("m13", "Nanded APMC", "Nanded", 19.1383, 77.3210, "Tur (Pigeon Pea)", 72, 1200, "HIGH", 340, [68, 69, 70, 71, 72]),
+  market("m14", "Solapur APMC", "Solapur", 17.6599, 75.9064, "Chana (Chickpea)", 54, 890, "MEDIUM", 320, [50, 51, 52, 53, 54]),
+  market("m15", "Jalgaon APMC", "Jalgaon", 21.0077, 75.5626, "Brinjal", 22, 380, "HIGH", 230, [18, 19, 20, 21, 22]),
+  market("m16", "Pune APMC (Gultekdi)", "Pune", 18.5204, 73.8567, "Bhendi (Okra)", 31, 410, "HIGH", 210, [27, 28, 29, 30, 31]),
+  market("m17", "Kolhapur APMC", "Kolhapur", 16.7050, 74.2433, "Green Chilli", 38, 520, "HIGH", 340, [34, 35, 36, 37, 38]),
+  market("m18", "Nashik APMC", "Nashik", 19.9975, 73.7898, "Cabbage", 16, 610, "MEDIUM", 8, [12, 13, 14, 15, 16]),
+  market("m19", "Sangli APMC", "Sangli", 16.8524, 74.5815, "Cauliflower", 18, 480, "HIGH", 280, [14, 15, 16, 17, 18]),
+  market("m20", "Amravati APMC", "Amravati", 20.9374, 77.7796, "Groundnut", 58, 1350, "HIGH", 490, [54, 55, 56, 57, 58]),
+  market("m21", "Ahilyanagar APMC", "Ahilyanagar", 19.0948, 74.7480, "Wheat", 25, 1620, "HIGH", 155, [21, 22, 23, 24, 25]),
+  market("m22", "Dhule APMC", "Dhule", 20.9042, 74.7749, "Maize", 21, 2100, "HIGH", 260, [17, 18, 19, 20, 21]),
+  market("m23", "Kolhapur APMC", "Kolhapur", 16.7050, 74.2433, "Sugarcane", 3.2, 8500, "HIGH", 340, [2.9, 3.0, 3.1, 3.1, 3.2]),
 ];
 
 function buyer(
