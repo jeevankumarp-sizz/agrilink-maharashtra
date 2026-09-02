@@ -1,6 +1,24 @@
 export type UserRole = "farmer" | "buyer" | "admin";
 
-export type CropName = "Tomato" | "Onion" | "Potato";
+export type CropCategory = "Vegetables" | "Field Crops" | "Pulses" | "Oilseeds" | "Commercial Crops";
+
+export type CropName =
+  | "Tomato"
+  | "Onion"
+  | "Potato"
+  | "Brinjal"
+  | "Bhendi (Okra)"
+  | "Green Chilli"
+  | "Cabbage"
+  | "Cauliflower"
+  | "Soybean"
+  | "Cotton"
+  | "Tur (Pigeon Pea)"
+  | "Chana (Chickpea)"
+  | "Groundnut"
+  | "Wheat"
+  | "Maize"
+  | "Sugarcane";
 export type QualityGrade = "Grade A" | "Grade B" | "Grade C";
 export type DemandLevel = "LOW" | "MEDIUM" | "HIGH";
 export type BuyerType =
@@ -172,6 +190,13 @@ export interface Transaction {
   distanceKm: number;
   transportCost: number;
   pickupDate: string;
+  driverName?: string;
+  driverPhone?: string;
+  vehicleNumber?: string;
+  vehicleType?: string;
+  transportProvider?: string;
+  pickupWindow?: string;
+  isIllustrativeLogistics?: boolean;
   paymentDate?: string;
   createdAt: string;
   updatedAt: string;

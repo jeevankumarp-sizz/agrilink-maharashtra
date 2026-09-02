@@ -300,15 +300,15 @@ function RoleBadge({ role }: { role: string }) {
 
 export function DemoBanner() {
   return (
-    <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50/80 px-4 py-2 text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-xs">
+    <div className="mb-4 rounded-lg border border-emerald-200 bg-emerald-50/90 px-3.5 py-1.5 text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-2xs">
       <div className="flex items-center gap-2">
-        <Database className="h-4 w-4 text-emerald-700 shrink-0" />
-        <span>
-          <strong>State Market Intelligence</strong> — Primary Coverage: Maharashtra APMCs (Nashik, Pune, Ahilyanagar, Solapur, Sangli, Nagpur) · AGMARKNET 2.0 Direct Feed.
-        </span>
+        <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse"></span>
+        <span className="font-bold">Market Prices · LIVE</span>
+        <span className="text-gray-400">|</span>
+        <span className="text-gray-600 hidden sm:inline">Maharashtra APMCs (Nashik, Pune, Solapur, Nagpur, Sangli)</span>
       </div>
-      <span className="hidden sm:inline-block font-semibold bg-emerald-200/80 text-emerald-900 px-2 py-0.5 rounded text-[10px]">
-        AgriLink Services
+      <span className="text-[10px] font-bold bg-white text-emerald-800 px-2 py-0.5 rounded border border-emerald-200">
+        Source: AGMARKNET
       </span>
     </div>
   );

@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { formatCurrency, formatNumber } from "@/lib/utils";
 import { actionLogin, actionGetFarmerDashboard, actionAdvanceTransaction } from "@/actions/agri-actions";
 import type { Transaction, Lot } from "@/lib/types";
-import { CheckCircle2, Clock, MapPin, RefreshCw, ShieldCheck, Sparkles, Eye, Truck } from "lucide-react";
+import { CheckCircle2, Clock, MapPin, RefreshCw, ShieldCheck, Sparkles, Eye, Truck, Phone, UserCheck, Calendar } from "lucide-react";
 import Link from "next/link";
 import { TransactionTimeline } from "@/components/agri/transaction-timeline";
 import { QualityVerificationModal } from "@/components/agri/quality-verification-modal";
@@ -179,6 +179,67 @@ export default function FarmerTrackSalePage() {
                     )}
                   </div>
                 )}
+
+                {/* PICKUP DETAILS SECTION */}
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50/40 p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-bold text-emerald-950 flex items-center gap-2">
+                      <Truck className="h-4 w-4 text-emerald-700" />
+                      Where your crop will be collected (Pickup Details)
+                    </h3>
+                    {activeTxn.driverPhone && (
+                      <a
+                        href={`tel:${activeTxn.driverPhone}`}
+                        className="inline-flex items-center gap-1.5 bg-emerald-700 hover:bg-emerald-800 text-white px-3 py-1 rounded-lg text-xs font-bold shadow-xs transition-colors"
+                      >
+                        <Phone className="h-3.5 w-3.5" /> Call Driver
+                      </a>
+                    )}
+                  </div>
+
+                  {activeTxn.driverName ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-white p-3.5 rounded-xl border border-emerald-100">
+                      <div>
+                        <span className="text-gray-500 text-[10px] font-bold block uppercase">Assigned Driver</span>
+                        <span className="font-extrabold text-gray-900 text-sm flex items-center gap-1">
+                          <UserCheck className="h-4 w-4 text-emerald-600" />
+                          {activeTxn.driverName}
+                        </span>
+                        <span className="text-gray-600 block text-[11px] mt-0.5">{activeTxn.driverPhone}</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500 text-[10px] font-bold block uppercase">Vehicle Details</span>
+                        <span className="font-extrabold text-gray-900 text-sm">{activeTxn.vehicleNumber}</span>
+                        <span className="text-gray-600 block text-[11px] mt-0.5">{activeTxn.vehicleType}</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500 text-[10px] font-bold block uppercase">Scheduled Pickup Window</span>
+                        <span className="font-bold text-emerald-800 text-xs flex items-center gap-1">
+                          <Calendar className="h-3.5 w-3.5 text-emerald-600" />
+                          {activeTxn.pickupWindow || `${activeTxn.pickupDate} · 9:00 AM – 11:00 AM`}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500 text-[10px] font-bold block uppercase">Transport Provider</span>
+                        <span className="font-bold text-gray-800 text-xs">{activeTxn.transportProvider || "Maharashtra AgriTrans Hub"}</span>
+                      </div>
+                      <div className="col-span-1 sm:col-span-2 pt-2 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-600">
+                        <span><strong>From:</strong> {activeTxn.pickupLocation}</span>
+                        <span><strong>To:</strong> {activeTxn.destination}</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-3 bg-white rounded-xl border border-dashed border-gray-300 text-xs text-gray-500 text-center">
+                      Driver details will appear after pickup is assigned.
+                    </div>
+                  )}
+
+                  {activeTxn.isIllustrativeLogistics && (
+                    <p className="text-[10px] text-gray-500 italic">
+                      * Illustrative logistics schedule for demonstration of farm-gate collection workflow.
+                    </p>
+                  )}
+                </div>
 
                 {/* Interactive Milestone Timeline */}
                 <div>

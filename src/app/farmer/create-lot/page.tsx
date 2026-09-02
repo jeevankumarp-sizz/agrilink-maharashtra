@@ -12,7 +12,24 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AiQualityAssessment } from "@/components/agri/ai-quality-assessment";
 
-const CROPS: CropName[] = ["Tomato", "Onion", "Potato"];
+const CROPS: CropName[] = [
+  "Tomato",
+  "Onion",
+  "Potato",
+  "Brinjal",
+  "Bhendi (Okra)",
+  "Green Chilli",
+  "Cabbage",
+  "Cauliflower",
+  "Soybean",
+  "Cotton",
+  "Tur (Pigeon Pea)",
+  "Chana (Chickpea)",
+  "Groundnut",
+  "Wheat",
+  "Maize",
+  "Sugarcane",
+];
 const GRADES: QualityGrade[] = ["Grade A", "Grade B", "Grade C"];
 
 export default function CreateLotPage() {

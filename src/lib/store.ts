@@ -124,6 +124,13 @@ const DEFAULT_CONNECTED_TXN: Transaction = {
   distanceKm: 25,
   transportCost: 2000,
   pickupDate: new Date(Date.now() + 86400000).toISOString().split("T")[0],
+  driverName: "Rajesh Patil",
+  driverPhone: "+919823045678",
+  vehicleNumber: "MH 15 AB 1234",
+  vehicleType: "Tata 407 / Mini Truck",
+  transportProvider: "Maharashtra AgriTrans Hub",
+  pickupWindow: "03 Sep 2026 · 9:00 AM – 11:00 AM",
+  isIllustrativeLogistics: true,
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
 };
