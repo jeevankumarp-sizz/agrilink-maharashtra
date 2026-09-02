@@ -150,7 +150,7 @@ export const DEMO_QUALITY_ASSESSMENT: QualityAssessment = {
   },
   visibleDefects: ["Minor surface blemishes", "Slight size variation"],
   explanation: "The image shows relatively uniform colour and limited visible surface damage. Minor blemishes and size variation slightly reduce the visual quality score.",
-  originalImage: "/crops/tomato.svg",
+  originalImage: "/images/crops/tomato.jpg",
   assessmentTimestamp: new Date().toISOString(),
   assessmentStatus: "AVAILABLE",
 };

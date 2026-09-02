@@ -39,7 +39,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 12500,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 60,
-    image: "/crops/onion.svg",
+    image: "/images/crops/onion.jpg",
   },
   {
     id: "crop-tomato",
@@ -58,7 +58,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 4200,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 5,
-    image: "/crops/tomato.svg",
+    image: "/images/crops/tomato.jpg",
   },
   {
     id: "crop-potato",
@@ -77,7 +77,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 6400,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 45,
-    image: "/crops/potato.svg",
+    image: "/images/crops/potato.jpg",
   },
   {
     id: "crop-brinjal",
@@ -96,7 +96,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 2800,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 4,
-    image: "/crops/brinjal.svg",
+    image: "/images/crops/brinjal.jpg",
   },
   {
     id: "crop-bhendi",
@@ -115,7 +115,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 3100,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 3,
-    image: "/crops/okra.svg",
+    image: "/images/crops/okra.jpg",
   },
   {
     id: "crop-greenchilli",
@@ -134,7 +134,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 2500,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 5,
-    image: "/crops/green-chilli.svg",
+    image: "/images/crops/green-chilli.jpg",
   },
   {
     id: "crop-cabbage",
@@ -153,7 +153,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 4800,
     buyerDemandLevel: "MEDIUM",
     storageSuitabilityDays: 10,
-    image: "/crops/cabbage.svg",
+    image: "/images/crops/cabbage.jpg",
   },
   {
     id: "crop-cauliflower",
@@ -172,7 +172,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 3900,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 7,
-    image: "/crops/cauliflower.svg",
+    image: "/images/crops/cauliflower.jpg",
   },
 
   // PULSES & OILSEEDS
@@ -193,7 +193,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 24000,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 180,
-    image: "/crops/soybean.svg",
+    image: "/images/crops/soybean.jpg",
   },
   {
     id: "crop-tur",
@@ -212,7 +212,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 12000,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 240,
-    image: "/crops/tur.svg",
+    image: "/images/crops/tur.jpg",
   },
   {
     id: "crop-chana",
@@ -231,7 +231,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 8900,
     buyerDemandLevel: "MEDIUM",
     storageSuitabilityDays: 180,
-    image: "/crops/chana.svg",
+    image: "/images/crops/chickpea.jpg",
   },
   {
     id: "crop-groundnut",
@@ -250,7 +250,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 7500,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 120,
-    image: "/crops/groundnut.svg",
+    image: "/images/crops/groundnut.jpg",
   },
 
   // CEREALS
@@ -271,7 +271,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 16200,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 360,
-    image: "/crops/wheat.svg",
+    image: "/images/crops/wheat.jpg",
   },
   {
     id: "crop-maize",
@@ -290,7 +290,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 21000,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 180,
-    image: "/crops/maize.svg",
+    image: "/images/crops/maize.jpg",
   },
   {
     id: "crop-jowar",
@@ -309,7 +309,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 9500,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 240,
-    image: "/crops/jowar.svg",
+    image: "/images/crops/jowar.jpg",
   },
   {
     id: "crop-bajra",
@@ -328,7 +328,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 8200,
     buyerDemandLevel: "MEDIUM",
     storageSuitabilityDays: 180,
-    image: "/crops/bajra.svg",
+    image: "/images/crops/bajra.jpg",
   },
 
   // COMMERCIAL CROPS
@@ -349,7 +349,7 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 19500,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 300,
-    image: "/crops/cotton.svg",
+    image: "/images/crops/cotton.jpg",
   },
   {
     id: "crop-sugarcane",
@@ -368,14 +368,15 @@ export const MAHARASHTRA_CROP_CATALOG: CropCatalogItem[] = [
     typicalArrivalQty: 85000,
     buyerDemandLevel: "HIGH",
     storageSuitabilityDays: 2,
-    image: "/crops/sugarcane.svg",
+    image: "/images/crops/sugarcane.jpg",
   },
 ];
 
-export function getCropCatalogItem(cropName: string): CropCatalogItem {
+export function getCropCatalogItem(cropName: string): CropCatalogItem | undefined {
   const normalized = (cropName || "").trim().toLowerCase();
+  if (!normalized) return undefined;
   
-  const exact = MAHARASHTRA_CROP_CATALOG.find((c) => {
+  return MAHARASHTRA_CROP_CATALOG.find((c) => {
     const cName = c.name.toLowerCase();
     const mName = c.marathiName.toLowerCase();
     const hName = c.hindiName.toLowerCase();
@@ -387,8 +388,6 @@ export function getCropCatalogItem(cropName: string): CropCatalogItem {
       cName.includes(normalized)
     );
   });
-
-  return exact || MAHARASHTRA_CROP_CATALOG[0];
 }
 
 export function getCropsByCategory(category: CropCatalogItem["category"]): CropCatalogItem[] {
@@ -396,29 +395,30 @@ export function getCropsByCategory(category: CropCatalogItem["category"]): CropC
 }
 
 export function getCropImage(cropName: string): string {
-  if (!cropName) return "/crops/onion.svg";
+  if (!cropName) return "/images/crops/onion.jpg";
   const s = cropName.toLowerCase().trim();
 
-  if (s.includes("soy") || s.includes("सोयाबीन")) return "/crops/soybean.svg";
-  if (s.includes("cotton") || s.includes("कापूस") || s.includes("कपास")) return "/crops/cotton.svg";
-  if (s.includes("tur") || s.includes("pigeon") || s.includes("arhar") || s.includes("तूर") || s.includes("तुअर") || s.includes("अरहर")) return "/crops/tur.svg";
-  if (s.includes("potat") || s.includes("बटाटा") || s.includes("आलू") || s.includes("batata")) return "/crops/potato.svg";
-  if (s.includes("onion") || s.includes("कांदा") || s.includes("kanda") || s.includes("प्याज़")) return "/crops/onion.svg";
-  if (s.includes("tomat") || s.includes("टोमॅटो") || s.includes("टमाटर")) return "/crops/tomato.svg";
-  if (s.includes("wheat") || s.includes("गहू") || s.includes("gehun") || s.includes("गेहूँ")) return "/crops/wheat.svg";
-  if (s.includes("maize") || s.includes("corn") || s.includes("मका") || s.includes("मक्का")) return "/crops/maize.svg";
-  if (s.includes("chilli") || s.includes("chili") || s.includes("मिरची") || s.includes("मिर्च")) return "/crops/green-chilli.svg";
-  if (s.includes("brinjal") || s.includes("eggplant") || s.includes("वांगी") || s.includes("बैंगन") || s.includes("vangi")) return "/crops/brinjal.svg";
-  if (s.includes("bhendi") || s.includes("okra") || s.includes("भेंडी") || s.includes("भिंडी") || s.includes("ladyfinger")) return "/crops/okra.svg";
-  if (s.includes("chana") || s.includes("chickpea") || s.includes("gram") || s.includes("हरभरा") || s.includes("चना")) return "/crops/chana.svg";
-  if (s.includes("groundnut") || s.includes("peanut") || s.includes("भुईमूग") || s.includes("मूंगफली")) return "/crops/groundnut.svg";
-  if (s.includes("cabbage") || s.includes("कोबी") || s.includes("पत्ता गोभी")) return "/crops/cabbage.svg";
-  if (s.includes("cauliflower") || s.includes("फ्लॉवर") || s.includes("फूलगोभी")) return "/crops/cauliflower.svg";
-  if (s.includes("jowar") || s.includes("sorghum") || s.includes("ज्वारी") || s.includes("ज्वार")) return "/crops/jowar.svg";
-  if (s.includes("bajra") || s.includes("millet") || s.includes("बाजरी") || s.includes("बाजरा")) return "/crops/bajra.svg";
-  if (s.includes("sugar") || s.includes("cane") || s.includes("ऊस") || s.includes("गन्ना")) return "/crops/sugarcane.svg";
+  // Normalized exact alias checks for all 18 crops
+  if (s.includes("soy") || s.includes("सोयाबीन")) return "/images/crops/soybean.jpg";
+  if (s.includes("cotton") || s.includes("कापूस") || s.includes("कपास")) return "/images/crops/cotton.jpg";
+  if (s.includes("tur") || s.includes("pigeon") || s.includes("arhar") || s.includes("तूर") || s.includes("तुअर") || s.includes("अरहर")) return "/images/crops/tur.jpg";
+  if (s.includes("potat") || s.includes("बटाटा") || s.includes("आलू") || s.includes("batata")) return "/images/crops/potato.jpg";
+  if (s.includes("onion") || s.includes("कांदा") || s.includes("kanda") || s.includes("प्याज़")) return "/images/crops/onion.jpg";
+  if (s.includes("tomat") || s.includes("टोमॅटो") || s.includes("टमाटर")) return "/images/crops/tomato.jpg";
+  if (s.includes("wheat") || s.includes("गहू") || s.includes("gehun") || s.includes("गेहूँ")) return "/images/crops/wheat.jpg";
+  if (s.includes("maize") || s.includes("corn") || s.includes("मका") || s.includes("मक्का")) return "/images/crops/maize.jpg";
+  if (s.includes("chilli") || s.includes("chili") || s.includes("मिरची") || s.includes("मिर्च")) return "/images/crops/green-chilli.jpg";
+  if (s.includes("brinjal") || s.includes("eggplant") || s.includes("वांगी") || s.includes("बैंगन") || s.includes("vangi")) return "/images/crops/brinjal.jpg";
+  if (s.includes("bhendi") || s.includes("okra") || s.includes("भेंडी") || s.includes("भिंडी") || s.includes("ladyfinger")) return "/images/crops/okra.jpg";
+  if (s.includes("chana") || s.includes("chickpea") || s.includes("gram") || s.includes("हरभरा") || s.includes("चना")) return "/images/crops/chickpea.jpg";
+  if (s.includes("groundnut") || s.includes("peanut") || s.includes("भुईमूग") || s.includes("मूंगफली")) return "/images/crops/groundnut.jpg";
+  if (s.includes("cabbage") || s.includes("कोबी") || s.includes("पत्ता गोभी")) return "/images/crops/cabbage.jpg";
+  if (s.includes("cauliflower") || s.includes("फ्लॉवर") || s.includes("फूलगोभी")) return "/images/crops/cauliflower.jpg";
+  if (s.includes("jowar") || s.includes("sorghum") || s.includes("ज्वारी") || s.includes("ज्वार")) return "/images/crops/jowar.jpg";
+  if (s.includes("bajra") || s.includes("millet") || s.includes("बाजरी") || s.includes("बाजरा")) return "/images/crops/bajra.jpg";
+  if (s.includes("sugar") || s.includes("cane") || s.includes("ऊस") || s.includes("गन्ना")) return "/images/crops/sugarcane.jpg";
 
   const item = getCropCatalogItem(cropName);
-  return item ? item.image : "/crops/onion.svg";
+  return item ? item.image : "/images/crops/onion.jpg";
 }
 

@@ -46,7 +46,7 @@ const DEFAULT_CONNECTED_LOT: Lot = {
   qualityScore: 91,
   qualityConfidence: 93,
   qualityGrade: "Grade A",
-  qualityImage: "/crops/onion.svg",
+  qualityImage: "/images/crops/onion.jpg",
   qualityAssessmentStatus: "AVAILABLE",
   qualityParameters: {
     colourUniformity: 94,
@@ -83,7 +83,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityScore: 89,
     qualityConfidence: 90,
     qualityGrade: "Grade A",
-    qualityImage: "/crops/soybean.svg",
+    qualityImage: "/images/crops/soybean.jpg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 90,
@@ -117,7 +117,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-003",
     qualityScore: 88,
     qualityConfidence: 90,
-    qualityImage: "/crops/cotton.svg",
+    qualityImage: "/images/crops/cotton.jpg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 91,
@@ -151,7 +151,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-004",
     qualityScore: 85,
     qualityConfidence: 88,
-    qualityImage: "/crops/potato.svg",
+    qualityImage: "/images/crops/potato.jpg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 87,
@@ -185,7 +185,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-005",
     qualityScore: 86,
     qualityConfidence: 89,
-    qualityImage: "/crops/tur.svg",
+    qualityImage: "/images/crops/tur.jpg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 90,
@@ -219,7 +219,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-006",
     qualityScore: 92,
     qualityConfidence: 94,
-    qualityImage: "/crops/wheat.svg",
+    qualityImage: "/images/crops/wheat.jpg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 95,
@@ -253,7 +253,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-007",
     qualityScore: 90,
     qualityConfidence: 91,
-    qualityImage: "/crops/green-chilli.svg",
+    qualityImage: "/images/crops/green-chilli.jpg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 93,
@@ -287,7 +287,7 @@ const DEFAULT_DIVERSIFIED_LOTS: Lot[] = [
     qualityAssessmentId: "QA-MH-008",
     qualityScore: 89,
     qualityConfidence: 90,
-    qualityImage: "/crops/maize.svg",
+    qualityImage: "/images/crops/maize.jpg",
     qualityAssessmentStatus: "AVAILABLE",
     qualityParameters: {
       colourUniformity: 91,

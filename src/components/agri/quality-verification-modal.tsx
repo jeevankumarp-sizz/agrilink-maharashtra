@@ -44,7 +44,9 @@ export function QualityVerificationModal({
 
   if (!isOpen) return null;
 
-  const imageSrc = lot.qualityImage || getCropImage(lot.crop);
+  const farmerImage = lot.qualityImage;
+  const cropReferenceImage = getCropImage(lot.crop);
+  const activeDisplayImage = farmerImage || cropReferenceImage;
 
   const params: VisualParameters = lot.qualityParameters || {
     colourUniformity: 92,
@@ -109,35 +111,58 @@ export function QualityVerificationModal({
         </div>
 
         <div className="p-6 space-y-6 max-h-[80vh] overflow-y-auto text-xs">
-          {/* Section 1: Original Farmer-Uploaded Image */}
-          <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <p className="font-bold text-gray-900 text-sm flex items-center gap-1.5">
-                <Eye className="h-4 w-4 text-emerald-700" /> Original Farmer Produce Photo
-              </p>
+          {/* Section 1: Farmer-Uploaded Quality Evidence vs Reference Photo */}
+          <div className="space-y-3">
+            {farmerImage ? (
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <p className="font-bold text-gray-900 text-sm flex items-center gap-1.5">
+                    <Eye className="h-4 w-4 text-emerald-700" /> Original Farmer Produce Photo
+                  </p>
+                  <Badge variant="verified" className="text-emerald-700 border-emerald-300 bg-emerald-50 text-[10px]">
+                    Verified Farmer Upload
+                  </Badge>
+                </div>
 
-            </div>
-
-            <div className="relative rounded-2xl overflow-hidden border-2 border-emerald-200 bg-gray-900 group max-h-72 flex items-center justify-center">
-              <img
-                src={imageSrc}
-                alt={`Original ${lot.crop} produce photo uploaded by ${lot.farmerName}`}
-                className="w-full h-64 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-between p-4">
-                <span className="text-white text-xs font-semibold drop-shadow-md">
-                  Photo uploaded by farmer: {lot.farmerName} ({lot.location})
-                </span>
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => setFullImageOpen(true)}
-                  className="bg-white/90 hover:bg-white text-gray-900 font-bold text-xs shadow-md"
-                >
-                  <Maximize2 className="h-3.5 w-3.5 mr-1" /> View Full Image
-                </Button>
+                <div className="relative rounded-2xl overflow-hidden border-2 border-emerald-200 bg-gray-900 group max-h-72 flex items-center justify-center">
+                  <img
+                    src={farmerImage}
+                    alt={`Original ${lot.crop} produce photo uploaded by ${lot.farmerName}`}
+                    className="w-full h-64 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-between p-4">
+                    <span className="text-white text-xs font-semibold drop-shadow-md">
+                      Photo uploaded by farmer: {lot.farmerName} ({lot.location})
+                    </span>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      onClick={() => setFullImageOpen(true)}
+                      className="bg-white/90 hover:bg-white text-gray-900 font-bold text-xs shadow-md"
+                    >
+                      <Maximize2 className="h-3.5 w-3.5 mr-1" /> View Full Image
+                    </Button>
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="space-y-2">
+                <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-xs">
+                  <p className="font-bold">No farmer-uploaded quality photo available for this lot.</p>
+                  <p className="text-[11px] text-amber-700 mt-0.5">Showing standardized agricultural commodity reference photo below for visual comparison.</p>
+                </div>
+                <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-gray-100 max-h-60 flex items-center justify-center">
+                  <img
+                    src={cropReferenceImage}
+                    alt={`${lot.crop} standard commodity reference`}
+                    className="w-full h-52 object-cover"
+                  />
+                  <div className="absolute bottom-2 left-2 bg-black/60 text-white text-[10px] px-2 py-1 rounded-md">
+                    Standard Commodity Reference · {lot.crop}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Section 2: AI Visual Quality Assessment Summary */}
@@ -324,7 +349,7 @@ export function QualityVerificationModal({
               Close ✕
             </button>
             <img
-              src={imageSrc}
+              src={activeDisplayImage}
               alt="Full produce photo"
               className="max-h-[85vh] max-w-full object-contain rounded-2xl border-2 border-white/20"
             />
