@@ -75,7 +75,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="bg-emerald-800 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase">
-              Official Portal
+              AGRICULTURAL MARKET SERVICES
             </span>
             <span className="font-semibold">
               {translate("subtitle") || "State Agricultural Market Intelligence & Transaction Services"}
@@ -161,18 +161,27 @@ export default function HomePage() {
       </header>
 
       {/* Hero Service Section */}
-      <section className="bg-gradient-to-b from-emerald-900 via-emerald-850 to-emerald-950 text-white py-12 md:py-16">
+      <section className="bg-gradient-to-b from-emerald-900 via-emerald-850 to-emerald-950 text-white py-10 md:py-14">
         <div className="mx-auto max-w-7xl px-4 space-y-6">
-          <div className="max-w-3xl space-y-4">
-            <Badge variant="verified" className="bg-emerald-800 text-emerald-100 border-emerald-700 font-bold px-3 py-1 text-xs">
-              AGMARKNET 2.0 APMC MARKET DATA INTEGRATED
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
-              Statewide Agricultural Market Intelligence &amp; Transparent Direct Trade
-            </h2>
-            <p className="text-sm md:text-base text-emerald-100 leading-relaxed">
-              AgriLink Maharashtra provides farmers, FPOs, and verified buyers with real-time APMC prices, arrival intelligence, upfront net realization analysis, and direct transaction enablement.
-            </p>
+          <div className="grid md:grid-cols-3 gap-6 items-center">
+            <div className="md:col-span-2 space-y-3">
+              <Badge variant="verified" className="bg-emerald-800 text-emerald-100 border-emerald-700 font-bold px-3 py-1 text-xs">
+                State Market Data Feed
+              </Badge>
+              <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+                Find the right market. Find the right buyer. Sell with confidence.
+              </h2>
+              <p className="text-sm md:text-base text-emerald-100 leading-relaxed">
+                Check market prices, compare buyer offers, assess your crop quality and track your sale from pickup to payment.
+              </p>
+            </div>
+            <div className="hidden md:block">
+              <img 
+                src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=800&auto=format&fit=crop" 
+                alt="Fresh harvested tomatoes ready for APMC market sale" 
+                className="rounded-2xl border border-emerald-700 shadow-lg object-cover h-44 w-full"
+              />
+            </div>
           </div>
 
           {/* Quick Access Service Cards */}

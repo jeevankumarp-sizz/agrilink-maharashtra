@@ -109,7 +109,7 @@ export function AiQualityAssessment({
         <div className="flex items-center justify-between">
           <CardTitle className="text-base font-bold text-emerald-950 flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-emerald-700" />
-            AI Visual Quality Assessment
+            Check Crop Quality (Preliminary Visual Assessment)
           </CardTitle>
           <Badge variant="verified" className="bg-emerald-700 text-white font-bold text-[10px]">
             OPTIONAL — RECOMMENDED
