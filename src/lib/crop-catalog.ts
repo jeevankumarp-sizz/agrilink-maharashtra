@@ -383,3 +383,13 @@ export function getCropCatalogItem(cropName: CropName): CropCatalogItem {
 export function getCropsByCategory(category: CropCatalogItem["category"]): CropCatalogItem[] {
   return MAHARASHTRA_CROP_CATALOG.filter((c) => c.category === category);
 }
+
+export function getCropImage(cropName: string): string {
+  const item = MAHARASHTRA_CROP_CATALOG.find(
+    (c) =>
+      c.name.toLowerCase() === cropName.toLowerCase() ||
+      cropName.toLowerCase().includes(c.name.toLowerCase()) ||
+      c.name.toLowerCase().includes(cropName.toLowerCase())
+  );
+  return item ? item.image : "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?q=80&w=800&auto=format&fit=crop";
+}

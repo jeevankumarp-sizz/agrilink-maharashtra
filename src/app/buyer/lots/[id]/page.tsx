@@ -25,6 +25,8 @@ import Link from 'next/link';
 import { BuyerTrustCard } from '@/components/agri/buyer-trust-card';
 import { QualityVerificationModal } from '@/components/agri/quality-verification-modal';
 
+import { getCropImage } from '@/lib/crop-catalog';
+
 export default function MakeOfferPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const router = useRouter();
@@ -159,12 +161,19 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="h-fit">
             <CardHeader className="bg-emerald-50/70 rounded-t-xl border-b border-emerald-100 p-5">
-              <div className="flex justify-between items-start">
-                <div>
-                  <CardTitle className="text-xl text-gray-900 font-bold">{lot.crop}</CardTitle>
-                  <CardDescription className="text-gray-500 text-xs mt-0.5">Lot ID: {lot.id}</CardDescription>
+              <div className="flex justify-between items-start gap-3">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={lot.qualityImage || getCropImage(lot.crop)}
+                    alt={lot.crop}
+                    className="h-14 w-14 rounded-xl object-cover border border-emerald-200 shadow-2xs shrink-0"
+                  />
+                  <div>
+                    <CardTitle className="text-xl text-gray-900 font-bold">{lot.crop}</CardTitle>
+                    <CardDescription className="text-gray-500 text-xs mt-0.5">Lot ID: {lot.id}</CardDescription>
+                  </div>
                 </div>
-                <Badge variant="success" className="text-xs font-bold">
+                <Badge variant="success" className="text-xs font-bold shrink-0">
                   {lot.qualityGrade}
                 </Badge>
               </div>

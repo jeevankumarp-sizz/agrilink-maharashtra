@@ -448,6 +448,63 @@ export default function HomePage() {
             </Card>
           </div>
         </div>
+
+        {/* How The Marketplace Works - Connected System Flow */}
+        <div className="rounded-2xl border border-emerald-200 bg-white p-6 space-y-4 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-100 pb-3">
+            <div>
+              <h2 className="text-lg font-bold text-gray-900">How AgriLink Connects Maharashtra Agriculture</h2>
+              <p className="text-xs text-gray-500">Transparent end-to-end workflow from farm-gate crop lot creation to state oversight</p>
+            </div>
+            <Badge variant="verified" className="bg-emerald-100 text-emerald-900 border-emerald-300 text-[10px] font-bold w-fit">
+              Connected Operational Flow
+            </Badge>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            {/* Step 1: Farmer */}
+            <div className="bg-emerald-50/60 rounded-xl p-4 border border-emerald-200 space-y-2 relative">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-700 text-white font-bold text-xs">1</span>
+                <h3 className="font-bold text-emerald-950 text-sm">Farmer &amp; FPO Aggregation</h3>
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Create digital crop lots with quantity, location, and optional visual quality assessment. Compare APMC mandi rates against buyer direct offers to maximize net realization.
+              </p>
+              <div className="text-[10px] font-bold text-emerald-800 bg-white/80 p-2 rounded-lg border border-emerald-100">
+                Produce Lot → Quality Evidence → Pricing Intelligence
+              </div>
+            </div>
+
+            {/* Step 2: Buyer */}
+            <div className="bg-blue-50/60 rounded-xl p-4 border border-blue-200 space-y-2 relative">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-700 text-white font-bold text-xs">2</span>
+                <h3 className="font-bold text-blue-950 text-sm">Buyer Direct Procurement</h3>
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Browse available lots across Maharashtra with transparent photographic quality evidence. Submit binding digital purchasing offers and track farm-gate pickup logistics.
+              </p>
+              <div className="text-[10px] font-bold text-blue-800 bg-white/80 p-2 rounded-lg border border-blue-100">
+                Browse Lots → Inspect Evidence → Offer &amp; Logistics
+              </div>
+            </div>
+
+            {/* Step 3: State Oversight */}
+            <div className="bg-purple-50/60 rounded-xl p-4 border border-purple-200 space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-purple-700 text-white font-bold text-xs">3</span>
+                <h3 className="font-bold text-purple-950 text-sm">State Command Center</h3>
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Monitor real-time APMC arrivals, commodity price movements, buyer registry compliance, and settle farmer-buyer disputes via integrated grievance workflows.
+              </p>
+              <div className="text-[10px] font-bold text-purple-800 bg-white/80 p-2 rounded-lg border border-purple-100">
+                Market Health → Transaction Monitoring → Grievance Redressal
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
 
       {/* Footer */}

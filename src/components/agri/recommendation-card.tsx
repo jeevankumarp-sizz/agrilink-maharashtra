@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency, formatCurrencyPerKg, formatNumber } from "@/lib/utils";
 import type { SellingOption } from "@/lib/types";
 import { CheckCircle2, MapPin, ShieldCheck, TrendingUp, Truck } from "lucide-react";
+import { getCropImage } from "@/lib/crop-catalog";
 
 export function RecommendationCard({
   option,
@@ -66,36 +67,26 @@ export function RecommendationCard({
           />
         </div>
 
+        {/* Dynamic reason tags */}
         <div className="flex flex-wrap gap-2">
-          {option.verified && (
-            <Badge variant="verified">
-              <ShieldCheck className="mr-1 h-3 w-3" /> Verified Buyer
-            </Badge>
-          )}
-          {option.paymentReliability && (
-            <Badge variant="success">{option.paymentReliability}% payment reliability</Badge>
-          )}
-          <Badge variant="info">Score: {option.totalScore}/100</Badge>
-        </div>
-
-        <div>
-          <p className="mb-2 text-sm font-medium text-gray-700">Why this option?</p>
-          <ul className="space-y-1">
-            {option.reasons.map((r) => (
-              <li key={r} className="flex items-start gap-2 text-sm text-gray-600">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-                {r}
-              </li>
-            ))}
-          </ul>
+          {option.reasons.map((r: string) => (
+            <span
+              key={r}
+              className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700"
+            >
+              <CheckCircle2 className="h-3 w-3" />
+              {r}
+            </span>
+          ))}
         </div>
 
         {onSelect && (
           <button
+            type="button"
             onClick={onSelect}
-            className="w-full rounded-xl bg-emerald-700 py-3 font-medium text-white hover:bg-emerald-800"
+            className="w-full rounded-xl bg-emerald-700 py-2.5 text-center text-sm font-bold text-white transition-colors hover:bg-emerald-800"
           >
-            Create Lot with this Option
+            Select this option →
           </button>
         )}
       </CardContent>
@@ -106,7 +97,7 @@ export function RecommendationCard({
 function Stat({
   label,
   value,
-  highlight,
+  highlight = false,
   icon,
 }: {
   label: string;
@@ -115,12 +106,11 @@ function Stat({
   icon?: React.ReactNode;
 }) {
   return (
-    <div className={`rounded-xl p-3 ${highlight ? "bg-emerald-50" : "bg-gray-50"}`}>
-      <p className="text-xs text-gray-500 flex items-center gap-1">
-        {icon}
-        {label}
+    <div className={`rounded-xl p-3 ${highlight ? "bg-emerald-50 border border-emerald-200" : "bg-gray-50"}`}>
+      <p className="text-xs text-gray-500 font-medium flex items-center gap-1">
+        {icon} {label}
       </p>
-      <p className={`font-semibold ${highlight ? "text-emerald-800 text-lg" : "text-gray-800"}`}>
+      <p className={`mt-1 font-bold ${highlight ? "text-emerald-800 text-base" : "text-gray-900 text-sm"}`}>
         {value}
       </p>
     </div>
@@ -143,27 +133,36 @@ export function LotCard({
     expectedPrice?: number;
     qualityScore?: number | null;
     qualityAssessmentStatus?: "AVAILABLE" | "NOT_ASSESSED";
+    qualityImage?: string | null;
   };
   onClick?: () => void;
   onViewQuality?: (e: React.MouseEvent) => void;
 }) {
   const hasQuality = lot.qualityAssessmentStatus === "AVAILABLE" || lot.qualityScore;
+  const cropImg = lot.qualityImage || getCropImage(lot.crop);
 
   return (
     <Card
-      className="cursor-pointer transition-shadow hover:shadow-md border border-gray-200"
+      className="cursor-pointer transition-shadow hover:shadow-md border border-gray-200 overflow-hidden"
       onClick={onClick}
     >
       <CardContent className="p-4 space-y-3">
-        <div className="flex items-start justify-between">
-          <div>
-            <p className="font-bold text-gray-900 text-base">{lot.crop}</p>
-            <p className="text-xs text-gray-600 font-medium">
-              {formatNumber(lot.quantity)} {lot.unit} · {lot.qualityGrade}
-            </p>
-            <p className="text-xs text-gray-500 mt-0.5">{lot.location}</p>
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <img
+              src={cropImg}
+              alt={lot.crop}
+              className="h-12 w-12 rounded-xl object-cover border border-emerald-100 shadow-2xs shrink-0"
+            />
+            <div>
+              <p className="font-bold text-gray-900 text-base">{lot.crop}</p>
+              <p className="text-xs text-gray-600 font-medium">
+                {formatNumber(lot.quantity)} {lot.unit} · {lot.qualityGrade}
+              </p>
+              <p className="text-xs text-gray-500 mt-0.5">{lot.location}</p>
+            </div>
           </div>
-          <div className="text-right">
+          <div className="text-right shrink-0">
             <Badge
               variant={
                 lot.status === "open"

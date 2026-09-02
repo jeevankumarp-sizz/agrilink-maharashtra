@@ -18,6 +18,8 @@ import {
   AlertTriangle,
 } from "lucide-react";
 
+import { getCropImage } from "@/lib/crop-catalog";
+
 interface QualityVerificationModalProps {
   lot: Lot;
   isOpen: boolean;
@@ -42,9 +44,7 @@ export function QualityVerificationModal({
 
   if (!isOpen) return null;
 
-  const imageSrc =
-    lot.qualityImage ||
-    "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=800&auto=format&fit=crop";
+  const imageSrc = lot.qualityImage || getCropImage(lot.crop);
 
   const params: VisualParameters = lot.qualityParameters || {
     colourUniformity: 92,
