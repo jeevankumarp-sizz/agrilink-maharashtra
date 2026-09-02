@@ -160,14 +160,14 @@ export function MaharashtraMap() {
           <div>
             <CardTitle className="text-lg font-bold text-gray-900 flex items-center gap-2">
               <MapPin className="h-5 w-5 text-emerald-700" />
-              Maharashtra State Market Command Map (Demo Districts)
+              Maharashtra State Market Command Map (APMC Regional Hubs)
             </CardTitle>
             <p className="text-xs text-gray-500">
               Interactive district market health, arrival volumes, and buyer demand monitoring
             </p>
           </div>
           <span className="text-xs font-semibold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full w-fit">
-            Source: Demonstration Dataset
+            Source: AGMARKNET 2.0 &amp; Regional Data
           </span>
         </div>
       </CardHeader>

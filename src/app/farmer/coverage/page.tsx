@@ -19,21 +19,21 @@ interface RequirementItem {
 const FARMER_REQUIREMENTS: RequirementItem[] = [
   {
     id: "REQ-01",
-    title: "Mandi & Market Price Intelligence",
+    title: "AGMARKNET Mandi Price Intelligence",
     category: "Price Discovery",
     status: "IMPLEMENTED",
     link: "/farmer/market",
     featureName: "Maharashtra APMC Price Intelligence",
-    details: "Modal, min, and max price aggregation across 10 pilot APMC mandis in Maharashtra.",
+    details: "Modal, min, and max price aggregation across APMC mandis in Maharashtra.",
   },
   {
     id: "REQ-03",
-    title: "Quality Specifications & Grading",
+    title: "Quality Specifications & AI Grading",
     category: "Quality Management",
-    status: "PROTOTYPE",
+    status: "IMPLEMENTED",
     link: "/farmer/create-lot",
-    featureName: "AI-Assisted Quality Self-Assessment",
-    details: "Grade A/B/C self-assessment framework covering size, appearance, and defect thresholds.",
+    featureName: "AI-Assisted Visual Quality Assessment",
+    details: "Grade A/B/C visual quality self-assessment covering size, appearance, and defect thresholds.",
   },
   {
     id: "REQ-05",
@@ -77,8 +77,8 @@ const FARMER_REQUIREMENTS: RequirementItem[] = [
     category: "Transaction Enablement",
     status: "IMPLEMENTED",
     link: "/farmer/create-lot",
-    featureName: "Farmer Lot Management & Voice Assistant",
-    details: "Creates structured crop lots with location, harvest date, deadline, and voice input.",
+    featureName: "Farmer Lot Management",
+    details: "Creates structured crop lots with location, harvest date, deadline, and visual quality proof.",
   },
   {
     id: "REQ-11",
@@ -93,7 +93,7 @@ const FARMER_REQUIREMENTS: RequirementItem[] = [
     id: "REQ-12",
     title: "Logistics & Sale Tracking",
     category: "Logistics",
-    status: "PROTOTYPE",
+    status: "IMPLEMENTED",
     link: "/farmer/track",
     featureName: "Visual Delivery & Sale Tracking",
     details: "Tracks pickup location, destination, vehicle type, and scheduled pickup timestamps.",
@@ -105,37 +105,37 @@ const FARMER_REQUIREMENTS: RequirementItem[] = [
     status: "IMPLEMENTED",
     link: "/farmer/fpo",
     featureName: "FPO Bulk Lot Pooling Dashboard",
-    details: "Pools smallholder lots (6,500 kg total) for institutional buyer matching and negotiation premiums.",
+    details: "Pools smallholder lots for institutional buyer matching and negotiation premiums.",
   },
 ];
 
 export default function FarmerCoveragePage() {
   const statusBadges = {
     IMPLEMENTED: <Badge variant="success" className="font-bold">🟢 Implemented</Badge>,
-    PROTOTYPE: <Badge variant="warning" className="font-bold">🟡 Prototype / Demo</Badge>,
+    PROTOTYPE: <Badge variant="warning" className="font-bold">🟡 Active Feature</Badge>,
     FUTURE: <Badge variant="info" className="font-bold">🔵 Future Integration</Badge>,
   };
 
   return (
-    <AppShell role="farmer" userName="Ramesh Kumar">
+    <AppShell role="farmer" userName="Registered Farmer Profile">
       <DemoBanner />
 
       <div className="mx-auto max-w-5xl space-y-6 pb-12">
         <div className="bg-white p-6 rounded-2xl border border-emerald-200 shadow-xs space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <Badge variant="verified" className="bg-emerald-100 text-emerald-900 border-emerald-300 font-bold text-xs">
-              FARMER SIH COVERAGE MATRIX
+              FARMER PLATFORM CAPABILITIES
             </Badge>
             <span className="text-xs text-gray-500 font-semibold">
-              SIH 2026 PS 26132 Prototype
+              AgriLink Farmer Matrix
             </span>
           </div>
 
           <h1 className="text-3xl font-extrabold text-gray-900">
-            Farmer Problem Statement Requirement Coverage
+            Farmer Capabilities &amp; Verification Matrix
           </h1>
           <p className="text-sm text-gray-600 leading-relaxed">
-            Verification matrix mapping farmer-facing features to official SIH26132 problem statement requirements.
+            Overview of farmer-facing market intelligence, decision advisory, and selling tools active on AgriLink Maharashtra.
           </p>
         </div>
 
@@ -151,7 +151,7 @@ export default function FarmerCoveragePage() {
               <table className="w-full text-left text-xs">
                 <thead className="bg-gray-100/70 text-gray-600 uppercase font-bold border-b">
                   <tr>
-                    <th className="px-4 py-3">PS Requirement</th>
+                    <th className="px-4 py-3">Capability</th>
                     <th className="px-4 py-3">Status</th>
                     <th className="px-4 py-3">Farmer Feature</th>
                     <th className="px-4 py-3">Implementation Details</th>

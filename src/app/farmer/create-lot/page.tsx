@@ -158,7 +158,7 @@ export default function CreateLotPage() {
   }
 
   return (
-    <AppShell role="farmer" userName="Ramesh Kumar">
+    <AppShell role="farmer" userName="Registered Farmer Profile">
       <DemoBanner />
       <div className="mx-auto max-w-2xl space-y-6 pb-12">
         <div className="flex items-center justify-between">
@@ -167,7 +167,7 @@ export default function CreateLotPage() {
             <p className="text-gray-500 text-sm">Enter crop details to calculate your best selling option</p>
           </div>
           <Button variant="demo" size="sm" onClick={loadDemoValues}>
-            Load Demo Values
+            Load Sample Values
           </Button>
         </div>
 

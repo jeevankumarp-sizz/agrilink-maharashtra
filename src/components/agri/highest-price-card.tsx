@@ -126,7 +126,7 @@ export function HighestPriceCard({ crop = "Tomato", quantity = 2000 }: HighestPr
           <div>
             <p className="font-bold">AgriLink Decision Support:</p>
             <p>
-              Selling to <strong>{optionB.name}</strong> yields <strong>{formatCurrency(netDiff)} MORE net profit</strong> for Ramesh despite a lower nominal quote, because transport and transit degradation costs are saved.
+              Selling to <strong>{optionB.name}</strong> yields <strong>{formatCurrency(netDiff)} MORE net profit</strong> for the farmer despite a lower nominal quote, because transport and transit degradation costs are saved.
             </p>
           </div>
         </div>

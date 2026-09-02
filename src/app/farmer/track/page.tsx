@@ -48,7 +48,7 @@ export default function FarmerTrackSalePage() {
 
   if (loading) {
     return (
-      <AppShell role="farmer" userName="Ramesh Kumar">
+      <AppShell role="farmer" userName="Registered Farmer Profile">
         <DemoBanner />
         <div className="mx-auto max-w-4xl space-y-6 pb-12">
           <div>
@@ -79,7 +79,7 @@ export default function FarmerTrackSalePage() {
   const hasQuality = lot?.qualityAssessmentStatus === "AVAILABLE" || lot?.qualityScore;
 
   return (
-    <AppShell role="farmer" userName="Ramesh Kumar">
+    <AppShell role="farmer" userName="Registered Farmer Profile">
       <DemoBanner />
 
       <div className="mx-auto max-w-4xl space-y-6 pb-12">

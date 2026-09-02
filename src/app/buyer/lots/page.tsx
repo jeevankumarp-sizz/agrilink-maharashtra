@@ -42,14 +42,14 @@ export default function AvailableLotsPage() {
 
   if (loading) {
     return (
-      <AppShell role="buyer" userName="FreshFoods Maharashtra — Demo Buyer">
+      <AppShell role="buyer" userName="FreshFoods Maharashtra">
         <LoadingSpinner />
       </AppShell>
     );
   }
 
   return (
-    <AppShell role="buyer" userName="FreshFoods Maharashtra — Demo Buyer">
+    <AppShell role="buyer" userName="FreshFoods Maharashtra">
       <DemoBanner />
       
       <div className="space-y-6 max-w-6xl mx-auto pb-12">

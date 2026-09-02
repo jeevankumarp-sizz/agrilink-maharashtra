@@ -16,10 +16,10 @@ export default function FPOPage() {
   const [loading, setLoading] = useState(false);
 
   const members = [
-    { name: "Ramesh Kumar (Dindori)", qty: 2000, percentage: 31 },
-    { name: "Suresh Patil (Panchavati)", qty: 1500, percentage: 23 },
-    { name: "Lakshmi Deshmukh (Niphad)", qty: 1200, percentage: 18 },
-    { name: "Kumar Gaikwad (Sinnar)", qty: 1800, percentage: 28 },
+    { name: "Farmer Member #01 (Dindori)", qty: 2000, percentage: 31 },
+    { name: "Farmer Member #02 (Panchavati)", qty: 1500, percentage: 23 },
+    { name: "Farmer Member #03 (Niphad)", qty: 1200, percentage: 18 },
+    { name: "Farmer Member #04 (Sinnar)", qty: 1800, percentage: 28 },
   ];
 
   const totalQty = members.reduce((acc, m) => acc + m.qty, 0); // 6,500 kg

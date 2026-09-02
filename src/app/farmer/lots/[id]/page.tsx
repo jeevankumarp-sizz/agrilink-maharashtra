@@ -103,7 +103,7 @@ export default function LotDetailPage() {
 
   if (loading) {
     return (
-      <AppShell role="farmer" userName="Ramesh Kumar">
+      <AppShell role="farmer" userName="Registered Farmer Profile">
         <LoadingSpinner />
       </AppShell>
     );
@@ -111,7 +111,7 @@ export default function LotDetailPage() {
 
   if (!lot) {
     return (
-      <AppShell role="farmer" userName="Ramesh Kumar">
+      <AppShell role="farmer" userName="Registered Farmer Profile">
         <EmptyState title="Lot Not Found" description="The requested lot could not be found." />
       </AppShell>
     );
@@ -120,7 +120,7 @@ export default function LotDetailPage() {
   const bestPrice = offers.length > 0 ? Math.max(...offers.map(o => o.pricePerKg)) : 0;
 
   return (
-    <AppShell role="farmer" userName="Ramesh Kumar">
+    <AppShell role="farmer" userName="Registered Farmer Profile">
       <DemoBanner />
 
       <div className="space-y-6 max-w-5xl mx-auto pb-10">

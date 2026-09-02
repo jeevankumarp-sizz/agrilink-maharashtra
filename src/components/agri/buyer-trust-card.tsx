@@ -11,7 +11,7 @@ interface BuyerTrustCardProps {
 }
 
 export function BuyerTrustCard({
-  buyerName = "FreshFoods Maharashtra — Demo Buyer",
+  buyerName = "FreshFoods Maharashtra",
   reliabilityScore = 94,
   paymentReliability = 97,
 }: BuyerTrustCardProps) {

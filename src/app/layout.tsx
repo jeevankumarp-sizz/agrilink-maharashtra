@@ -8,8 +8,8 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "AgriLink — From farm-gate to the best buyer",
-  description: "AI-assisted farm-to-market decision engine for Smart India Hackathon 2026",
+  title: "AgriLink Maharashtra — State Agricultural Market Intelligence Platform",
+  description: "Better prices. Better markets. Better decisions. AGMARKNET 2.0 daily prices & AI visual quality assessment.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

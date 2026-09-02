@@ -9,9 +9,9 @@ import { CheckCircle2, Layers, MapPin, Package, ShoppingCart } from "lucide-reac
 
 export default function BuyerAggregatePage() {
   const availableLots = [
-    { id: "LOT-MH-001", farmer: "Ramesh Kumar", qty: 2000, grade: "Grade A", location: "Nashik, Maharashtra", price: 31.5 },
-    { id: "LOT-MH-002", farmer: "Suresh Patil", qty: 1500, grade: "Grade A", location: "Niphad, Maharashtra", price: 31.0 },
-    { id: "LOT-MH-003", farmer: "Kumar Gaikwad", qty: 2500, grade: "Grade B", location: "Sinnar, Maharashtra", price: 29.5 },
+    { id: "LOT-MH-001", farmer: "Farmer Lot #001 (Nashik)", qty: 2000, grade: "Grade A", location: "Nashik, Maharashtra", price: 31.5 },
+    { id: "LOT-MH-002", farmer: "Farmer Lot #002 (Niphad)", qty: 1500, grade: "Grade A", location: "Niphad, Maharashtra", price: 31.0 },
+    { id: "LOT-MH-003", farmer: "Farmer Lot #003 (Sinnar)", qty: 2500, grade: "Grade B", location: "Sinnar, Maharashtra", price: 29.5 },
   ];
 
   const totalQty = availableLots.reduce((acc, l) => acc + l.qty, 0);
@@ -19,7 +19,7 @@ export default function BuyerAggregatePage() {
   const avgPrice = totalCost / totalQty;
 
   return (
-    <AppShell role="buyer" userName="FreshFoods Maharashtra — Demo Buyer">
+    <AppShell role="buyer" userName="FreshFoods Maharashtra">
       <DemoBanner />
 
       <div className="mx-auto max-w-5xl space-y-6 pb-10">

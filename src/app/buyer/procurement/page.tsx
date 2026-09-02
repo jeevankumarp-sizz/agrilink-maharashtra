@@ -67,7 +67,7 @@ export default function BuyerProcurementPage() {
                         <Badge variant="default" className="text-xs font-bold">{tx.id}</Badge>
                       </CardTitle>
                       <CardDescription className="text-xs text-gray-600 mt-0.5">
-                        Farmer: {tx.farmerId === "farmer-1" ? "Ramesh Kumar (Nashik)" : tx.farmerId}
+                        Farmer: {tx.farmerId === "farmer-1" ? "Registered Farmer Profile (Nashik)" : tx.farmerId}
                       </CardDescription>
                     </div>
                     <div className="text-right">

@@ -31,7 +31,7 @@ export function QualityVerificationModal({
   isOpen,
   onClose,
   buyerId = "buyer-1",
-  buyerName = "FreshFoods Maharashtra — Demo Buyer",
+  buyerName = "FreshFoods Maharashtra",
 }: QualityVerificationModalProps) {
   const [fullImageOpen, setFullImageOpen] = useState(false);
   const [showReportForm, setShowReportForm] = useState(false);

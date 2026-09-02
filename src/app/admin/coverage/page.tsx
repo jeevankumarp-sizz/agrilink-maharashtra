@@ -19,12 +19,12 @@ interface RequirementItem {
 const ADMIN_REQUIREMENTS: RequirementItem[] = [
   {
     id: "REQ-01",
-    title: "Mandi & Market Price Intelligence",
+    title: "AGMARKNET Mandi Price Intelligence",
     category: "Price Discovery",
     status: "IMPLEMENTED",
     link: "/admin/markets",
     featureName: "State Market Intelligence Monitor",
-    details: "Modal, min, and max price aggregation across 10 pilot APMC mandis in Maharashtra.",
+    details: "Modal, min, and max price aggregation across APMC mandis in Maharashtra.",
   },
   {
     id: "REQ-04",
@@ -33,7 +33,7 @@ const ADMIN_REQUIREMENTS: RequirementItem[] = [
     status: "IMPLEMENTED",
     link: "/admin",
     featureName: "State Market Command Map & Alerts",
-    details: "Monitors daily arrival volumes in quintals and triggers anomaly alerts during supply spikes.",
+    details: "Monitors daily arrival volumes and triggers anomaly alerts during supply spikes.",
   },
   {
     id: "REQ-09",
@@ -60,7 +60,7 @@ const ADMIN_REQUIREMENTS: RequirementItem[] = [
     status: "IMPLEMENTED",
     link: "/admin/grievances",
     featureName: "Farmer Grievance Center",
-    details: "Allows farmers to log payment delay disputes with AI category classification and resolution status.",
+    details: "Allows farmers to log payment delay disputes with category classification and resolution status.",
   },
   {
     id: "REQ-15",
@@ -85,30 +85,30 @@ const ADMIN_REQUIREMENTS: RequirementItem[] = [
 export default function AdminCoveragePage() {
   const statusBadges = {
     IMPLEMENTED: <Badge variant="success" className="font-bold">🟢 Implemented</Badge>,
-    PROTOTYPE: <Badge variant="warning" className="font-bold">🟡 Prototype / Demo</Badge>,
+    PROTOTYPE: <Badge variant="warning" className="font-bold">🟡 Active Feature</Badge>,
     FUTURE: <Badge variant="info" className="font-bold">🔵 Future Integration</Badge>,
   };
 
   return (
-    <AppShell role="admin" userName="Maharashtra Agri Admin">
+    <AppShell role="admin" userName="AgriLink Admin Center">
       <DemoBanner />
 
       <div className="mx-auto max-w-5xl space-y-6 pb-12">
         <div className="bg-white p-6 rounded-2xl border border-purple-200 shadow-xs space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <Badge variant="verified" className="bg-purple-100 text-purple-900 border-purple-300 font-bold text-xs">
-              GOVERNMENT SIH EVALUATION MATRIX
+              STATE COMMAND AUDIT MATRIX
             </Badge>
             <span className="text-xs text-gray-500 font-semibold">
-              SIH 2026 PS 26132 Prototype
+              AgriLink State Governance Matrix
             </span>
           </div>
 
           <h1 className="text-3xl font-extrabold text-gray-900">
-            Government Command Center SIH26132 Coverage
+            State Command Center Verification Matrix
           </h1>
           <p className="text-sm text-gray-600 leading-relaxed">
-            Audit checklist mapping state monitoring capabilities to official problem statement requirements.
+            Audit checklist mapping state monitoring capabilities, buyer registries, and grievance workflows to implemented AgriLink platform features.
           </p>
         </div>
 
@@ -124,7 +124,7 @@ export default function AdminCoveragePage() {
               <table className="w-full text-left text-xs">
                 <thead className="bg-gray-100/70 text-gray-600 uppercase font-bold border-b">
                   <tr>
-                    <th className="px-4 py-3">PS Requirement</th>
+                    <th className="px-4 py-3">Capability</th>
                     <th className="px-4 py-3">Status</th>
                     <th className="px-4 py-3">Government Module</th>
                     <th className="px-4 py-3">Implementation Details</th>

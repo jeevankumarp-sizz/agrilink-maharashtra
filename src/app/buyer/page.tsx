@@ -96,7 +96,7 @@ export default function BuyerDashboardPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-              Welcome, FreshFoods Maharashtra — Demo Buyer
+              Welcome, FreshFoods Maharashtra
             </h1>
             <p className="text-sm text-gray-600 mt-1">
               Procurement portal for Maharashtra agricultural commodity lots &amp; farmer offers

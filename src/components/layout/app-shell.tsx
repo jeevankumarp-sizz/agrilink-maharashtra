@@ -33,7 +33,7 @@ const farmerLinks = [
   { href: "/farmer/offers", labelKey: "myOffers", defaultLabel: "My Offers", icon: ShoppingCart },
   { href: "/farmer/track", labelKey: "trackSale", defaultLabel: "Track My Sale", icon: Truck },
   { href: "/farmer/fpo", labelKey: "fpoAggregation", defaultLabel: "FPO Aggregation", icon: Scale },
-  { href: "/farmer/coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
+  { href: "/farmer/coverage", labelKey: "platformCoverage", defaultLabel: "Platform Coverage", icon: CheckSquare },
 ];
 
 const buyerLinks = [
@@ -42,7 +42,7 @@ const buyerLinks = [
   { href: "/buyer/aggregate", labelKey: "aiLotAggregation", defaultLabel: "AI Lot Aggregation", icon: Scale },
   { href: "/buyer/procurement", labelKey: "myProcurement", defaultLabel: "My Procurement", icon: ShoppingCart },
   { href: "/buyer/transactions", labelKey: "transactions", defaultLabel: "Transactions", icon: Truck },
-  { href: "/buyer/coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
+  { href: "/buyer/coverage", labelKey: "platformCoverage", defaultLabel: "Platform Coverage", icon: CheckSquare },
 ];
 
 const adminLinks = [
@@ -53,7 +53,7 @@ const adminLinks = [
   { href: "/admin/transactions", labelKey: "transactions", defaultLabel: "Transactions", icon: Truck },
   { href: "/admin/grievances", labelKey: "grievances", defaultLabel: "Grievance Center", icon: AlertTriangle },
   { href: "/admin/impact", labelKey: "impactDashboard", defaultLabel: "Impact Dashboard", icon: BarChart3 },
-  { href: "/admin/coverage", labelKey: "sihCoverage", defaultLabel: "SIH Coverage", icon: CheckSquare },
+  { href: "/admin/coverage", labelKey: "platformCoverage", defaultLabel: "Platform Coverage", icon: CheckSquare },
 ];
 
 const LANG_LABELS: Record<Language, string> = { en: "EN", mr: "मराठी", hi: "हिंदी" };
@@ -123,7 +123,7 @@ export function AppShell({
               <div className="flex items-center gap-2">
                 <p className="text-base font-bold text-emerald-950">AgriLink Maharashtra</p>
                 <span className="hidden sm:inline-block rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800">
-                  SIH 2026 Prototype
+                  AgriTech Platform
                 </span>
               </div>
               <p className="text-[11px] text-gray-500 hidden md:block">
@@ -137,7 +137,7 @@ export function AppShell({
               className="hidden sm:flex items-center gap-1 rounded-lg border border-emerald-300 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-800 hover:bg-emerald-100"
             >
               <CheckSquare className="h-3.5 w-3.5" />
-              SIH Coverage
+              Platform Coverage
             </Link>
 
             {/* Language Selector Dropdown */}
@@ -315,12 +315,12 @@ function RoleBadge({ role }: { role: string }) {
 
 export function DemoBanner() {
   return (
-    <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50/80 px-4 py-2 text-xs text-amber-900 flex items-center justify-between gap-2 shadow-xs">
+    <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50/80 px-4 py-2 text-xs text-emerald-950 flex items-center justify-between gap-2 shadow-xs">
       <div>
-        <strong>Demonstration Dataset</strong> — Region: Maharashtra (Nashik, Pune, Nagpur, Solapur, Sangli, Kolhapur) · Status: Prototype Data.
+        <strong>Regional Market Intelligence</strong> — Primary Coverage: Maharashtra (Nashik, Pune, Ahilyanagar, Solapur, Sangli, Nagpur) · AGMARKNET 2.0 Integration Active.
       </div>
-      <span className="hidden sm:inline-block font-semibold bg-amber-100 px-2 py-0.5 rounded text-[10px]">
-        SIH 2026 Prototype
+      <span className="hidden sm:inline-block font-semibold bg-emerald-200/80 text-emerald-900 px-2 py-0.5 rounded text-[10px]">
+        AgriLink Maharashtra
       </span>
     </div>
   );

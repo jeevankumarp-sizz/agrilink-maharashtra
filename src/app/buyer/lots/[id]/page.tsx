@@ -82,7 +82,7 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
       const offerData = {
         lotId: lot.id,
         buyerId: 'buyer-1',
-        buyerName: 'FreshFoods Maharashtra — Demo Buyer',
+        buyerName: 'FreshFoods Maharashtra',
         buyerReliability: 94,
         pricePerKg: parseFloat(formData.pricePerKg),
         quantity: parseInt(formData.quantity, 10),
@@ -154,7 +154,7 @@ export default function MakeOfferPage({ params }: { params: Promise<{ id: string
         )}
 
         {/* Buyer Trust Profile Card */}
-        <BuyerTrustCard buyerName="FreshFoods Maharashtra — Demo Buyer" />
+        <BuyerTrustCard buyerName="FreshFoods Maharashtra" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="h-fit">

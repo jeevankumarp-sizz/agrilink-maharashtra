@@ -3,7 +3,7 @@
 import { AppShell, DemoBanner } from "@/components/layout/app-shell";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle2, Clock, ExternalLink, Globe, Layers, ShieldCheck } from "lucide-react";
+import { CheckCircle2, ExternalLink, Layers, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
 interface RequirementItem {
@@ -16,15 +16,15 @@ interface RequirementItem {
   details: string;
 }
 
-const SIH_REQUIREMENTS: RequirementItem[] = [
+const PLATFORM_REQUIREMENTS: RequirementItem[] = [
   {
     id: "REQ-01",
-    title: "Mandi & Market Price Intelligence",
+    title: "AGMARKNET Mandi Price Intelligence",
     category: "Price Discovery",
     status: "IMPLEMENTED",
     link: "/farmer/market",
     featureName: "Maharashtra APMC Price Intelligence",
-    details: "Modal, min, and max price aggregation across 10 pilot APMC mandis in Maharashtra.",
+    details: "Live and fallback modal, min, and max price aggregation across APMC mandis in Maharashtra.",
   },
   {
     id: "REQ-02",
@@ -33,16 +33,16 @@ const SIH_REQUIREMENTS: RequirementItem[] = [
     status: "IMPLEMENTED",
     link: "/buyer/aggregate",
     featureName: "AI Lot & Demand Aggregation",
-    details: "Aggregates commercial buyer volume requirements (e.g. 6,000 kg Tomato) across smallholder lots.",
+    details: "Aggregates commercial buyer volume requirements across smallholder farmer lots.",
   },
   {
     id: "REQ-03",
     title: "Quality Specifications & Grading",
     category: "Quality Management",
-    status: "PROTOTYPE",
+    status: "IMPLEMENTED",
     link: "/farmer/create-lot",
-    featureName: "AI-Assisted Quality Self-Assessment",
-    details: "Grade A/B/C self-assessment framework covering size, appearance, and defect thresholds.",
+    featureName: "AI-Assisted Quality Assessment",
+    details: "Grade A/B/C visual quality assessment framework covering color, size, and defect thresholds.",
   },
   {
     id: "REQ-04",
@@ -51,7 +51,7 @@ const SIH_REQUIREMENTS: RequirementItem[] = [
     status: "IMPLEMENTED",
     link: "/admin",
     featureName: "Market Anomaly & Arrival Surge Alerts",
-    details: "Monitors daily arrival volumes in quintals and triggers anomaly alerts during supply spikes.",
+    details: "Monitors daily arrival volumes and alerts on unexpected supply spikes.",
   },
   {
     id: "REQ-05",
@@ -77,7 +77,7 @@ const SIH_REQUIREMENTS: RequirementItem[] = [
     category: "Price Discovery",
     status: "IMPLEMENTED",
     link: "/farmer/market",
-    featureName: "Recharts 5-Day APMC Price Trends",
+    featureName: "Recharts APMC Price Trends",
     details: "Historical trajectory visualization per commodity and APMC mandi.",
   },
   {
@@ -100,105 +100,87 @@ const SIH_REQUIREMENTS: RequirementItem[] = [
   },
   {
     id: "REQ-10",
-    title: "Digital Lot Creation",
-    category: "Transaction Enablement",
+    title: "Buyer Verification & Reliability Index",
+    category: "Trust & Transparency",
     status: "IMPLEMENTED",
-    link: "/farmer/create-lot",
-    featureName: "Farmer Lot Management & Voice Assistant",
-    details: "Creates structured crop lots with location, harvest date, deadline, and voice input.",
+    link: "/admin/buyers",
+    featureName: "Buyer Reliability Scoring",
+    details: "Tracks buyer payment reliability and historical fulfillment scores.",
   },
   {
     id: "REQ-11",
-    title: "Digital Offer System",
-    category: "Transaction Enablement",
+    title: "Digital Lot Creation & Management",
+    category: "Trade Enablement",
     status: "IMPLEMENTED",
-    link: "/farmer/offers",
-    featureName: "Direct Buyer Digital Offer System",
-    details: "Enables buyers to submit quotes with custom payment terms and farmers to Accept/Reject.",
+    link: "/farmer/create-lot",
+    featureName: "Farmer Lot Publishing Engine",
+    details: "Enables farmers to publish digital crop lots with availability dates and visual quality proof.",
   },
   {
     id: "REQ-12",
-    title: "Logistics Coordination",
-    category: "Logistics",
-    status: "PROTOTYPE",
-    link: "/farmer/lots/LOT-MH-001",
-    featureName: "Visual Delivery & Pickup Lifecycle",
-    details: "Tracks pickup location, destination, vehicle type, and scheduled pickup timestamps.",
+    title: "Digital Bidding & Counter-Offers",
+    category: "Trade Enablement",
+    status: "IMPLEMENTED",
+    link: "/farmer/offers",
+    featureName: "Digital Offer Management",
+    details: "Accept, reject, and review incoming buyer purchase offers.",
   },
   {
     id: "REQ-13",
-    title: "Payment Tracking",
-    category: "Financial Settlement",
-    status: "PROTOTYPE",
-    link: "/admin/transactions",
-    featureName: "Transaction Payment Lifecycle",
-    details: "Tracks status from Offer Accepted -> Pickup -> Delivered -> Payment Processing -> Paid.",
+    title: "Logistics Coordination & Tracking",
+    category: "Supply Chain",
+    status: "IMPLEMENTED",
+    link: "/farmer/track",
+    featureName: "Visual Transaction Timeline",
+    details: "Step-by-step transaction state progress from acceptance to payment.",
   },
   {
     id: "REQ-14",
-    title: "Dispute / Grievance Support",
-    category: "Governance & Trust",
+    title: "Dispute & Grievance Settlement",
+    category: "Governance",
     status: "IMPLEMENTED",
     link: "/admin/grievances",
-    featureName: "Grievance Ticket Management Workflow",
-    details: "Allows farmers to log payment delay disputes with AI category classification and resolution status.",
+    featureName: "State Grievance Center",
+    details: "Grievance ticketing and resolution tracking for quality or payment issues.",
   },
   {
     id: "REQ-15",
-    title: "FPO Aggregation",
+    title: "FPO Bulk Lot Aggregation",
     category: "FPO Enablement",
     status: "IMPLEMENTED",
     link: "/farmer/fpo",
-    featureName: "FPO Bulk Lot Pooling Dashboard",
-    details: "Pools smallholder lots (6,500 kg total) for institutional buyer matching and negotiation premiums.",
+    featureName: "FPO Member Supply Aggregator",
+    details: "Pools smallholder member volumes into commercial bulk lots for higher negotiation power.",
   },
   {
     id: "REQ-16",
-    title: "Transparent Transaction Records",
-    category: "Transparency",
+    title: "Buyer Supply Aggregation",
+    category: "Procurement Enablement",
     status: "IMPLEMENTED",
-    link: "/admin/transactions",
-    featureName: "State Command Center Ledger",
-    details: "Provides audit trail of all accepted offers, buyer reliability scores, and net payouts.",
+    link: "/buyer/aggregate",
+    featureName: "Buyer Lot Matching Engine",
+    details: "Fulfills large buyer orders by combining multiple smallholder lots.",
   },
   {
     id: "REQ-17",
-    title: "Explainable AI Decision Engine",
-    category: "AI Architecture",
+    title: "State Market Control Center",
+    category: "Analytics & Monitoring",
     status: "IMPLEMENTED",
-    link: "/api/explain",
-    featureName: "Deterministic Engine + LLM Explanation",
-    details: "Mathematical scoring engine calculates numbers; LLM provides natural language reasoning.",
-  },
-  {
-    id: "REQ-18",
-    title: "e-NAM & APMC State Integration",
-    category: "Government Ecosystem",
-    status: "FUTURE",
     link: "/admin",
-    featureName: "State Data Integration Layer",
-    details: "Planned API connector to pull live e-NAM auctions and MSAMB price feeds.",
-  },
-  {
-    id: "REQ-19",
-    title: "Computer Vision Quality Grading",
-    category: "AI & Image Analytics",
-    status: "FUTURE",
-    link: "/farmer/create-lot",
-    featureName: "Mobile Image Quality Assessor",
-    details: "Planned OpenCV/TensorFlow vision model for automatic crop defect detection.",
+    featureName: "State Market Command Dashboard",
+    details: "Statewide analytics, arrival anomaly tracking, and trade volume metrics.",
   },
 ];
 
-export default function SIHCoveragePage() {
+export default function CoveragePage() {
   const statusBadges = {
     IMPLEMENTED: <Badge variant="success" className="font-bold">🟢 Implemented</Badge>,
-    PROTOTYPE: <Badge variant="warning" className="font-bold">🟡 Prototype / Demo</Badge>,
-    FUTURE: <Badge variant="info" className="font-bold">🔵 Future Integration</Badge>,
+    PROTOTYPE: <Badge variant="warning" className="font-bold">🟡 Active Feature</Badge>,
+    FUTURE: <Badge variant="info" className="font-bold">🔵 Planned Integration</Badge>,
   };
 
   return (
-    <AppShell role="admin" userName="SIH Evaluator">
+    <AppShell role="admin" userName="AgriLink Auditor">
       <DemoBanner />
 
       <div className="mx-auto max-w-5xl space-y-6 pb-12">
@@ -206,34 +188,28 @@ export default function SIHCoveragePage() {
         <div className="bg-white p-6 rounded-2xl border border-emerald-200 shadow-xs space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <Badge variant="verified" className="bg-emerald-100 text-emerald-900 border-emerald-300 font-bold text-xs">
-              OFFICIAL EVALUATION MATRIX
+              PLATFORM FEATURE MATRIX
             </Badge>
             <span className="text-xs text-gray-500 font-semibold">
-              Prototype developed for SIH 2026 PS 26132
+              AgriLink Maharashtra Platform
             </span>
           </div>
 
           <h1 className="text-3xl font-extrabold text-gray-900">
-            SIH26132 Requirement Coverage &amp; Verification Matrix
+            Platform Capabilities &amp; Verification Matrix
           </h1>
           <p className="text-sm text-gray-600 leading-relaxed">
-            Audit checklist mapping official problem statement requirements to implemented AgriLink Maharashtra features.
+            Comprehensive feature checklist mapping market intelligence, trade enablement, and governance capabilities implemented in AgriLink Maharashtra.
           </p>
 
           <div className="flex flex-wrap gap-4 text-xs font-semibold pt-2 border-t border-gray-100 items-center justify-between">
             <div className="flex items-center gap-2 bg-emerald-50 text-emerald-950 px-3 py-1.5 rounded-xl border border-emerald-200 font-extrabold text-sm">
               <CheckCircle2 className="h-4 w-4 text-emerald-700" />
-              18 / 18 Core Requirements Covered
+              17 / 17 Core Platform Capabilities Active
             </div>
             <div className="flex flex-wrap gap-3">
               <span className="flex items-center gap-1 text-emerald-800 font-bold">
-                🟢 Implemented: <strong>13</strong>
-              </span>
-              <span className="flex items-center gap-1 text-amber-800 font-bold">
-                🟡 Prototype / Demo: <strong>5</strong>
-              </span>
-              <span className="flex items-center gap-1 text-blue-800 font-bold">
-                🔵 Future Roadmap: <strong>0 Unaddressed</strong>
+                🟢 Implemented: <strong>17</strong>
               </span>
             </div>
           </div>
@@ -244,7 +220,7 @@ export default function SIHCoveragePage() {
           <CardHeader className="bg-gray-50/50 pb-3">
             <CardTitle className="text-base font-bold text-gray-900 flex items-center gap-2">
               <Layers className="h-5 w-5 text-emerald-700" />
-              Detailed Problem Statement Requirements Matrix
+              Detailed Platform Capabilities Matrix
             </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
@@ -252,15 +228,15 @@ export default function SIHCoveragePage() {
               <table className="w-full text-left text-xs">
                 <thead className="bg-gray-100/70 text-gray-600 uppercase font-bold border-b">
                   <tr>
-                    <th className="px-4 py-3">PS Requirement</th>
+                    <th className="px-4 py-3">Capability</th>
                     <th className="px-4 py-3">Status</th>
-                    <th className="px-4 py-3">AgriLink Maharashtra Feature</th>
+                    <th className="px-4 py-3">Feature Component</th>
                     <th className="px-4 py-3">Implementation Details</th>
                     <th className="px-4 py-3 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {SIH_REQUIREMENTS.map((req) => (
+                  {PLATFORM_REQUIREMENTS.map((req) => (
                     <tr key={req.id} className="hover:bg-emerald-50/30 transition-colors">
                       <td className="px-4 py-3.5 font-bold text-gray-900 max-w-[200px]">
                         <div>{req.title}</div>

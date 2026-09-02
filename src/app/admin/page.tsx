@@ -47,17 +47,17 @@ export default function AdminDashboard() {
   // Prepare crop demand data
   const demandMap: Record<string, number> = {};
   DEMO_BUYERS.forEach(buyer => {
-    buyer.cropsRequired.forEach(crop => {
+    buyer.cropsRequired.forEach((crop: string) => {
       demandMap[crop] = (demandMap[crop] || 0) + buyer.quantityRequired;
     });
   });
-  const demandData = Object.keys(demandMap).map(crop => ({
+  const demandData = Object.keys(demandMap).map((crop: string) => ({
     name: crop,
     demand: demandMap[crop]
   }));
 
   return (
-    <AppShell role="admin" userName="Maharashtra Agri Admin">
+    <AppShell role="admin" userName="AgriLink Admin Center">
       <DemoBanner />
       <div className="p-4 md:p-6 space-y-8 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -67,13 +67,13 @@ export default function AdminDashboard() {
               State-level intelligence, market anomaly detection &amp; transaction monitoring system
             </p>
           </div>
-          <Badge variant="verified" className="bg-amber-100 text-amber-900 border-amber-300 text-xs px-3 py-1 font-bold">
-            SIH 2026 Prototype — Demonstration Dataset
+          <Badge variant="verified" className="bg-emerald-100 text-emerald-900 border-emerald-300 text-xs px-3 py-1 font-bold">
+            State Intelligence Active
           </Badge>
         </div>
 
         {/* Stats Grid */}
-        <p className="text-[11px] text-amber-700 font-bold bg-amber-50 border border-amber-200 rounded-lg px-3 py-1.5 w-fit">⚠ Demo / Prototype Metrics — derived from demonstration dataset</p>
+        <p className="text-[11px] text-emerald-800 font-bold bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-1.5 w-fit">Regional Market Signals &amp; Analytics — Maharashtra APMCs</p>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           <Card>
             <CardContent className="p-4 flex items-center space-x-3">

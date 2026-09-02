@@ -40,14 +40,14 @@ export default function AdminTransactions() {
 
   if (loading) {
     return (
-      <AppShell role="admin" userName="Maharashtra Agri Admin">
+      <AppShell role="admin" userName="AgriLink Admin Center">
         <LoadingSpinner />
       </AppShell>
     );
   }
 
   return (
-    <AppShell role="admin" userName="Maharashtra Agri Admin">
+    <AppShell role="admin" userName="AgriLink Admin Center">
       <DemoBanner />
       <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto pb-12">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">

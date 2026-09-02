@@ -44,7 +44,7 @@ export default function AdminGrievancesPage() {
   }
 
   return (
-    <AppShell role="admin" userName="AgriLink Admin">
+    <AppShell role="admin" userName="AgriLink Admin Center">
       <DemoBanner />
 
       <div className="p-4 md:p-8 space-y-6">
@@ -55,7 +55,7 @@ export default function AdminGrievancesPage() {
               Farmer Grievance & Dispute Center
             </h1>
             <p className="text-gray-500 mt-1">
-              Monitor, review, and resolve reported payment or delivery disputes (PS26132 requirement)
+              Monitor, review, and resolve reported payment or delivery disputes
             </p>
           </div>
         </div>

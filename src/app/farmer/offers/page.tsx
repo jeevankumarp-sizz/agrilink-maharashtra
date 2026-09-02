@@ -60,7 +60,7 @@ export default function OffersManagementPage() {
 
   if (loading) {
     return (
-      <AppShell role="farmer" userName="Ramesh Kumar">
+      <AppShell role="farmer" userName="Registered Farmer Profile">
         <DemoBanner />
         <div className="space-y-6">
           <div>
@@ -93,7 +93,7 @@ export default function OffersManagementPage() {
   const pastOffers = data.allOffers.filter(o => o.status !== 'pending');
 
   return (
-    <AppShell role="farmer" userName={data.user?.name || "Ramesh Kumar"}>
+    <AppShell role="farmer" userName={data.user?.name || "Registered Farmer Profile"}>
       <DemoBanner />
       
       <div className="mb-6 flex items-center justify-between">

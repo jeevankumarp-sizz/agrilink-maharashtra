@@ -115,7 +115,7 @@ function RecommendationsContent() {
 
   if (loading) {
     return (
-      <AppShell role="farmer" userName="Ramesh Kumar">
+      <AppShell role="farmer" userName="Registered Farmer Profile">
         <div className="flex items-center justify-center py-20">
           <Loader2 className="h-8 w-8 animate-spin text-emerald-700" />
         </div>
@@ -125,7 +125,7 @@ function RecommendationsContent() {
 
   if (!recommendations) {
     return (
-      <AppShell role="farmer" userName="Ramesh Kumar">
+      <AppShell role="farmer" userName="Registered Farmer Profile">
         <Card className="mx-auto max-w-lg p-8 text-center">
           <p className="text-gray-600">No analysis found. Please create a lot first.</p>
           <Button className="mt-4" onClick={() => router.push("/farmer/create-lot")}>
@@ -147,7 +147,7 @@ function RecommendationsContent() {
   ];
 
   return (
-    <AppShell role="farmer" userName="Ramesh Kumar">
+    <AppShell role="farmer" userName="Registered Farmer Profile">
       <DemoBanner />
 
       <div className="mb-6">

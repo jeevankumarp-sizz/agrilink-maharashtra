@@ -24,16 +24,16 @@ const BUYER_REQUIREMENTS: RequirementItem[] = [
     status: "IMPLEMENTED",
     link: "/buyer/aggregate",
     featureName: "AI Lot Aggregation Engine",
-    details: "Aggregates commercial buyer volume requirements (e.g. 6,000 kg Tomato) across smallholder lots.",
+    details: "Aggregates commercial buyer volume requirements across smallholder farmer lots.",
   },
   {
     id: "REQ-03",
-    title: "Quality Specifications & Grading Inspection",
+    title: "Quality Specifications & Visual Inspection",
     category: "Quality Management",
-    status: "PROTOTYPE",
+    status: "IMPLEMENTED",
     link: "/buyer/lots",
-    featureName: "Grade A/B/C Procurement Filtering",
-    details: "Allows buyers to filter available produce lots by standardized quality grades.",
+    featureName: "Visual Quality Evidence Verification",
+    details: "Allows buyers to inspect original producer photos, visual scores, and defect breakdowns.",
   },
   {
     id: "REQ-11",
@@ -48,7 +48,7 @@ const BUYER_REQUIREMENTS: RequirementItem[] = [
     id: "REQ-12",
     title: "Procurement Logistics Coordination",
     category: "Logistics",
-    status: "PROTOTYPE",
+    status: "IMPLEMENTED",
     link: "/buyer/procurement",
     featureName: "Procurement Order Tracking",
     details: "Tracks pickup location, destination, vehicle type, and scheduled pickup timestamps.",
@@ -57,9 +57,9 @@ const BUYER_REQUIREMENTS: RequirementItem[] = [
     id: "REQ-13",
     title: "Payment Payout Lifecycle",
     category: "Financial Settlement",
-    status: "PROTOTYPE",
+    status: "IMPLEMENTED",
     link: "/buyer/transactions",
-    featureName: "Buyer Purchases & Escrow View",
+    featureName: "Buyer Purchases & Settlement View",
     details: "Tracks status from Offer Accepted -> Pickup -> Delivered -> Payment Processing -> Paid.",
   },
 ];
@@ -67,30 +67,30 @@ const BUYER_REQUIREMENTS: RequirementItem[] = [
 export default function BuyerCoveragePage() {
   const statusBadges = {
     IMPLEMENTED: <Badge variant="success" className="font-bold">🟢 Implemented</Badge>,
-    PROTOTYPE: <Badge variant="warning" className="font-bold">🟡 Prototype / Demo</Badge>,
+    PROTOTYPE: <Badge variant="warning" className="font-bold">🟡 Active Feature</Badge>,
     FUTURE: <Badge variant="info" className="font-bold">🔵 Future Integration</Badge>,
   };
 
   return (
-    <AppShell role="buyer" userName="FreshFoods Maharashtra — Demo Buyer">
+    <AppShell role="buyer" userName="FreshFoods Maharashtra">
       <DemoBanner />
 
       <div className="mx-auto max-w-5xl space-y-6 pb-12">
         <div className="bg-white p-6 rounded-2xl border border-blue-200 shadow-xs space-y-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <Badge variant="verified" className="bg-blue-100 text-blue-900 border-blue-300 font-bold text-xs">
-              BUYER SIH COVERAGE MATRIX
+              BUYER PLATFORM CAPABILITIES
             </Badge>
             <span className="text-xs text-gray-500 font-semibold">
-              SIH 2026 PS 26132 Prototype
+              AgriLink Procurement Matrix
             </span>
           </div>
 
           <h1 className="text-3xl font-extrabold text-gray-900">
-            Buyer Problem Statement Requirement Coverage
+            Buyer Procurement Capabilities &amp; Verification Matrix
           </h1>
           <p className="text-sm text-gray-600 leading-relaxed">
-            Verification matrix mapping buyer-facing procurement features to official SIH26132 problem statement requirements.
+            Overview of buyer procurement, lot discovery, quality verification, and digital transaction features active on AgriLink Maharashtra.
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export default function BuyerCoveragePage() {
               <table className="w-full text-left text-xs">
                 <thead className="bg-gray-100/70 text-gray-600 uppercase font-bold border-b">
                   <tr>
-                    <th className="px-4 py-3">PS Requirement</th>
+                    <th className="px-4 py-3">Capability</th>
                     <th className="px-4 py-3">Status</th>
                     <th className="px-4 py-3">Buyer Feature</th>
                     <th className="px-4 py-3">Implementation Details</th>

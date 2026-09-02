@@ -1,14 +1,14 @@
 import type { Buyer, CropName, Market, User } from "./types";
 
-export const DEMO_DATA_LABEL = "Demonstration Dataset — Maharashtra Region";
+export const DEMO_DATA_LABEL = "Regional Market Intelligence — Maharashtra Region";
 
 export const NASHIK = { lat: 19.9975, lng: 73.7898, location: "Nashik, Maharashtra" };
 
 export const DEMO_USERS: User[] = [
   {
     id: "farmer-1",
-    name: "Ramesh Kumar",
-    email: "ramesh@demo.agrilink.maharashtra.gov.in",
+    name: "Registered Farmer Profile",
+    email: "farmer@agrilink.maharashtra.in",
     role: "farmer",
     location: "Nashik, Maharashtra",
     lat: NASHIK.lat,
@@ -35,8 +35,8 @@ export const DEMO_USERS: User[] = [
   },
   {
     id: "admin-1",
-    name: "Maharashtra Agri Admin",
-    email: "admin@agrilink.maharashtra.gov.in",
+    name: "AgriLink Admin Center",
+    email: "admin@agrilink.maharashtra.in",
     role: "admin",
     location: "Mumbai, Maharashtra",
     lat: 18.9388,
