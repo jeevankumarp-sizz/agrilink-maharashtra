@@ -40,7 +40,7 @@ export default function CreateLotPage() {
   const [assessment, setAssessment] = useState<QualityAssessment | null>(null);
 
   const [form, setForm] = useState<LotInput>({
-    crop: "Tomato",
+    crop: "Onion",
     quantity: 2000,
     unit: "kg",
     location: "Nashik, Maharashtra",
@@ -238,11 +238,34 @@ export default function CreateLotPage() {
                 <select
                   value={form.crop}
                   onChange={(e) => setForm({ ...form, crop: e.target.value as CropName })}
-                  className="w-full rounded-xl border border-gray-200 px-4 py-3 focus:border-emerald-500 focus:outline-none"
+                  className="w-full rounded-xl border border-gray-200 px-4 py-3 font-medium text-gray-900 focus:border-emerald-500 focus:outline-none"
                 >
-                  {CROPS.map((c) => (
-                    <option key={c}>{c}</option>
-                  ))}
+                  <optgroup label="Vegetables">
+                    <option value="Onion">🧅 Onion (कांदा)</option>
+                    <option value="Tomato">🍅 Tomato (टोमॅटो)</option>
+                    <option value="Potato">🥔 Potato (बटाटा)</option>
+                    <option value="Brinjal">🍆 Brinjal (वांगी)</option>
+                    <option value="Bhendi (Okra)">🌿 Bhendi / Okra (भेंडी)</option>
+                    <option value="Green Chilli">🌶 Green Chilli (हिरवी मिरची)</option>
+                    <option value="Cabbage">🥬 Cabbage (कोबी)</option>
+                    <option value="Cauliflower">🥦 Cauliflower (फ्लॉवर)</option>
+                  </optgroup>
+                  <optgroup label="Pulses & Oilseeds">
+                    <option value="Soybean">🌱 Soybean (सोयाबीन)</option>
+                    <option value="Tur (Pigeon Pea)">🫘 Tur / Pigeon Pea (तूर)</option>
+                    <option value="Chana (Chickpea)">🟡 Chana / Chickpea (हरभरा)</option>
+                    <option value="Groundnut">🥜 Groundnut (भुईमूग)</option>
+                  </optgroup>
+                  <optgroup label="Cereals">
+                    <option value="Wheat">🌾 Wheat (गहू)</option>
+                    <option value="Maize">🌽 Maize (मका)</option>
+                    <option value="Jowar (Sorghum)">🥣 Jowar / Sorghum (ज्वारी)</option>
+                    <option value="Bajra (Pearl Millet)">🌾 Bajra / Pearl Millet (बाजरी)</option>
+                  </optgroup>
+                  <optgroup label="Commercial Crops">
+                    <option value="Cotton">☁️ Cotton (कापूस)</option>
+                    <option value="Sugarcane">🎋 Sugarcane (ऊस)</option>
+                  </optgroup>
                 </select>
               </Field>
 

@@ -13,7 +13,15 @@ import Link from "next/link";
 export default async function FarmerDashboard() {
   await actionLogin("farmer");
   const { user, lots, pendingOffers, transactions } = await actionGetFarmerDashboard();
-  const tomatoMarkets = getMarketsForCrop("Tomato");
+  const onionMarkets = getMarketsForCrop("Onion");
+  const soybeanMarkets = getMarketsForCrop("Soybean");
+  const activeMarkets = [
+    ...onionMarkets,
+    ...soybeanMarkets,
+    ...getMarketsForCrop("Cotton"),
+    ...getMarketsForCrop("Potato"),
+    ...getMarketsForCrop("Tur (Pigeon Pea)"),
+  ];
 
   return (
     <AppShell role="farmer" userName={user.name}>
@@ -34,7 +42,7 @@ export default async function FarmerDashboard() {
         </Link>
       </div>
 
-      {/* 4 Large Farmer Touch Action Cards (Phase 5) */}
+      {/* 4 Large Farmer Touch Action Cards */}
       <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
           {
@@ -92,8 +100,8 @@ export default async function FarmerDashboard() {
         {[
           { label: "Active Lots", value: lots.filter((l) => l.status !== "completed").length },
           { label: "Pending Offers", value: pendingOffers.length },
-          { label: "Transactions", value: transactions.length },
-          { label: "Tomato Benchmark", value: `₹${tomatoMarkets[0]?.modalPrice ?? 29}/kg` },
+          { label: "Onion Rate (Lasalgaon)", value: `₹${onionMarkets[0]?.modalPrice ?? 25.5}/kg` },
+          { label: "Soybean Rate (Latur)", value: `₹${soybeanMarkets[0]?.modalPrice ?? 48.0}/kg` },
         ].map((s) => (
           <Card key={s.label}>
             <CardContent className="p-4">
@@ -142,10 +150,10 @@ export default async function FarmerDashboard() {
           </h2>
           <Card>
             <CardContent className="divide-y p-0 text-sm">
-              {tomatoMarkets.slice(0, 5).map((m) => (
+              {activeMarkets.slice(0, 5).map((m) => (
                 <div key={m.id} className="flex items-center justify-between px-4 py-3">
                   <div>
-                    <p className="font-bold text-gray-800">{m.name}</p>
+                    <p className="font-bold text-gray-800">{m.name} ({m.crop})</p>
                     <p className="text-xs text-gray-500">{m.distanceKm} km away · {m.demandLevel} demand</p>
                   </div>
                   <div className="text-right">

@@ -31,12 +31,14 @@ export default function FPOPage() {
   const totalAvailableValue = totalQty * weightedPrice; // ₹1,98,250
   const matchedPurchaseValue = matchedQty * weightedPrice; // ₹1,83,000
 
+  const [selectedCrop, setSelectedCrop] = useState<"Soybean" | "Onion" | "Tur (Pigeon Pea)" | "Cotton" | "Tomato">("Soybean");
+
   const handleCreateFpoLot = async () => {
     setLoading(true);
     try {
       const res = await actionCreateLot(
         {
-          crop: "Tomato",
+          crop: selectedCrop,
           quantity: totalQty,
           unit: "kg",
           location: "Nashik Region, Maharashtra",
@@ -92,7 +94,7 @@ export default function FPOPage() {
 
         {created && (
           <div className="p-4 bg-emerald-100 border border-emerald-300 text-emerald-950 rounded-xl font-bold text-xs flex items-center justify-between">
-            <span>✓ Aggregated FPO Lot (6,500 kg Grade A Tomato) created successfully! Market listing published.</span>
+            <span>✓ Aggregated FPO Lot (6,500 kg Grade A {selectedCrop}) created successfully! Market listing published.</span>
           </div>
         )}
 

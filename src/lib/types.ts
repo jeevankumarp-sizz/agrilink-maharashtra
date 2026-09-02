@@ -18,6 +18,8 @@ export type CropName =
   | "Groundnut"
   | "Wheat"
   | "Maize"
+  | "Jowar (Sorghum)"
+  | "Bajra (Pearl Millet)"
   | "Sugarcane";
 export type QualityGrade = "Grade A" | "Grade B" | "Grade C";
 export type DemandLevel = "LOW" | "MEDIUM" | "HIGH";

@@ -175,12 +175,40 @@ export default function HomePage() {
                 Check market prices, compare buyer offers, assess your crop quality and track your sale from pickup to payment.
               </p>
             </div>
-            <div className="hidden md:block">
-              <img 
-                src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?q=80&w=800&auto=format&fit=crop" 
-                alt="Fresh harvested tomatoes ready for APMC market sale" 
-                className="rounded-2xl border border-emerald-700 shadow-lg object-cover h-44 w-full"
-              />
+            <div className="hidden md:block bg-emerald-900/60 p-3 rounded-2xl border border-emerald-700 shadow-lg">
+              <div className="grid grid-cols-2 gap-2 text-xs font-bold text-emerald-100">
+                <div className="bg-emerald-950/80 p-2.5 rounded-xl border border-emerald-800 flex items-center gap-2">
+                  <span className="text-base">🧅</span>
+                  <div>
+                    <span className="block text-white">Onion (कांदा)</span>
+                    <span className="text-[10px] text-emerald-300">Nashik &amp; Lasalgaon APMC</span>
+                  </div>
+                </div>
+                <div className="bg-emerald-950/80 p-2.5 rounded-xl border border-emerald-800 flex items-center gap-2">
+                  <span className="text-base">🌱</span>
+                  <div>
+                    <span className="block text-white">Soybean (सोयाबीन)</span>
+                    <span className="text-[10px] text-emerald-300">Latur &amp; Akola APMC</span>
+                  </div>
+                </div>
+                <div className="bg-emerald-950/80 p-2.5 rounded-xl border border-emerald-800 flex items-center gap-2">
+                  <span className="text-base">☁️</span>
+                  <div>
+                    <span className="block text-white">Cotton (कापूस)</span>
+                    <span className="text-[10px] text-emerald-300">Akola &amp; Yavatmal APMC</span>
+                  </div>
+                </div>
+                <div className="bg-emerald-950/80 p-2.5 rounded-xl border border-emerald-800 flex items-center gap-2">
+                  <span className="text-base">🥔</span>
+                  <div>
+                    <span className="block text-white">Potato (बटाटा)</span>
+                    <span className="text-[10px] text-emerald-300">Pune &amp; Manchar APMC</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-[10px] text-emerald-300 text-center mt-2 font-medium">
+                Maharashtra Agricultural Produce Coverage
+              </p>
             </div>
           </div>
 

@@ -51,6 +51,71 @@ export function analyzeProduceImage(
     };
     visibleDefects = ["Minor soil residue", "Slight skin scarring"];
     explanation = "Good tuber firmness and shallow eye depth. Minor soil residue and skin scarring lower the score slightly to Grade B.";
+  } else if (crop === "Soybean") {
+    qualityScore = 89;
+    grade = "Grade A";
+    confidence = 92;
+    visualParameters = {
+      colourUniformity: 93,
+      sizeUniformity: 88,
+      visibleDefectsPct: 4,
+      surfaceDamagePct: 2,
+      ripenessPct: 94,
+    };
+    visibleDefects = ["Minor pod shell residue"];
+    explanation = "High grain purity and yellow coat luster. Uniform seed size with low moisture indicators suitable for commercial processing.";
+  } else if (crop === "Cotton") {
+    qualityScore = 88;
+    grade = "Grade A";
+    confidence = 90;
+    visualParameters = {
+      colourUniformity: 91,
+      sizeUniformity: 86,
+      visibleDefectsPct: 5,
+      surfaceDamagePct: 3,
+      ripenessPct: 91,
+    };
+    visibleDefects = ["Minor leaf trash", "Slight staple length variation"];
+    explanation = "Clean white staple luster with low trash content. High visual grade suitable for textile procurement.";
+  } else if (crop === "Tur (Pigeon Pea)") {
+    qualityScore = 86;
+    grade = "Grade A";
+    confidence = 89;
+    visualParameters = {
+      colourUniformity: 90,
+      sizeUniformity: 85,
+      visibleDefectsPct: 6,
+      surfaceDamagePct: 4,
+      ripenessPct: 90,
+    };
+    visibleDefects = ["Minor pod husk specks"];
+    explanation = "Consistent red grain coat with minimal split grains. Excellent dryness and pulse size uniformity.";
+  } else if (crop === "Brinjal") {
+    qualityScore = 84;
+    grade = "Grade B";
+    confidence = 87;
+    visualParameters = {
+      colourUniformity: 86,
+      sizeUniformity: 80,
+      visibleDefectsPct: 8,
+      surfaceDamagePct: 6,
+      ripenessPct: 86,
+    };
+    visibleDefects = ["Minor skin gloss dullness", "Slight fruit size variation"];
+    explanation = "Fresh calyx condition with deep purple skin tone. Minor size variation places this lot in Grade B.";
+  } else if (crop === "Bhendi (Okra)") {
+    qualityScore = 88;
+    grade = "Grade A";
+    confidence = 91;
+    visualParameters = {
+      colourUniformity: 92,
+      sizeUniformity: 87,
+      visibleDefectsPct: 5,
+      surfaceDamagePct: 3,
+      ripenessPct: 93,
+    };
+    visibleDefects = ["Minor tip curvature"];
+    explanation = "Tender green pods with crisp tip snap. Uniform pod length and zero visible borer damage.";
   }
 
   return {
